@@ -23,7 +23,7 @@ namespace League_Auto_Key_Presser
 {
     public partial class Form1 : Form
     {
-        AutoItX3 _autoIT = new AutoItX3();
+        static AutoItX3 _autoIT = new AutoItX3();
         ATimer timer = null;
 
         bool keyQPressed = false;
@@ -45,13 +45,13 @@ namespace League_Auto_Key_Presser
         long wardHopLastTime = 0;
         long pressingWardLastTime = 0;
 
-        long pressSpell1Interval = (long)10 * 1000000 / 100;
-        long pressSpell2Interval = (long)10 * 1000000 / 100;
-        long pressSpell3Interval = (long)10 * 1000000 / 100;
-        long pressSpell4Interval = (long)100 * 1000000 / 100;
-        long pressActiveInterval = (long)500 * 1000000 / 100;
+        long pressSpell1Interval = (long)10 * 10000;
+        long pressSpell2Interval = (long)10 * 10000;
+        long pressSpell3Interval = (long)10 * 10000;
+        long pressSpell4Interval = (long)100 * 10000;
+        long pressActiveInterval = (long)500 * 10000;
 
-        long pressWardInterval = (long)6000 * 1000000 / 100;
+        long pressWardInterval = (long)6000 * 10000;
 
         bool autoKeyOnBool = true;
         bool active1OnBool = false;
@@ -83,14 +83,40 @@ namespace League_Auto_Key_Presser
 
         char activeKey = 'E';
 
+        [DllImport("ntdll.dll", SetLastError = true)]
+        static extern int NtSetTimerResolution(int DesiredResolution, bool SetResolution, out int CurrentResolution);
+
+        Thread qThread = new Thread(spell1Thread);
+        Thread wThread = new Thread(spell2Thread);
+        Thread eThread = new Thread(spell3Thread);
+        Thread rThread = new Thread(spell3Thread);
+
         public Form1()
         {
             InitializeComponent();
             HookManager.KeyDown += HookManager_KeyDown;
             HookManager.KeyUp += HookManager_KeyUp;
 
+            // The requested resolution in 100 ns units:
+            int DesiredResolution = 1000;
+            // Note: The supported resolutions can be obtained by a call to NtQueryTimerResolution()
+
+            int CurrentResolution = 0;
+
+            // 1. Requesting a higher resolution
+            // Note: This call is similar to timeBeginPeriod.
+            // However, it to to specify the resolution in 100 ns units.
+            if (NtSetTimerResolution(DesiredResolution, true, out CurrentResolution) != 0)
+            {
+                Console.WriteLine("Setting resolution failed");
+            }
+            else
+            {
+                Console.WriteLine("CurrentResolution [100 ns units]: " + CurrentResolution);
+            }
+
             ATimer.ElapsedTimerDelegate callback = timer_Tick;
-            timer = new ATimer(3, 4, callback);
+            timer = new ATimer(3, 1, callback);
             timer.Start();
 
             pressingSpell1LastTime = DateTime.Now.Ticks;
@@ -102,19 +128,42 @@ namespace League_Auto_Key_Presser
 
             activeKeyComboBox.Text = "E";
             wardHopKeyComboBox.Text = "Q";
-        }
 
+            qThread.Start();
+            wThread.Start();
+            eThread.Start();
+            rThread.Start();
+        }
+        //long lastTime;
+        //int writeEvery = 200;
+        //int currentWrite = 0;
         void timer_Tick()
         {
+/*
+            if (currentWrite >= writeEvery)
+            {
+                long elapsedTime2 = DateTime.Now.Ticks - lastTime;
+                Console.WriteLine("Elapsed Time: " + elapsedTime2 / 10000.0 + " milliseconds");
+                lastTime = DateTime.Now.Ticks;
+                currentWrite = 0;
+            }
+            else
+            {
+                currentWrite++;
+                lastTime = DateTime.Now.Ticks;
+            }*/
+
             if (autoKeyOnBool)
             {
                 //Ward hop
-                if (keyTPressed) {
+                if (keyTPressed && wardHopOn)
+                {
                     //Place ward
                     long elapsedTime = DateTime.Now.Ticks - wardHopLastTime;
-                    if (elapsedTime >= (long)1000 * 1000000 / 100) {
-                        tapWard();
+                    if (elapsedTime >= (long)1000 * 10000)
+                    {
                         wardHopLastTime = DateTime.Now.Ticks;
+                        tapWard();
                     }
                     //Try to hop
                     if (wardHopKey == 'Q') preactivateQ();
@@ -125,15 +174,11 @@ namespace League_Auto_Key_Presser
                 if (pressingSpell1)
                 {
                     if (qPreactivateW) preactivateW();
-                     if (qPreactivateE) preactivateE();
-                     if (qPreactivateR) preactivateR();
-                    long elapsedTime = DateTime.Now.Ticks - pressingSpell1LastTime;
-                    if (elapsedTime >= pressSpell1Interval)
+                    if (qPreactivateE) preactivateE();
+                    if (qPreactivateR) preactivateR();
+                    preactivateQ();
+                    if (activeKey == 'Q')
                     {
-                        tapSpell1();
-                        pressingSpell1LastTime = DateTime.Now.Ticks;
-                    }
-                    if (activeKey == 'Q') {
                         runActives();
                     }
                 }
@@ -142,12 +187,8 @@ namespace League_Auto_Key_Presser
                     if (wPreactivateQ) preactivateQ();
                     if (wPreactivateE) preactivateE();
                     if (wPreactivateR) preactivateR();
-                    long elapsedTime = DateTime.Now.Ticks - pressingSpell2LastTime;
-                    if (elapsedTime >= pressSpell2Interval)
-                    {
-                        tapSpell2();
-                        pressingSpell2LastTime = DateTime.Now.Ticks;
-                    } if (activeKey == 'W')
+                    preactivateW();
+                    if (activeKey == 'W')
                     {
                         runActives();
                     }
@@ -157,12 +198,7 @@ namespace League_Auto_Key_Presser
                     if (ePreactivateQ) preactivateQ();
                     if (ePreactivateW) preactivateW();
                     if (ePreactivateR) preactivateR();
-                    long elapsedTime = DateTime.Now.Ticks - pressingSpell3LastTime;
-                    if (elapsedTime >= pressSpell3Interval)
-                    {
-                        tapSpell3();
-                        pressingSpell3LastTime = DateTime.Now.Ticks;
-                    }
+                    preactivateE();
                     if (activeKey == 'E')
                     {
                         runActives();
@@ -174,11 +210,7 @@ namespace League_Auto_Key_Presser
                     if (rPreactivateW) preactivateW();
                     if (rPreactivateE) preactivateE();
                     long elapsedTime = DateTime.Now.Ticks - pressingSpell4LastTime;
-                    if (elapsedTime >= pressSpell4Interval)
-                    {
-                        tapSpell4();
-                        pressingSpell4LastTime = DateTime.Now.Ticks;
-                    }
+                    preactivateR();
                     if (activeKey == 'R')
                     {
                         runActives();
@@ -191,8 +223,8 @@ namespace League_Auto_Key_Presser
             long elapsedTime = DateTime.Now.Ticks - pressingSpell1LastTime;
             if (elapsedTime >= pressSpell1Interval)
             {
-                tapSpell1();
                 pressingSpell1LastTime = DateTime.Now.Ticks;
+                tapSpell1();
             }
         }
         void preactivateW()
@@ -200,8 +232,8 @@ namespace League_Auto_Key_Presser
             long elapsedTime = DateTime.Now.Ticks - pressingSpell2LastTime;
             if (elapsedTime >= pressSpell2Interval)
             {
-                tapSpell2();
                 pressingSpell2LastTime = DateTime.Now.Ticks;
+                tapSpell2();
             }
         }
         void preactivateE()
@@ -209,8 +241,8 @@ namespace League_Auto_Key_Presser
             long elapsedTime = DateTime.Now.Ticks - pressingSpell3LastTime;
             if (elapsedTime >= pressSpell3Interval)
             {
-                tapSpell3();
                 pressingSpell3LastTime = DateTime.Now.Ticks;
+                tapSpell3();
             }
         }
         void preactivateR()
@@ -218,8 +250,8 @@ namespace League_Auto_Key_Presser
             long elapsedTime = DateTime.Now.Ticks - pressingSpell4LastTime;
             if (elapsedTime >= pressSpell4Interval)
             {
-                tapSpell4();
                 pressingSpell4LastTime = DateTime.Now.Ticks;
+                tapSpell4();
             }
         }
 
@@ -228,6 +260,7 @@ namespace League_Auto_Key_Presser
             long elapsedTime = DateTime.Now.Ticks - pressingActiveLastTime;
             if (elapsedTime >= pressActiveInterval)
             {
+                pressingActiveLastTime = DateTime.Now.Ticks;
                 if (active1OnBool)
                 {
                     tapActive1();
@@ -252,40 +285,45 @@ namespace League_Auto_Key_Presser
                 {
                     tapActive7();
                 }
-                pressingActiveLastTime = DateTime.Now.Ticks;
             }
             elapsedTime = DateTime.Now.Ticks - pressingWardLastTime;
-            if (elapsedTime >= pressWardInterval && wardOnBool) {
-                tapWard();
+            if (elapsedTime >= pressWardInterval && wardOnBool)
+            {
                 pressingWardLastTime = DateTime.Now.Ticks;
+                tapWard();
             }
         }
 
         void HookManager_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.T)
+            bool go = false;
+            if (e.KeyCode == Keys.T && keyTPressed)
             { //T key
-                    keyTPressed = false;
-                    wardHopLastTime = 0;
+                keyTPressed = false;
+                wardHopLastTime = 0;
+                go = true;
             }
-            if (e.KeyCode == Keys.Q)
+            if (e.KeyCode == Keys.Q && keyQPressed)
             { //Q
                 keyQPressed = false;
+                go = true;
             }
-            if (e.KeyCode == Keys.W)
+            if (e.KeyCode == Keys.W && keyWPressed)
             { //W
                 keyWPressed = false;
+                go = true;
             }
-            if (e.KeyCode == Keys.E)
+            if (e.KeyCode == Keys.E && keyEPressed)
             { //E
                 keyEPressed = false;
+                go = true;
             }
-            if (e.KeyCode == Keys.R)
+            if (e.KeyCode == Keys.R && keyRPressed)
             { //R
                 keyRPressed = false;
+                go = true;
             }
-            if (e.KeyCode == Keys.Q ||
-                e.KeyCode == Keys.W || e.KeyCode == Keys.E || e.KeyCode == Keys.R || e.KeyCode == Keys.T)
+            if (go)
             {
                 runLogicPress();
             }
@@ -293,28 +331,33 @@ namespace League_Auto_Key_Presser
 
         void HookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.T)
+            bool go = false;
+            if (e.KeyCode == Keys.T && !keyTPressed)
             { //T key
-                    keyTPressed = true;
+                keyTPressed = true;
+                go = true;
             }
-            if (e.KeyCode == Keys.Q)
+            if (e.KeyCode == Keys.Q && !keyQPressed)
             { //Q
                 keyQPressed = true;
+                go = true;
             }
-            if (e.KeyCode == Keys.W)
+            if (e.KeyCode == Keys.W && !keyWPressed)
             { //W
                 keyWPressed = true;
+                go = true;
             }
-            if (e.KeyCode == Keys.E)
+            if (e.KeyCode == Keys.E && !keyEPressed)
             { //E
                 keyEPressed = true;
+                go = true;
             }
-            if (e.KeyCode == Keys.R)
+            if (e.KeyCode == Keys.R && !keyRPressed)
             { //R
                 keyRPressed = true;
+                go = true;
             }
-            if (e.KeyCode == Keys.Q ||
-                e.KeyCode == Keys.W || e.KeyCode == Keys.E || e.KeyCode == Keys.R || e.KeyCode == Keys.T)
+            if (go)
             {
                 runLogicPress();
             }
@@ -330,163 +373,47 @@ namespace League_Auto_Key_Presser
 
         void tapSpell1()
         {
-            pressSpell1();
-            releaseSpell1();
+            spell1Send = true;
         }
         void tapSpell2()
         {
-            pressSpell2();
-            releaseSpell2();
+            spell2Send = true;
         }
         void tapSpell3()
         {
-            pressSpell3();
-            releaseSpell3();
+            spell3Send = true;
         }
         void tapSpell4()
         {
-            pressSpell4();
-            releaseSpell4();
+            spell4Send = true;
         }
         void tapActive1()
         {
-            pressActive1();
-            releaseActive1();
+                _autoIT.Send("1"); 
         }
         void tapActive2()
         {
-            pressActive2();
-            releaseActive2();
+                _autoIT.Send("2"); 
         }
         void tapActive3()
         {
-            pressActive3();
-            releaseActive3();
+                _autoIT.Send("3"); 
         }
         void tapWard()
         {
-            pressWard();
-            releaseWard();
+                _autoIT.Send("4"); 
         }
         void tapActive5()
         {
-            pressActive5();
-            releaseActive5();
+                _autoIT.Send("5"); 
         }
         void tapActive6()
         {
-            pressActive6();
-            releaseActive6();
+                _autoIT.Send("6"); 
         }
         void tapActive7()
         {
-            pressActive7();
-            releaseActive7();
-        }
-
-        void pressSpell1()
-        {
-            _autoIT.Send("{z down}");
-        }
-        void releaseSpell1()
-        {
-            _autoIT.Send("{z up}");
-        }
-        void pressSpell2()
-        {
-            _autoIT.Send("{x down}");
-        }
-        void releaseSpell2()
-        {
-            _autoIT.Send("{x up}");
-        }
-        void pressSpell3()
-        {
-            _autoIT.Send("{c down}");
-        }
-        void releaseSpell3()
-        {
-            _autoIT.Send("{c up}");
-        }
-        void pressSpell4()
-        {
-            _autoIT.Send("{v down}");
-        }
-        void releaseSpell4()
-        {
-            _autoIT.Send("{v up}");
-        }
-        void pressActive1()
-        {
-            _autoIT.Send("{1 down}");
-        }
-        void releaseActive1()
-        {
-            _autoIT.Send("{1 up}");
-        }
-        void pressActive2()
-        {
-            _autoIT.Send("{2 down}");
-        }
-        void releaseActive2()
-        {
-            _autoIT.Send("{2 up}");
-        }
-        void pressActive3()
-        {
-            _autoIT.Send("{3 down}");
-        }
-        void releaseActive3()
-        {
-            _autoIT.Send("{3 up}");
-        }
-        void pressWard()
-        {
-            _autoIT.Send("{4 down}");
-        }
-        void releaseWard()
-        {
-            _autoIT.Send("{4 up}");
-        }
-        void pressActive5()
-        {
-            _autoIT.Send("{5 down}");
-        }
-        void releaseActive5()
-        {
-            _autoIT.Send("{5 up}");
-        }
-        void pressActive6()
-        {
-            _autoIT.Send("{6 down}");
-        }
-        void releaseActive6()
-        {
-            _autoIT.Send("{6 up}");
-        }
-        void pressActive7()
-        {
-            _autoIT.Send("{7 down}");
-        }
-        void releaseActive7()
-        {
-            _autoIT.Send("{7 up}");
-        }
-        void releaseQ()
-        {
-            _autoIT.Send("{q up}");
-        }
-        void releaseW()
-        {
-            _autoIT.Send("{w up}");
-        }
-        void releaseE()
-        {
-            _autoIT.Send("{e up}");
-        }
-        void releaseR()
-        {
-            _autoIT.Send("{r up}");
+                _autoIT.Send("7"); 
         }
 
         private void active1On_CheckedChanged(object sender, EventArgs e)
@@ -532,27 +459,27 @@ namespace League_Auto_Key_Presser
 
         private void qValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell1Interval = (long)Convert.ToInt32(qValueText.Text) * 1000000 / 100;
+            pressSpell1Interval = (long)Convert.ToInt32(qValueText.Text) * 10000;
         }
 
         private void wValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell2Interval = (long)Convert.ToInt32(wValueText.Text) * 1000000 / 100;
+            pressSpell2Interval = (long)Convert.ToInt32(wValueText.Text) * 10000;
         }
 
         private void eValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell3Interval = (long)Convert.ToInt32(eValueText.Text) * 1000000 / 100;
+            pressSpell3Interval = (long)Convert.ToInt32(eValueText.Text) * 10000;
         }
 
         private void rValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell4Interval = (long)Convert.ToInt32(rValueText.Text) * 1000000 / 100;
+            pressSpell4Interval = (long)Convert.ToInt32(rValueText.Text) * 10000;
         }
 
         private void activeValueText_TextChanged(object sender, EventArgs e)
         {
-            pressActiveInterval = (long)Convert.ToInt32(activeValueText.Text) * 1000000 / 100;
+            pressActiveInterval = (long)Convert.ToInt32(activeValueText.Text) * 10000;
         }
 
         private void active5On_CheckedChanged(object sender, EventArgs e)
@@ -649,5 +576,59 @@ namespace League_Auto_Key_Presser
         {
             wardHopKey = wardHopKeyComboBox.Text.ToCharArray()[0];
         }
+
+        static volatile bool spell1Send = false;
+        static volatile bool spell2Send = false;
+        static volatile bool spell3Send = false;
+        static volatile bool spell4Send = false;
+
+        static void spell1Thread()
+        {
+            while(true) {
+                if (spell1Send)
+                {
+                    _autoIT.Send("z");
+                    spell1Send = false;
+                }
+                Thread.Sleep(1);
+            }
+        }
+        static void spell2Thread()
+        {
+            while (true)
+            {
+                if (spell2Send)
+                {
+                    _autoIT.Send("x");
+                    spell2Send = false;
+                }
+                Thread.Sleep(1);
+            }
+        }
+        static void spell3Thread()
+        {
+            while (true)
+            {
+                if (spell3Send)
+                {
+                    _autoIT.Send("c");
+                    spell3Send = false;
+                }
+                Thread.Sleep(1);
+            }
+        }
+        static void spell4Thread()
+        {
+            while (true)
+            {
+                if (spell4Send)
+                {
+                    _autoIT.Send("z");
+                    spell4Send = false;
+                }
+                Thread.Sleep(1);
+            }
+        }
     }
+    
 }
