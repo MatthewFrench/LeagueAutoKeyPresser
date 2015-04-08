@@ -10,3 +10,8 @@ C:\Users\Matthew\Documents\Visual Studio 2013\Projects\League Auto-Key Presser\L
 C:\Users\Matthew\Documents\Visual Studio 2013\Projects\League Auto-Key Presser\League Auto-Key Presser\obj\Release\Interop.AutoItX3Lib.dll
 C:\Users\Matthew\Documents\Visual Studio 2013\Projects\League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Auto-Key Presser.csproj.ResolveComReference.cache
 C:\Users\Matthew\Documents\Visual Studio 2013\Projects\League Auto-Key Presser\League Auto-Key Presser\obj\Release\League_Auto_Key_Presser.Form1.resources
+C:\Users\Matthew\Documents\Visual Studio 2013\Projects\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\League Auto-Key Presser.exe.config
+C:\Users\Matthew\Documents\Visual Studio 2013\Projects\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\Interop.AutoItX3Lib.dll
+C:\Users\Matthew\Documents\Visual Studio 2013\Projects\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Auto-Key Presser.csproj.ResolveComReference.cache
+C:\Users\Matthew\Documents\Visual Studio 2013\Projects\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Auto-Key Presser.exe
+C:\Users\Matthew\Documents\Visual Studio 2013\Projects\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Auto-Key Presser.pdb

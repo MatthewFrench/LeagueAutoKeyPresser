@@ -17,17 +17,20 @@ using System.Reflection;
 using System.Web;
 using System.Runtime;
 
+using System.Threading;
+
 namespace League_Auto_Key_Presser
 {
     public partial class Form1 : Form
     {
         AutoItX3 _autoIT = new AutoItX3();
-        Timer timer = null;
+        ATimer timer = null;
 
         bool keyQPressed = false;
         bool keyWPressed = false;
         bool keyEPressed = false;
         bool keyRPressed = false;
+        bool keyTPressed = false;
 
         bool pressingSpell1 = false;
         bool pressingSpell2 = false;
@@ -39,7 +42,7 @@ namespace League_Auto_Key_Presser
         long pressingSpell3LastTime = 0;
         long pressingSpell4LastTime = 0;
         long pressingActiveLastTime = 0;
-
+        long wardHopLastTime = 0;
         long pressingWardLastTime = 0;
 
         long pressSpell1Interval = (long)10 * 1000000 / 100;
@@ -57,7 +60,26 @@ namespace League_Auto_Key_Presser
         bool active5OnBool = false;
         bool active6OnBool = false;
         bool active7OnBool = false;
-        bool wardOnBool = true;
+        bool wardOnBool = false;
+
+        bool wardHopOn = false;
+        bool qPreactivateW = false;
+        bool qPreactivateE = false;
+        bool qPreactivateR = false;
+
+        bool wPreactivateQ = false;
+        bool wPreactivateE = false;
+        bool wPreactivateR = false;
+
+        bool ePreactivateQ = false;
+        bool ePreactivateW = false;
+        bool ePreactivateR = false;
+
+        bool rPreactivateQ = false;
+        bool rPreactivateW = false;
+        bool rPreactivateE = false;
+
+        char wardHopKey = 'Q';
 
         char activeKey = 'E';
 
@@ -67,9 +89,8 @@ namespace League_Auto_Key_Presser
             HookManager.KeyDown += HookManager_KeyDown;
             HookManager.KeyUp += HookManager_KeyUp;
 
-            timer = new Timer();
-            timer.Tick += timer_Tick;
-            timer.Interval = 8;
+            ATimer.ElapsedTimerDelegate callback = timer_Tick;
+            timer = new ATimer(3, 4, callback);
             timer.Start();
 
             pressingSpell1LastTime = DateTime.Now.Ticks;
@@ -80,14 +101,32 @@ namespace League_Auto_Key_Presser
             pressingWardLastTime = DateTime.Now.Ticks;
 
             activeKeyComboBox.Text = "E";
+            wardHopKeyComboBox.Text = "Q";
         }
 
-        void timer_Tick(object sender, System.EventArgs e)
+        void timer_Tick()
         {
             if (autoKeyOnBool)
             {
+                //Ward hop
+                if (keyTPressed) {
+                    //Place ward
+                    long elapsedTime = DateTime.Now.Ticks - wardHopLastTime;
+                    if (elapsedTime >= (long)1000 * 1000000 / 100) {
+                        tapWard();
+                        wardHopLastTime = DateTime.Now.Ticks;
+                    }
+                    //Try to hop
+                    if (wardHopKey == 'Q') preactivateQ();
+                    if (wardHopKey == 'W') preactivateW();
+                    if (wardHopKey == 'E') preactivateE();
+                    if (wardHopKey == 'R') preactivateR();
+                }
                 if (pressingSpell1)
                 {
+                    if (qPreactivateW) preactivateW();
+                     if (qPreactivateE) preactivateE();
+                     if (qPreactivateR) preactivateR();
                     long elapsedTime = DateTime.Now.Ticks - pressingSpell1LastTime;
                     if (elapsedTime >= pressSpell1Interval)
                     {
@@ -100,6 +139,9 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell2)
                 {
+                    if (wPreactivateQ) preactivateQ();
+                    if (wPreactivateE) preactivateE();
+                    if (wPreactivateR) preactivateR();
                     long elapsedTime = DateTime.Now.Ticks - pressingSpell2LastTime;
                     if (elapsedTime >= pressSpell2Interval)
                     {
@@ -112,6 +154,9 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell3)
                 {
+                    if (ePreactivateQ) preactivateQ();
+                    if (ePreactivateW) preactivateW();
+                    if (ePreactivateR) preactivateR();
                     long elapsedTime = DateTime.Now.Ticks - pressingSpell3LastTime;
                     if (elapsedTime >= pressSpell3Interval)
                     {
@@ -125,6 +170,9 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell4)
                 {
+                    if (rPreactivateQ) preactivateQ();
+                    if (rPreactivateW) preactivateW();
+                    if (rPreactivateE) preactivateE();
                     long elapsedTime = DateTime.Now.Ticks - pressingSpell4LastTime;
                     if (elapsedTime >= pressSpell4Interval)
                     {
@@ -136,6 +184,42 @@ namespace League_Auto_Key_Presser
                         runActives();
                     }
                 }
+            }
+        }
+        void preactivateQ()
+        {
+            long elapsedTime = DateTime.Now.Ticks - pressingSpell1LastTime;
+            if (elapsedTime >= pressSpell1Interval)
+            {
+                tapSpell1();
+                pressingSpell1LastTime = DateTime.Now.Ticks;
+            }
+        }
+        void preactivateW()
+        {
+            long elapsedTime = DateTime.Now.Ticks - pressingSpell2LastTime;
+            if (elapsedTime >= pressSpell2Interval)
+            {
+                tapSpell2();
+                pressingSpell2LastTime = DateTime.Now.Ticks;
+            }
+        }
+        void preactivateE()
+        {
+            long elapsedTime = DateTime.Now.Ticks - pressingSpell3LastTime;
+            if (elapsedTime >= pressSpell3Interval)
+            {
+                tapSpell3();
+                pressingSpell3LastTime = DateTime.Now.Ticks;
+            }
+        }
+        void preactivateR()
+        {
+            long elapsedTime = DateTime.Now.Ticks - pressingSpell4LastTime;
+            if (elapsedTime >= pressSpell4Interval)
+            {
+                tapSpell4();
+                pressingSpell4LastTime = DateTime.Now.Ticks;
             }
         }
 
@@ -179,6 +263,11 @@ namespace League_Auto_Key_Presser
 
         void HookManager_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.T)
+            { //T key
+                    keyTPressed = false;
+                    wardHopLastTime = 0;
+            }
             if (e.KeyCode == Keys.Q)
             { //Q
                 keyQPressed = false;
@@ -196,7 +285,7 @@ namespace League_Auto_Key_Presser
                 keyRPressed = false;
             }
             if (e.KeyCode == Keys.Q ||
-                e.KeyCode == Keys.W || e.KeyCode == Keys.E || e.KeyCode == Keys.R)
+                e.KeyCode == Keys.W || e.KeyCode == Keys.E || e.KeyCode == Keys.R || e.KeyCode == Keys.T)
             {
                 runLogicPress();
             }
@@ -204,6 +293,10 @@ namespace League_Auto_Key_Presser
 
         void HookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.T)
+            { //T key
+                    keyTPressed = true;
+            }
             if (e.KeyCode == Keys.Q)
             { //Q
                 keyQPressed = true;
@@ -221,7 +314,7 @@ namespace League_Auto_Key_Presser
                 keyRPressed = true;
             }
             if (e.KeyCode == Keys.Q ||
-                e.KeyCode == Keys.W || e.KeyCode == Keys.E || e.KeyCode == Keys.R)
+                e.KeyCode == Keys.W || e.KeyCode == Keys.E || e.KeyCode == Keys.R || e.KeyCode == Keys.T)
             {
                 runLogicPress();
             }
@@ -232,6 +325,7 @@ namespace League_Auto_Key_Presser
             pressingSpell2 = keyWPressed;
             pressingSpell3 = keyEPressed;
             pressingSpell4 = keyRPressed;
+            timer_Tick();
         }
 
         void tapSpell1()
@@ -438,27 +532,27 @@ namespace League_Auto_Key_Presser
 
         private void qValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell1Interval = (long)Convert.ToInt32(qValueText.Text) * 10000000 / 100;
+            pressSpell1Interval = (long)Convert.ToInt32(qValueText.Text) * 1000000 / 100;
         }
 
         private void wValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell2Interval = (long)Convert.ToInt32(wValueText.Text) * 10000000 / 100;
+            pressSpell2Interval = (long)Convert.ToInt32(wValueText.Text) * 1000000 / 100;
         }
 
         private void eValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell3Interval = (long)Convert.ToInt32(eValueText.Text) * 10000000 / 100;
+            pressSpell3Interval = (long)Convert.ToInt32(eValueText.Text) * 1000000 / 100;
         }
 
         private void rValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell4Interval = (long)Convert.ToInt32(rValueText.Text) * 10000000 / 100;
+            pressSpell4Interval = (long)Convert.ToInt32(rValueText.Text) * 1000000 / 100;
         }
 
         private void activeValueText_TextChanged(object sender, EventArgs e)
         {
-            pressActiveInterval = (long)Convert.ToInt32(activeValueText.Text) * 10000000 / 100;
+            pressActiveInterval = (long)Convert.ToInt32(activeValueText.Text) * 1000000 / 100;
         }
 
         private void active5On_CheckedChanged(object sender, EventArgs e)
@@ -484,6 +578,76 @@ namespace League_Auto_Key_Presser
         private void activeKeyComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             activeKey = activeKeyComboBox.Text.ToCharArray()[0];
+        }
+
+        private void qActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            qPreactivateW = !qPreactivateW;
+        }
+
+        private void qActivateECheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            qPreactivateE = !qPreactivateE;
+        }
+
+        private void qActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            qPreactivateR = !qPreactivateR;
+        }
+
+        private void wActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            wPreactivateQ = !wPreactivateQ;
+        }
+
+        private void wActivateECheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            wPreactivateE = !wPreactivateE;
+        }
+
+        private void wActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            wPreactivateR = !wPreactivateR;
+        }
+
+        private void eActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ePreactivateQ = !ePreactivateQ;
+        }
+
+        private void eActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ePreactivateW = !ePreactivateW;
+        }
+
+        private void eActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ePreactivateR = !ePreactivateR;
+        }
+
+        private void rActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            rPreactivateQ = !rPreactivateQ;
+        }
+
+        private void rActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            rPreactivateW = !rPreactivateW;
+        }
+
+        private void rActivateECheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            rPreactivateE = !rPreactivateE;
+        }
+
+        private void wardHopCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            wardHopOn = !wardHopOn;
+        }
+
+        private void wardHopKeyComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            wardHopKey = wardHopKeyComboBox.Text.ToCharArray()[0];
         }
     }
 }

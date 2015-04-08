@@ -1,0 +1,23 @@
+How to run on Windows:
+
+(1) Install autoit-v3-setup.exe
+(2) Run League Ultimate Caster.exe as Administrator
+(3) Open League of Legends and start a custom game
+(4) Open settings and change spell keys from QWER to ZXCV
+(5) Set all spells to Quick Cast
+(6) Save and test, modify the League Ultimate Caster settings to suit you
+
+How to run on Mac:
+
+(1) Open System Preferences
+(2) Go to Security & Privacy
+(3) Click the bottom left lock to make changes
+(4) Click Privacy tab
+(5) Click Accessibility
+(6) Click the Plus sign
+(7) Add League Ultimate Caster.app
+(8) Open League Ultimate Caster
+(9) Open League of Legends and start a custom game
+(10) Open settings and change spell keys from QWER to ZXCV
+(11) Set all spells to Quick Cast
+(12) Save and test, modify the League Ultimate Caster settings to suit you

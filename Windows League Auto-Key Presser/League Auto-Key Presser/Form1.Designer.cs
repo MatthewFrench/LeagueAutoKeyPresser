@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,6 +50,24 @@
             this.rValueText = new System.Windows.Forms.TextBox();
             this.activeValueText = new System.Windows.Forms.TextBox();
             this.activeKeyComboBox = new System.Windows.Forms.ComboBox();
+            this.wardHopCheckBox = new System.Windows.Forms.CheckBox();
+            this.wardHopKeyComboBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.qActivateWCheckBox = new System.Windows.Forms.CheckBox();
+            this.qActivateECheckBox = new System.Windows.Forms.CheckBox();
+            this.qActivateRCheckBox = new System.Windows.Forms.CheckBox();
+            this.wActivateRCheckBox = new System.Windows.Forms.CheckBox();
+            this.wActivateECheckBox = new System.Windows.Forms.CheckBox();
+            this.wActivateQCheckBox = new System.Windows.Forms.CheckBox();
+            this.eActivateRCheckBox = new System.Windows.Forms.CheckBox();
+            this.eActivateWCheckBox = new System.Windows.Forms.CheckBox();
+            this.eActivateQCheckBox = new System.Windows.Forms.CheckBox();
+            this.rActivateECheckBox = new System.Windows.Forms.CheckBox();
+            this.rActivateWCheckBox = new System.Windows.Forms.CheckBox();
+            this.rActivateQCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -110,7 +129,7 @@
             this.autoKeyOn.AutoSize = true;
             this.autoKeyOn.Checked = true;
             this.autoKeyOn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoKeyOn.Location = new System.Drawing.Point(15, 295);
+            this.autoKeyOn.Location = new System.Drawing.Point(15, 306);
             this.autoKeyOn.Name = "autoKeyOn";
             this.autoKeyOn.Size = new System.Drawing.Size(125, 17);
             this.autoKeyOn.TabIndex = 6;
@@ -196,8 +215,6 @@
             // wardCheckbox
             // 
             this.wardCheckbox.AutoSize = true;
-            this.wardCheckbox.Checked = true;
-            this.wardCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.wardCheckbox.Location = new System.Drawing.Point(39, 260);
             this.wardCheckbox.Name = "wardCheckbox";
             this.wardCheckbox.Size = new System.Drawing.Size(160, 17);
@@ -268,11 +285,225 @@
             this.activeKeyComboBox.TabIndex = 20;
             this.activeKeyComboBox.SelectedIndexChanged += new System.EventHandler(this.activeKeyComboBox_SelectedIndexChanged);
             // 
+            // wardHopCheckBox
+            // 
+            this.wardHopCheckBox.AutoSize = true;
+            this.wardHopCheckBox.Location = new System.Drawing.Point(39, 283);
+            this.wardHopCheckBox.Name = "wardHopCheckBox";
+            this.wardHopCheckBox.Size = new System.Drawing.Size(170, 17);
+            this.wardHopCheckBox.TabIndex = 21;
+            this.wardHopCheckBox.Text = "Ward hop (T Key) using ability:";
+            this.wardHopCheckBox.UseVisualStyleBackColor = true;
+            this.wardHopCheckBox.CheckedChanged += new System.EventHandler(this.wardHopCheckBox_CheckedChanged);
+            // 
+            // wardHopKeyComboBox
+            // 
+            this.wardHopKeyComboBox.DisplayMember = "E";
+            this.wardHopKeyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.wardHopKeyComboBox.FormattingEnabled = true;
+            this.wardHopKeyComboBox.Items.AddRange(new object[] {
+            "Q",
+            "W",
+            "E",
+            "R"});
+            this.wardHopKeyComboBox.Location = new System.Drawing.Point(215, 281);
+            this.wardHopKeyComboBox.MaxDropDownItems = 4;
+            this.wardHopKeyComboBox.Name = "wardHopKeyComboBox";
+            this.wardHopKeyComboBox.Size = new System.Drawing.Size(121, 21);
+            this.wardHopKeyComboBox.TabIndex = 22;
+            this.wardHopKeyComboBox.SelectedIndexChanged += new System.EventHandler(this.wardHopKeyComboBox_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(212, 80);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Pre-activate:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(212, 105);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Pre-activate:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(212, 130);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(67, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Pre-activate:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(212, 153);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(67, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Pre-activate:";
+            // 
+            // qActivateWCheckBox
+            // 
+            this.qActivateWCheckBox.AutoSize = true;
+            this.qActivateWCheckBox.Location = new System.Drawing.Point(285, 79);
+            this.qActivateWCheckBox.Name = "qActivateWCheckBox";
+            this.qActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
+            this.qActivateWCheckBox.TabIndex = 27;
+            this.qActivateWCheckBox.Text = "W";
+            this.qActivateWCheckBox.UseVisualStyleBackColor = true;
+            this.qActivateWCheckBox.CheckedChanged += new System.EventHandler(this.qActivateWCheckBox_CheckedChanged);
+            // 
+            // qActivateECheckBox
+            // 
+            this.qActivateECheckBox.AutoSize = true;
+            this.qActivateECheckBox.Location = new System.Drawing.Point(325, 79);
+            this.qActivateECheckBox.Name = "qActivateECheckBox";
+            this.qActivateECheckBox.Size = new System.Drawing.Size(33, 17);
+            this.qActivateECheckBox.TabIndex = 28;
+            this.qActivateECheckBox.Text = "E";
+            this.qActivateECheckBox.UseVisualStyleBackColor = true;
+            this.qActivateECheckBox.CheckedChanged += new System.EventHandler(this.qActivateECheckBox_CheckedChanged);
+            // 
+            // qActivateRCheckBox
+            // 
+            this.qActivateRCheckBox.AutoSize = true;
+            this.qActivateRCheckBox.Location = new System.Drawing.Point(368, 79);
+            this.qActivateRCheckBox.Name = "qActivateRCheckBox";
+            this.qActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
+            this.qActivateRCheckBox.TabIndex = 29;
+            this.qActivateRCheckBox.Text = "R";
+            this.qActivateRCheckBox.UseVisualStyleBackColor = true;
+            this.qActivateRCheckBox.CheckedChanged += new System.EventHandler(this.qActivateRCheckBox_CheckedChanged);
+            // 
+            // wActivateRCheckBox
+            // 
+            this.wActivateRCheckBox.AutoSize = true;
+            this.wActivateRCheckBox.Location = new System.Drawing.Point(368, 104);
+            this.wActivateRCheckBox.Name = "wActivateRCheckBox";
+            this.wActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
+            this.wActivateRCheckBox.TabIndex = 32;
+            this.wActivateRCheckBox.Text = "R";
+            this.wActivateRCheckBox.UseVisualStyleBackColor = true;
+            this.wActivateRCheckBox.CheckedChanged += new System.EventHandler(this.wActivateRCheckBox_CheckedChanged);
+            // 
+            // wActivateECheckBox
+            // 
+            this.wActivateECheckBox.AutoSize = true;
+            this.wActivateECheckBox.Location = new System.Drawing.Point(325, 104);
+            this.wActivateECheckBox.Name = "wActivateECheckBox";
+            this.wActivateECheckBox.Size = new System.Drawing.Size(33, 17);
+            this.wActivateECheckBox.TabIndex = 31;
+            this.wActivateECheckBox.Text = "E";
+            this.wActivateECheckBox.UseVisualStyleBackColor = true;
+            this.wActivateECheckBox.CheckedChanged += new System.EventHandler(this.wActivateECheckBox_CheckedChanged);
+            // 
+            // wActivateQCheckBox
+            // 
+            this.wActivateQCheckBox.AutoSize = true;
+            this.wActivateQCheckBox.Location = new System.Drawing.Point(285, 104);
+            this.wActivateQCheckBox.Name = "wActivateQCheckBox";
+            this.wActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
+            this.wActivateQCheckBox.TabIndex = 30;
+            this.wActivateQCheckBox.Text = "Q";
+            this.wActivateQCheckBox.UseVisualStyleBackColor = true;
+            this.wActivateQCheckBox.CheckedChanged += new System.EventHandler(this.wActivateQCheckBox_CheckedChanged);
+            // 
+            // eActivateRCheckBox
+            // 
+            this.eActivateRCheckBox.AutoSize = true;
+            this.eActivateRCheckBox.Location = new System.Drawing.Point(368, 129);
+            this.eActivateRCheckBox.Name = "eActivateRCheckBox";
+            this.eActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
+            this.eActivateRCheckBox.TabIndex = 35;
+            this.eActivateRCheckBox.Text = "R";
+            this.eActivateRCheckBox.UseVisualStyleBackColor = true;
+            this.eActivateRCheckBox.CheckedChanged += new System.EventHandler(this.eActivateRCheckBox_CheckedChanged);
+            // 
+            // eActivateWCheckBox
+            // 
+            this.eActivateWCheckBox.AutoSize = true;
+            this.eActivateWCheckBox.Location = new System.Drawing.Point(325, 129);
+            this.eActivateWCheckBox.Name = "eActivateWCheckBox";
+            this.eActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
+            this.eActivateWCheckBox.TabIndex = 34;
+            this.eActivateWCheckBox.Text = "W";
+            this.eActivateWCheckBox.UseVisualStyleBackColor = true;
+            this.eActivateWCheckBox.CheckedChanged += new System.EventHandler(this.eActivateWCheckBox_CheckedChanged);
+            // 
+            // eActivateQCheckBox
+            // 
+            this.eActivateQCheckBox.AutoSize = true;
+            this.eActivateQCheckBox.Location = new System.Drawing.Point(285, 129);
+            this.eActivateQCheckBox.Name = "eActivateQCheckBox";
+            this.eActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
+            this.eActivateQCheckBox.TabIndex = 33;
+            this.eActivateQCheckBox.Text = "Q";
+            this.eActivateQCheckBox.UseVisualStyleBackColor = true;
+            this.eActivateQCheckBox.CheckedChanged += new System.EventHandler(this.eActivateQCheckBox_CheckedChanged);
+            // 
+            // rActivateECheckBox
+            // 
+            this.rActivateECheckBox.AutoSize = true;
+            this.rActivateECheckBox.Location = new System.Drawing.Point(368, 152);
+            this.rActivateECheckBox.Name = "rActivateECheckBox";
+            this.rActivateECheckBox.Size = new System.Drawing.Size(33, 17);
+            this.rActivateECheckBox.TabIndex = 38;
+            this.rActivateECheckBox.Text = "E";
+            this.rActivateECheckBox.UseVisualStyleBackColor = true;
+            this.rActivateECheckBox.CheckedChanged += new System.EventHandler(this.rActivateECheckBox_CheckedChanged);
+            // 
+            // rActivateWCheckBox
+            // 
+            this.rActivateWCheckBox.AutoSize = true;
+            this.rActivateWCheckBox.Location = new System.Drawing.Point(325, 152);
+            this.rActivateWCheckBox.Name = "rActivateWCheckBox";
+            this.rActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
+            this.rActivateWCheckBox.TabIndex = 37;
+            this.rActivateWCheckBox.Text = "W";
+            this.rActivateWCheckBox.UseVisualStyleBackColor = true;
+            this.rActivateWCheckBox.CheckedChanged += new System.EventHandler(this.rActivateWCheckBox_CheckedChanged);
+            // 
+            // rActivateQCheckBox
+            // 
+            this.rActivateQCheckBox.AutoSize = true;
+            this.rActivateQCheckBox.Location = new System.Drawing.Point(285, 152);
+            this.rActivateQCheckBox.Name = "rActivateQCheckBox";
+            this.rActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
+            this.rActivateQCheckBox.TabIndex = 36;
+            this.rActivateQCheckBox.Text = "Q";
+            this.rActivateQCheckBox.UseVisualStyleBackColor = true;
+            this.rActivateQCheckBox.CheckedChanged += new System.EventHandler(this.rActivateQCheckBox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 324);
+            this.ClientSize = new System.Drawing.Size(430, 335);
+            this.Controls.Add(this.rActivateECheckBox);
+            this.Controls.Add(this.rActivateWCheckBox);
+            this.Controls.Add(this.rActivateQCheckBox);
+            this.Controls.Add(this.eActivateRCheckBox);
+            this.Controls.Add(this.eActivateWCheckBox);
+            this.Controls.Add(this.eActivateQCheckBox);
+            this.Controls.Add(this.wActivateRCheckBox);
+            this.Controls.Add(this.wActivateECheckBox);
+            this.Controls.Add(this.wActivateQCheckBox);
+            this.Controls.Add(this.qActivateRCheckBox);
+            this.Controls.Add(this.qActivateECheckBox);
+            this.Controls.Add(this.qActivateWCheckBox);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.wardHopKeyComboBox);
+            this.Controls.Add(this.wardHopCheckBox);
             this.Controls.Add(this.activeKeyComboBox);
             this.Controls.Add(this.activeValueText);
             this.Controls.Add(this.rValueText);
@@ -294,8 +525,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "League Auto-Key Presser";
+            this.Text = "League Ultimate Caster";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -325,6 +557,24 @@
         private System.Windows.Forms.TextBox rValueText;
         private System.Windows.Forms.TextBox activeValueText;
         private System.Windows.Forms.ComboBox activeKeyComboBox;
+        private System.Windows.Forms.CheckBox wardHopCheckBox;
+        private System.Windows.Forms.ComboBox wardHopKeyComboBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox qActivateWCheckBox;
+        private System.Windows.Forms.CheckBox qActivateECheckBox;
+        private System.Windows.Forms.CheckBox qActivateRCheckBox;
+        private System.Windows.Forms.CheckBox wActivateRCheckBox;
+        private System.Windows.Forms.CheckBox wActivateECheckBox;
+        private System.Windows.Forms.CheckBox wActivateQCheckBox;
+        private System.Windows.Forms.CheckBox eActivateRCheckBox;
+        private System.Windows.Forms.CheckBox eActivateWCheckBox;
+        private System.Windows.Forms.CheckBox eActivateQCheckBox;
+        private System.Windows.Forms.CheckBox rActivateECheckBox;
+        private System.Windows.Forms.CheckBox rActivateWCheckBox;
+        private System.Windows.Forms.CheckBox rActivateQCheckBox;
     }
 }
 
