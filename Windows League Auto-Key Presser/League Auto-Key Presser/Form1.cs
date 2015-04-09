@@ -16,6 +16,7 @@ using AutoItX3Lib;
 using System.Reflection;
 using System.Web;
 using System.Runtime;
+using System.Configuration;
 
 using System.Threading;
 
@@ -99,6 +100,72 @@ namespace League_Auto_Key_Presser
         public Form1()
         {
             InitializeComponent();
+
+            //Load state
+            var appSettings = ConfigurationManager.AppSettings;
+            if (appSettings.Count != 0)
+            {
+                pressSpell1Interval = Convert.ToInt32(appSettings["pressSpell1Interval"]);
+                pressSpell2Interval = Convert.ToInt32(appSettings["pressSpell2Interval"]);
+                pressSpell3Interval = Convert.ToInt32(appSettings["pressSpell3Interval"]);
+                pressSpell4Interval = Convert.ToInt32(appSettings["pressSpell4Interval"]);
+                pressActiveInterval = Convert.ToInt32(appSettings["pressActiveInterval"]);
+                autoKeyOnBool = Convert.ToBoolean(appSettings["autoKeyOnBool"]);
+                active1OnBool = Convert.ToBoolean(appSettings["active1OnBool"]);
+                active2OnBool = Convert.ToBoolean(appSettings["active2OnBool"]);
+                active3OnBool = Convert.ToBoolean(appSettings["active3OnBool"]);
+                active5OnBool = Convert.ToBoolean(appSettings["active5OnBool"]);
+                active6OnBool = Convert.ToBoolean(appSettings["active6OnBool"]);
+                active7OnBool = Convert.ToBoolean(appSettings["active7OnBool"]);
+                wardOnBool = Convert.ToBoolean(appSettings["wardOnBool"]);
+                wardHopOn = Convert.ToBoolean(appSettings["wardHopOn"]);
+                qPreactivateW = Convert.ToBoolean(appSettings["qPreactivateW"]);
+                qPreactivateE = Convert.ToBoolean(appSettings["qPreactivateE"]);
+                qPreactivateR = Convert.ToBoolean(appSettings["qPreactivateR"]);
+                wPreactivateQ = Convert.ToBoolean(appSettings["wPreactivateQ"]);
+                wPreactivateE = Convert.ToBoolean(appSettings["wPreactivateE"]);
+                wPreactivateR = Convert.ToBoolean(appSettings["wPreactivateR"]);
+                ePreactivateQ = Convert.ToBoolean(appSettings["ePreactivateQ"]);
+                ePreactivateW = Convert.ToBoolean(appSettings["ePreactivateW"]);
+                ePreactivateR = Convert.ToBoolean(appSettings["ePreactivateR"]);
+                rPreactivateQ = Convert.ToBoolean(appSettings["rPreactivateQ"]);
+                rPreactivateW = Convert.ToBoolean(appSettings["rPreactivateW"]);
+                rPreactivateE = Convert.ToBoolean(appSettings["rPreactivateE"]);
+                wardHopKey = Convert.ToChar(appSettings["wardHopKey"]);
+                activeKey = Convert.ToChar(appSettings["activeKey"]);
+            }
+            qValueText.Text = pressSpell1Interval.ToString();
+            wValueText.Text = pressSpell2Interval.ToString();
+            eValueText.Text = pressSpell3Interval.ToString();
+            rValueText.Text = pressSpell4Interval.ToString();
+            activeValueText.Text = pressActiveInterval.ToString();
+            autoKeyOn.Checked = autoKeyOnBool;
+            active1On.Checked = active1OnBool;
+            active2On.Checked = active2OnBool;
+            active3On.Checked = active3OnBool;
+            active5On.Checked = active5OnBool;
+            active6On.Checked = active6OnBool;
+            active7On.Checked = active7OnBool;
+            wardCheckbox.Checked = wardOnBool;
+            wardHopCheckBox.Checked = wardHopOn;
+            qActivateWCheckBox.Checked = qPreactivateW;
+            qActivateECheckBox.Checked = qPreactivateE;
+            qActivateRCheckBox.Checked = qPreactivateR;
+            wActivateQCheckBox.Checked = wPreactivateQ;
+            wActivateECheckBox.Checked = wPreactivateE;
+            wActivateRCheckBox.Checked = wPreactivateR;
+            eActivateQCheckBox.Checked = ePreactivateQ;
+            eActivateWCheckBox.Checked = ePreactivateW;
+            eActivateRCheckBox.Checked = ePreactivateR;
+            rActivateQCheckBox.Checked = rPreactivateQ;
+            rActivateWCheckBox.Checked = rPreactivateW;
+            rActivateECheckBox.Checked = rPreactivateE;
+            wardHopKeyComboBox.Text = wardHopKey.ToString();
+            activeKeyComboBox.Text = activeKey.ToString();
+            //End load state
+
+
+
             HookManager.KeyDown += HookManager_KeyDown;
             HookManager.KeyUp += HookManager_KeyUp;
 
@@ -158,17 +225,17 @@ namespace League_Auto_Key_Presser
                         tapWard();
                     }
                     //Try to hop
-                    if (wardHopKey == 'Q') preactivateQ();
-                    if (wardHopKey == 'W') preactivateW();
-                    if (wardHopKey == 'E') preactivateE();
-                    if (wardHopKey == 'R') preactivateR();
+                    if (wardHopKey == 'Q') preactivateQ(pressSpell1Interval);
+                    if (wardHopKey == 'W') preactivateW(pressSpell2Interval);
+                    if (wardHopKey == 'E') preactivateE(pressSpell3Interval);
+                    if (wardHopKey == 'R') preactivateR(pressSpell4Interval);
                 }
                 if (pressingSpell1)
                 {
-                    if (qPreactivateW) preactivateW();
-                    if (qPreactivateE) preactivateE();
-                    if (qPreactivateR) preactivateR();
-                    preactivateQ();
+                    if (qPreactivateW) preactivateW(pressSpell1Interval);
+                    if (qPreactivateE) preactivateE(pressSpell1Interval);
+                    if (qPreactivateR) preactivateR(pressSpell1Interval);
+                    preactivateQ(pressSpell1Interval);
                     if (activeKey == 'Q')
                     {
                         runActives();
@@ -176,10 +243,10 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell2)
                 {
-                    if (wPreactivateQ) preactivateQ();
-                    if (wPreactivateE) preactivateE();
-                    if (wPreactivateR) preactivateR();
-                    preactivateW();
+                    if (wPreactivateQ) preactivateQ(pressSpell2Interval);
+                    if (wPreactivateE) preactivateE(pressSpell2Interval);
+                    if (wPreactivateR) preactivateR(pressSpell2Interval);
+                    preactivateW(pressSpell2Interval);
                     if (activeKey == 'W')
                     {
                         runActives();
@@ -187,10 +254,10 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell3)
                 {
-                    if (ePreactivateQ) preactivateQ();
-                    if (ePreactivateW) preactivateW();
-                    if (ePreactivateR) preactivateR();
-                    preactivateE();
+                    if (ePreactivateQ) preactivateQ(pressSpell3Interval);
+                    if (ePreactivateW) preactivateW(pressSpell3Interval);
+                    if (ePreactivateR) preactivateR(pressSpell3Interval);
+                    preactivateE(pressSpell3Interval);
                     if (activeKey == 'E')
                     {
                         runActives();
@@ -198,10 +265,10 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell4)
                 {
-                    if (rPreactivateQ) preactivateQ();
-                    if (rPreactivateW) preactivateW();
-                    if (rPreactivateE) preactivateE();
-                    preactivateR();
+                    if (rPreactivateQ) preactivateQ(pressSpell4Interval);
+                    if (rPreactivateW) preactivateW(pressSpell4Interval);
+                    if (rPreactivateE) preactivateE(pressSpell4Interval);
+                    preactivateR(pressSpell4Interval);
                     if (activeKey == 'R')
                     {
                         runActives();
@@ -209,33 +276,33 @@ namespace League_Auto_Key_Presser
                 }
             }
         }
-        void preactivateQ()
+        void preactivateQ(int interval)
         {
-            if (spell1Stopwatch.ElapsedMilliseconds >= 10)
+            if (spell1Stopwatch.ElapsedMilliseconds >= interval)
             {
                 spell1Stopwatch.Restart();
                 tapSpell1();
             }
         }
-        void preactivateW()
+        void preactivateW(int interval)
         {
-            if (spell2Stopwatch.ElapsedMilliseconds >= pressSpell2Interval)
+            if (spell2Stopwatch.ElapsedMilliseconds >= interval)
             {
                 spell2Stopwatch.Restart();
                 tapSpell2();
             }
         }
-        void preactivateE()
+        void preactivateE(int interval)
         {
-            if (spell3Stopwatch.ElapsedMilliseconds >= pressSpell3Interval)
+            if (spell3Stopwatch.ElapsedMilliseconds >= interval)
             {
                 spell3Stopwatch.Restart();
                 tapSpell3();
             }
         }
-        void preactivateR()
+        void preactivateR(int interval)
         {
-            if (spell4Stopwatch.ElapsedMilliseconds >= pressSpell4Interval)
+            if (spell4Stopwatch.ElapsedMilliseconds >= interval)
             {
                 spell4Stopwatch.Restart();
                 tapSpell4();
@@ -402,22 +469,22 @@ namespace League_Auto_Key_Presser
 
         private void active1On_CheckedChanged(object sender, EventArgs e)
         {
-            active1OnBool = !active1OnBool;
+            active1OnBool = ((CheckBox)sender).Checked;
         }
 
         private void active2On_CheckedChanged(object sender, EventArgs e)
         {
-            active2OnBool = !active2OnBool;
+            active2OnBool = ((CheckBox)sender).Checked;
         }
 
         private void active3On_CheckedChanged(object sender, EventArgs e)
         {
-            active3OnBool = !active3OnBool;
+            active3OnBool = ((CheckBox)sender).Checked;
         }
 
         private void autoKeyOn_CheckedChanged(object sender, EventArgs e)
         {
-            autoKeyOnBool = !autoKeyOnBool;
+            autoKeyOnBool = ((CheckBox)sender).Checked;
             keyQPressed = false;
             keyWPressed = false;
             keyEPressed = false;
@@ -435,6 +502,41 @@ namespace League_Auto_Key_Presser
         }
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            //Save state
+            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var settings = configFile.AppSettings.Settings;
+            settings.Clear();
+            settings.Add("pressSpell1Interval", pressSpell1Interval.ToString());
+            settings.Add("pressSpell2Interval", pressSpell2Interval.ToString());
+            settings.Add("pressSpell3Interval", pressSpell3Interval.ToString());
+            settings.Add("pressSpell4Interval", pressSpell4Interval.ToString());
+            settings.Add("pressActiveInterval", pressActiveInterval.ToString());
+            settings.Add("autoKeyOnBool", autoKeyOnBool.ToString());
+            settings.Add("active1OnBool", active1OnBool.ToString());
+            settings.Add("active2OnBool", active2OnBool.ToString());
+            settings.Add("active3OnBool", active3OnBool.ToString());
+            settings.Add("active5OnBool", active5OnBool.ToString());
+            settings.Add("active6OnBool", active6OnBool.ToString());
+            settings.Add("active7OnBool", active7OnBool.ToString());
+            settings.Add("wardHopOn", wardHopOn.ToString());
+            settings.Add("wardOnBool", wardOnBool.ToString());
+            settings.Add("qPreactivateW", qPreactivateW.ToString());
+            settings.Add("qPreactivateE", qPreactivateE.ToString());
+            settings.Add("qPreactivateR", qPreactivateR.ToString());
+            settings.Add("wPreactivateQ", wPreactivateQ.ToString());
+            settings.Add("wPreactivateE", wPreactivateE.ToString());
+            settings.Add("wPreactivateR", wPreactivateR.ToString());
+            settings.Add("ePreactivateQ", ePreactivateQ.ToString());
+            settings.Add("ePreactivateW", ePreactivateW.ToString());
+            settings.Add("ePreactivateR", ePreactivateR.ToString());
+            settings.Add("rPreactivateQ", rPreactivateQ.ToString());
+            settings.Add("rPreactivateW", rPreactivateW.ToString());
+            settings.Add("rPreactivateE", rPreactivateE.ToString());
+            settings.Add("wardHopKey", wardHopKey.ToString());
+            settings.Add("activeKey", activeKey.ToString());
+            configFile.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            //End save state
             try { qThread.Abort(); } catch { }
             try { wThread.Abort(); }
             catch { }
@@ -472,22 +574,22 @@ namespace League_Auto_Key_Presser
 
         private void active5On_CheckedChanged(object sender, EventArgs e)
         {
-            active5OnBool = !active5OnBool;
+            active5OnBool = ((CheckBox)sender).Checked;
         }
 
         private void active6On_CheckedChanged(object sender, EventArgs e)
         {
-            active6OnBool = !active6OnBool;
+            active6OnBool = ((CheckBox)sender).Checked;
         }
 
         private void active7On_CheckedChanged(object sender, EventArgs e)
         {
-            active7OnBool = !active7OnBool;
+            active7OnBool = ((CheckBox)sender).Checked;
         }
 
         private void wardCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            wardOnBool = !wardOnBool;
+            wardOnBool = ((CheckBox)sender).Checked;
         }
 
         private void activeKeyComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -497,67 +599,67 @@ namespace League_Auto_Key_Presser
 
         private void qActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            qPreactivateW = !qPreactivateW;
+            qPreactivateW = ((CheckBox)sender).Checked;
         }
 
         private void qActivateECheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            qPreactivateE = !qPreactivateE;
+            qPreactivateE = ((CheckBox)sender).Checked;
         }
 
         private void qActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            qPreactivateR = !qPreactivateR;
+            qPreactivateR = ((CheckBox)sender).Checked;
         }
 
         private void wActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            wPreactivateQ = !wPreactivateQ;
+            wPreactivateQ = ((CheckBox)sender).Checked;
         }
 
         private void wActivateECheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            wPreactivateE = !wPreactivateE;
+            wPreactivateE = ((CheckBox)sender).Checked;
         }
 
         private void wActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            wPreactivateR = !wPreactivateR;
+            wPreactivateR = ((CheckBox)sender).Checked;
         }
 
         private void eActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ePreactivateQ = !ePreactivateQ;
+            ePreactivateQ = ((CheckBox)sender).Checked;
         }
 
         private void eActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ePreactivateW = !ePreactivateW;
+            ePreactivateW = ((CheckBox)sender).Checked;
         }
 
         private void eActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ePreactivateR = !ePreactivateR;
+            ePreactivateR = ((CheckBox)sender).Checked;
         }
 
         private void rActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            rPreactivateQ = !rPreactivateQ;
+            rPreactivateQ = ((CheckBox)sender).Checked;
         }
 
         private void rActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            rPreactivateW = !rPreactivateW;
+            rPreactivateW = ((CheckBox)sender).Checked;
         }
 
         private void rActivateECheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            rPreactivateE = !rPreactivateE;
+            rPreactivateE = ((CheckBox)sender).Checked;
         }
 
         private void wardHopCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            wardHopOn = !wardHopOn;
+            wardHopOn = ((CheckBox)sender).Checked;
         }
 
         private void wardHopKeyComboBox_SelectedIndexChanged(object sender, EventArgs e)
