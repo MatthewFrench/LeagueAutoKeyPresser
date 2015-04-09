@@ -24,6 +24,11 @@ namespace League_Auto_Key_Presser
     public partial class Form1 : Form
     {
         static AutoItX3 _autoIT = new AutoItX3();
+        static AutoItX3 _autoIT1 = new AutoItX3();
+        static AutoItX3 _autoIT2 = new AutoItX3();
+        static AutoItX3 _autoIT3 = new AutoItX3();
+        static AutoItX3 _autoIT4 = new AutoItX3();
+
         ATimer timer = null;
 
         bool keyQPressed = false;
@@ -121,6 +126,18 @@ namespace League_Auto_Key_Presser
 
             activeKeyComboBox.Text = "E";
             wardHopKeyComboBox.Text = "Q";
+
+            _autoIT.AutoItSetOption("SendKeyDelay", 0);
+            _autoIT1.AutoItSetOption("SendKeyDelay", 0);
+            _autoIT2.AutoItSetOption("SendKeyDelay", 0);
+            _autoIT3.AutoItSetOption("SendKeyDelay", 0);
+            _autoIT4.AutoItSetOption("SendKeyDelay", 0);
+
+            _autoIT.AutoItSetOption("SendKeyDownDelay", 0);
+            _autoIT1.AutoItSetOption("SendKeyDownDelay", 0);
+            _autoIT2.AutoItSetOption("SendKeyDownDelay", 0);
+            _autoIT3.AutoItSetOption("SendKeyDownDelay", 0);
+            _autoIT4.AutoItSetOption("SendKeyDownDelay", 0);
 
             qThread.Start();
             wThread.Start();
@@ -547,7 +564,7 @@ namespace League_Auto_Key_Presser
             while(true) {
                 if (spell1Send)
                 {
-                    _autoIT.Send("z");
+                    _autoIT1.Send("z");
                     spell1Send = false;
                 }
                 Thread.Sleep(1);
@@ -559,7 +576,7 @@ namespace League_Auto_Key_Presser
             {
                 if (spell2Send)
                 {
-                    _autoIT.Send("x");
+                    _autoIT2.Send("x");
                     spell2Send = false;
                 }
                 Thread.Sleep(1);
@@ -571,7 +588,7 @@ namespace League_Auto_Key_Presser
             {
                 if (spell3Send)
                 {
-                    _autoIT.Send("c");
+                    _autoIT3.Send("c");
                     spell3Send = false;
                 }
                 Thread.Sleep(1);
@@ -583,7 +600,7 @@ namespace League_Auto_Key_Presser
             {
                 if (spell4Send)
                 {
-                    _autoIT.Send("z");
+                    _autoIT4.Send("z");
                     spell4Send = false;
                 }
                 Thread.Sleep(1);
