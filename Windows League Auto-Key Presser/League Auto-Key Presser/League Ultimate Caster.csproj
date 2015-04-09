@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>League_Auto_Key_Presser</RootNamespace>
-    <AssemblyName>League Auto-Key Presser</AssemblyName>
+    <AssemblyName>League Ultimate Caster</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>

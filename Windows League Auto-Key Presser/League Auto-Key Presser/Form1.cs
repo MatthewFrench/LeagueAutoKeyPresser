@@ -433,6 +433,17 @@ namespace League_Auto_Key_Presser
         {
 
         }
+        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try { qThread.Abort(); } catch { }
+            try { wThread.Abort(); }
+            catch { }
+            try { eThread.Abort(); }
+            catch { }
+            try { rThread.Abort(); }
+            catch { }
+            Application.Exit();
+        }
 
         private void qValueText_TextChanged(object sender, EventArgs e)
         {

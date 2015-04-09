@@ -529,6 +529,7 @@
             this.Name = "Form1";
             this.Text = "League Ultimate Caster";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += this.Form1_Closing;
             this.ResumeLayout(false);
             this.PerformLayout();
 
