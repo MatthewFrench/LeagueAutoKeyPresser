@@ -94,7 +94,7 @@ namespace League_Auto_Key_Presser
         Thread qThread = new Thread(spell1Thread);
         Thread wThread = new Thread(spell2Thread);
         Thread eThread = new Thread(spell3Thread);
-        Thread rThread = new Thread(spell3Thread);
+        Thread rThread = new Thread(spell4Thread);
 
         public Form1()
         {
@@ -600,7 +600,7 @@ namespace League_Auto_Key_Presser
             {
                 if (spell4Send)
                 {
-                    _autoIT4.Send("z");
+                    _autoIT4.Send("v");
                     spell4Send = false;
                 }
                 Thread.Sleep(1);
