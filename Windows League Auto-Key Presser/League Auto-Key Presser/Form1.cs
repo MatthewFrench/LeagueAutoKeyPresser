@@ -32,6 +32,10 @@ namespace League_Auto_Key_Presser
 
         ATimer timer = null;
 
+        int keyQCountUp = 0;
+        int keyWCountUp = 0;
+        int keyECountUp = 0;
+        int keyRCountUp = 0;
         bool keyQPressed = false;
         bool keyWPressed = false;
         bool keyEPressed = false;
@@ -213,29 +217,30 @@ namespace League_Auto_Key_Presser
         }
         void timer_Tick()
         {
-            if (autoKeyOnBool)
+            //Ward hop
+            if (keyTPressed && wardHopOn)
             {
-                //Ward hop
-                if (keyTPressed && wardHopOn)
+                //Place ward
+                if (wardHopStopwatch.ElapsedMilliseconds >= 1000)
                 {
-                    //Place ward
-                    if (wardHopStopwatch.ElapsedMilliseconds >=1000)
-                    {
-                        wardHopStopwatch.Restart();
-                        tapWard();
-                    }
-                    //Try to hop
-                    if (wardHopKey == 'Q') preactivateQ(pressSpell1Interval);
-                    if (wardHopKey == 'W') preactivateW(pressSpell2Interval);
-                    if (wardHopKey == 'E') preactivateE(pressSpell3Interval);
-                    if (wardHopKey == 'R') preactivateR(pressSpell4Interval);
+                    wardHopStopwatch.Restart();
+                    tapWard();
                 }
+                //Try to hop
+                if (wardHopKey == 'Q') preactivateQ(pressSpell1Interval);
+                if (wardHopKey == 'W') preactivateW(pressSpell2Interval);
+                if (wardHopKey == 'E') preactivateE(pressSpell3Interval);
+                if (wardHopKey == 'R') preactivateR(pressSpell4Interval);
+            }
                 if (pressingSpell1)
                 {
+                    if (autoKeyOnBool)
+                    {
                     if (qPreactivateW) preactivateW(pressSpell1Interval);
                     if (qPreactivateE) preactivateE(pressSpell1Interval);
                     if (qPreactivateR) preactivateR(pressSpell1Interval);
                     preactivateQ(pressSpell1Interval);
+                    }
                     if (activeKey == 'Q')
                     {
                         runActives();
@@ -243,10 +248,13 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell2)
                 {
+                    if (autoKeyOnBool)
+                    {
                     if (wPreactivateQ) preactivateQ(pressSpell2Interval);
                     if (wPreactivateE) preactivateE(pressSpell2Interval);
                     if (wPreactivateR) preactivateR(pressSpell2Interval);
                     preactivateW(pressSpell2Interval);
+                    }
                     if (activeKey == 'W')
                     {
                         runActives();
@@ -254,10 +262,13 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell3)
                 {
+                    if (autoKeyOnBool)
+                    {
                     if (ePreactivateQ) preactivateQ(pressSpell3Interval);
                     if (ePreactivateW) preactivateW(pressSpell3Interval);
                     if (ePreactivateR) preactivateR(pressSpell3Interval);
                     preactivateE(pressSpell3Interval);
+                    }
                     if (activeKey == 'E')
                     {
                         runActives();
@@ -265,16 +276,18 @@ namespace League_Auto_Key_Presser
                 }
                 if (pressingSpell4)
                 {
+                    if (autoKeyOnBool)
+                    {
                     if (rPreactivateQ) preactivateQ(pressSpell4Interval);
                     if (rPreactivateW) preactivateW(pressSpell4Interval);
                     if (rPreactivateE) preactivateE(pressSpell4Interval);
                     preactivateR(pressSpell4Interval);
+                    }
                     if (activeKey == 'R')
                     {
                         runActives();
                     }
                 }
-            }
         }
         void preactivateQ(int interval)
         {
@@ -355,24 +368,72 @@ namespace League_Auto_Key_Presser
                 wardHopStopwatch.Restart();
                 go = true;
             }
-            if (e.KeyCode == Keys.Q && keyQPressed)
+            if (e.KeyCode == Keys.Q) // && keyQPressed
             { //Q
-                keyQPressed = false;
+                if (autoKeyOnBool)
+                {
+                    keyQCountUp++;
+                    if (keyQCountUp > spell1Sent)
+                    {
+                        keyQPressed = false;
+                        keyQCountUp = 0;
+                        spell1Sent = 0;
+                    }
+                }
+                else
+                {
+                    keyQPressed = false;
+                }
                 go = true;
             }
-            if (e.KeyCode == Keys.W && keyWPressed)
+            if (e.KeyCode == Keys.W)
             { //W
-                keyWPressed = false;
+                 if (autoKeyOnBool) {
+                keyWCountUp++;
+                if (keyWCountUp > spell2Sent)
+                {
+                    keyWPressed = false;
+                    keyWCountUp = 0;
+                    spell2Sent = 0;
+                }
+                 }  
+                else
+                {
+                    keyWPressed = false;
+                }
                 go = true;
             }
-            if (e.KeyCode == Keys.E && keyEPressed)
+            if (e.KeyCode == Keys.E)
             { //E
-                keyEPressed = false;
+                 if (autoKeyOnBool) {
+                keyECountUp++;
+                if (keyECountUp > spell3Sent)
+                {
+                    keyEPressed = false;
+                    keyECountUp = 0;
+                    spell3Sent = 0;
+                }
+                 }
+                else
+                {
+                    keyEPressed = false;
+                }
                 go = true;
             }
-            if (e.KeyCode == Keys.R && keyRPressed)
+            if (e.KeyCode == Keys.R)
             { //R
-                keyRPressed = false;
+                if (autoKeyOnBool) {
+                    keyRCountUp++;
+                    if (keyRCountUp > spell4Sent) {
+                        keyRPressed = false;
+                        keyRCountUp = 0;
+                        spell4Sent = 0;
+                    }
+                }
+                else
+                {
+                    keyRPressed = false;
+                }
                 go = true;
             }
             if (go)
@@ -389,22 +450,22 @@ namespace League_Auto_Key_Presser
                 keyTPressed = true;
                 go = true;
             }
-            if (e.KeyCode == Keys.Q && !keyQPressed)
+            if (e.KeyCode == Keys.Q) //&& !keyQPressed
             { //Q
                 keyQPressed = true;
                 go = true;
             }
-            if (e.KeyCode == Keys.W && !keyWPressed)
+            if (e.KeyCode == Keys.W)
             { //W
                 keyWPressed = true;
                 go = true;
             }
-            if (e.KeyCode == Keys.E && !keyEPressed)
+            if (e.KeyCode == Keys.E)
             { //E
                 keyEPressed = true;
                 go = true;
             }
-            if (e.KeyCode == Keys.R && !keyRPressed)
+            if (e.KeyCode == Keys.R)
             { //R
                 keyRPressed = true;
                 go = true;
@@ -502,6 +563,8 @@ namespace League_Auto_Key_Presser
         }
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            timer.Stop();
+            allThreadsOn = false;
             //Save state
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var settings = configFile.AppSettings.Settings;
@@ -537,14 +600,15 @@ namespace League_Auto_Key_Presser
             configFile.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
             //End save state
-            try { qThread.Abort(); } catch { }
-            try { wThread.Abort(); }
-            catch { }
-            try { eThread.Abort(); }
-            catch { }
-            try { rThread.Abort(); }
-            catch { }
+            //try { qThread.Abort(); } catch { }
+            //try { wThread.Abort(); }
+            //catch { }
+            //try { eThread.Abort(); }
+            //catch { }
+            //try { rThread.Abort(); }
+            //catch { }
             Application.Exit();
+            Environment.Exit(0);
         }
 
         private void qValueText_TextChanged(object sender, EventArgs e)
@@ -671,53 +735,73 @@ namespace League_Auto_Key_Presser
         static volatile bool spell2Send = false;
         static volatile bool spell3Send = false;
         static volatile bool spell4Send = false;
+        static volatile int spell1Sent = 0;
+        static volatile int spell2Sent = 0;
+        static volatile int spell3Sent = 0;
+        static volatile int spell4Sent = 0;
+
+        static volatile bool allThreadsOn = true;
 
         static void spell1Thread()
         {
-            while(true) {
+            while (allThreadsOn)
+            {
                 if (spell1Send)
                 {
-                    _autoIT1.Send("z");
+                    _autoIT1.Send("q");
                     spell1Send = false;
+                    spell1Sent++;
                 }
                 Thread.Sleep(1);
             }
         }
         static void spell2Thread()
         {
-            while (true)
+            while (allThreadsOn)
             {
                 if (spell2Send)
                 {
-                    _autoIT2.Send("x");
+                    _autoIT2.Send("w");
                     spell2Send = false;
+                    spell2Sent++;
                 }
                 Thread.Sleep(1);
             }
         }
         static void spell3Thread()
         {
-            while (true)
+            while (allThreadsOn)
             {
                 if (spell3Send)
                 {
-                    _autoIT3.Send("c");
+                    _autoIT3.Send("e");
                     spell3Send = false;
+                    spell3Sent++;
                 }
                 Thread.Sleep(1);
             }
         }
         static void spell4Thread()
         {
-            while (true)
+            while (allThreadsOn)
             {
                 if (spell4Send)
                 {
-                    _autoIT4.Send("v");
+                    _autoIT4.Send("r");
                     spell4Send = false;
+                    spell4Sent += 1;
                 }
                 Thread.Sleep(1);
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
     
