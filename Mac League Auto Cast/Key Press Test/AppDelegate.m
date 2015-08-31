@@ -16,7 +16,7 @@
 
 @implementation AppDelegate
 
-NSTimer* timer = NULL;
+//NSTimer* timer = NULL;
 
 bool keyQPressed = false;
 bool keyWPressed = false;
@@ -78,6 +78,23 @@ bool rPreactivateE = false;
 char wardHopKey = 'Q';
 
 char activeKey = 'E';
+
+dispatch_source_t timer;
+dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
+                                      uint64_t leewayNanoseconds,
+                                      dispatch_queue_t queue,
+                                      dispatch_block_t block)
+{
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
+                                                     0, 0, queue);
+    if (timer)
+    {
+        dispatch_source_set_timer(timer, dispatch_walltime(NULL, 0), intervalNanoseconds, leewayNanoseconds);
+        dispatch_source_set_event_handler(timer, block);
+        dispatch_resume(timer);
+    }
+    return timer;
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -169,16 +186,19 @@ char activeKey = 'E';
         self->activity = [[NSProcessInfo processInfo] beginActivityWithOptions:0x00FFFFFF reason:@"receiving messages"];
     }
     /*
-    [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleSystemSleepDisabled| NSActivitySuddenTerminationDisabled reason:@"Good Reason 2"];
-    
-    [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated | NSActivityLatencyCritical reason:@"Good Reason 3"];
+     [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleSystemSleepDisabled| NSActivitySuddenTerminationDisabled reason:@"Good Reason 2"];
+     
+     [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated | NSActivityLatencyCritical reason:@"Good Reason 3"];
      */
-    timer = [NSTimer scheduledTimerWithTimeInterval:1.0/1000.0
-                                             target:self
-                                           selector:@selector(timerLogic)
-                                           userInfo:nil
-                                            repeats:YES];
-
+    //timer = [NSTimer scheduledTimerWithTimeInterval:1.0/1000.0
+    //                                         target:self
+    //                                       selector:@selector(timerLogic)
+    //                                       userInfo:nil
+    //                                        repeats:YES];
+    timer = CreateDispatchTimer(NSEC_PER_SEC/2000, //30ull * NSEC_PER_SEC
+                                0, //1ull * NSEC_PER_SEC
+                                dispatch_get_main_queue(),
+                                ^{ [self timerLogic]; });
 }
 - (IBAction)turnOnOff:(NSButton*)sender {
     keyQPressed = 0;
@@ -341,16 +361,18 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
     CGKeyCode keycode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
     
     int64_t autoRepeat = CGEventGetIntegerValueField(event, kCGKeyboardEventAutorepeat);
-    
     if (autoRepeat == 1) { //Don't want repeating keys
         return NULL;
     }
     
     bool returnEvent = true;
     
+    bool runLogicImmediately = false;
+    
     if (keycode == 17) { //T key
         if (type == kCGEventKeyDown) {
             countTKey += 1;
+            if (keyTPressed == false) runLogicImmediately = true;
         } else if (type == kCGEventKeyUp) {
             countTKey -= 1;
         }
@@ -365,6 +387,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
     if (keycode == 12 && running) { //Q
         if (type == kCGEventKeyDown) {
             qCount += 1;
+            if (pressingSpell1 == false) runLogicImmediately = true;
         } else if (type == kCGEventKeyUp) {
             qCount -= 1;
             qCountReleases += 1;
@@ -387,6 +410,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
     if (keycode == 13 && running) { //w
         if (type == kCGEventKeyDown) {
             wCount += 1;
+            if (pressingSpell2 == false) runLogicImmediately = true;
         } else if (type == kCGEventKeyUp) {
             wCount -= 1;
             wCountReleases += 1;
@@ -409,6 +433,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
     if (keycode == 14 && running) { //e
         if (type == kCGEventKeyDown) {
             eCount += 1;
+            if (pressingSpell3 == false) runLogicImmediately = true;
         } else if (type == kCGEventKeyUp) {
             eCount -= 1;
             eCountReleases += 1;
@@ -431,6 +456,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
     if (keycode == 15 && running) { //r
         if (type == kCGEventKeyDown) {
             rCount += 1;
+            if (pressingSpell4 == false) runLogicImmediately = true;
         } else if (type == kCGEventKeyUp) {
             rCount -= 1;
             rCountReleases += 1;
@@ -452,7 +478,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
     
     
     
-    if ((keycode == 12 || keycode == 13 || keycode == 14 || keycode == 15 || keycode == 17)  && running) {
+    if (runLogicImmediately  && running) {
         [globalSelf timerLogic];
     }
     if (returnEvent) {
@@ -462,7 +488,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
 }
 
 CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
-                             CGEventRef event, void *refcon)
+                                  CGEventRef event, void *refcon)
 {
     
     globalSelf->mouseLocation = CGEventGetLocation(event);
@@ -470,27 +496,28 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
     return event;
 }
 
-uint64_t lastTime;
-int writeEvery = 2000;
-int currentWrite = 0;
-double avg = 0;
+//uint64_t lastTime;
+//int writeEvery = 2000;
+//int currentWrite = 0;
+//double avg = 0;
 
 - (void)timerLogic {
+    /*
     //Profile code? See how fast it's running?
-     if (currentWrite >= writeEvery)
-     {
-         //uint64_t elapsedTime2 = mach_absolute_time() - lastTime;
-         //NSLog(@"Elapsed Time: %d milliseconds and mouse location: %f %f",  getTimeInMilliseconds(avg/writeEvery), mouseLocation.x, mouseLocation.y);
-         lastTime = mach_absolute_time();
-         currentWrite = 0;
-         avg = 0;
-     }
-     else
-     {
-         currentWrite++;
-         avg += mach_absolute_time() - lastTime;
-         lastTime = mach_absolute_time();
-     }
+    if (currentWrite >= writeEvery)
+    {
+        //uint64_t elapsedTime2 = mach_absolute_time() - lastTime;
+        //NSLog(@"Elapsed Time: %d milliseconds and mouse location: %f %f",  getTimeInMilliseconds(avg/writeEvery), mouseLocation.x, mouseLocation.y);
+        lastTime = mach_absolute_time();
+        currentWrite = 0;
+        avg = 0;
+    }
+    else
+    {
+        currentWrite++;
+        avg += mach_absolute_time() - lastTime;
+        lastTime = mach_absolute_time();
+    }*/
     
     
     if (running) {
@@ -539,23 +566,23 @@ double avg = 0;
             if (activeKey == 'R') {[self activateActives];}
         }
     }/* else {
-        if (keyTPressed) {
-            uint64_t elapsedTime = mach_absolute_time() - wardHopLastTime;
-            if (getTimeInMilliseconds( elapsedTime ) >= 550) {
-                wardHopLastTime =mach_absolute_time();
-                [self tapRecall];
-                [self tapW];
-                [self pressMouseRight:mouseLocation.x y:mouseLocation.y];
-                [self releaseMouseRight:mouseLocation.x y:mouseLocation.y];
-                for (int i = 10; i < 550; i+= 5) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC/1000.0 * i), dispatch_get_main_queue(), ^{
-                        [self tapQ];
-                //        [self tapQ];
-                    });
-                }
-            }
-        }
-    }*/
+      if (keyTPressed) {
+      uint64_t elapsedTime = mach_absolute_time() - wardHopLastTime;
+      if (getTimeInMilliseconds( elapsedTime ) >= 550) {
+      wardHopLastTime =mach_absolute_time();
+      [self tapRecall];
+      [self tapW];
+      [self pressMouseRight:mouseLocation.x y:mouseLocation.y];
+      [self releaseMouseRight:mouseLocation.x y:mouseLocation.y];
+      for (int i = 10; i < 550; i+= 5) {
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC/1000.0 * i), dispatch_get_main_queue(), ^{
+      [self tapQ];
+      //        [self tapQ];
+      });
+      }
+      }
+      }
+      }*/
 }
 - (void) preactivateQ:(double)interval {
     uint64_t elapsedTime = mach_absolute_time() - pressingSpell1LastTime;
@@ -617,133 +644,174 @@ double avg = 0;
     }
 }
 /*
-- (void)runLogicPress {
-    if (countQKeyDown > 0) {
-        pressingSpell1 = true;
-        if (countQKeyDown > 1) {
-            NSLog(@"Releasing Q");
-            [self releaseQ];
-        }
-    }
-    if (countQKeyUp == 1) {
-        //Q Key went up so reset everything
-        pressingSpell1LastTime = 0;
-        pressingSpell1 = false;
-        countQKeyDown = 0;
-        countQKeyUp = 0;
-        //[self releaseQ];
-    }
-    
-    if (countEKeyDown > 0) {
-        //E Key went down so reset everything
-        pressingSpell3 = false;
-        countEKeyDown = 0;
-        countEKeyUp = 0;
-    } else if (countEKeyUp == 1) {
-        pressingSpell3LastTime = 0;
-        pressingSpell3 = true;
-        [self releaseE];
-    }
-    
-    if (countWKeyDown > 0) {
-        //W Key went down so reset everything
-        pressingSpell2 = false;
-        countWKeyDown = 0;
-        countWKeyUp = 0;
-    } else if (countWKeyUp == 1) {
-        pressingSpell2LastTime = 0;
-        pressingSpell2 = true;
-        [self releaseW];
-    }
-    
-    if (countRKeyDown > 0) {
-        //W Key went down so reset everything
-        pressingSpell4 = false;
-        countRKeyDown = 0;
-        countRKeyUp = 0;
-    } else if (countRKeyUp == 1) {
-        pressingSpell4LastTime = 0;
-        pressingSpell4 = true;
-        [self releaseR];
-    }
-    
-    //pressingSpell1 = keyQPressed;
-    //pressingSpell2 = keyWPressed;
-    //pressingSpell3 = keyEPressed;
-    //pressingSpell4 = keyRPressed;
-    
-    [self timerLogic];
-}
-*/
+ - (void)runLogicPress {
+ if (countQKeyDown > 0) {
+ pressingSpell1 = true;
+ if (countQKeyDown > 1) {
+ NSLog(@"Releasing Q");
+ [self releaseQ];
+ }
+ }
+ if (countQKeyUp == 1) {
+ //Q Key went up so reset everything
+ pressingSpell1LastTime = 0;
+ pressingSpell1 = false;
+ countQKeyDown = 0;
+ countQKeyUp = 0;
+ //[self releaseQ];
+ }
+ 
+ if (countEKeyDown > 0) {
+ //E Key went down so reset everything
+ pressingSpell3 = false;
+ countEKeyDown = 0;
+ countEKeyUp = 0;
+ } else if (countEKeyUp == 1) {
+ pressingSpell3LastTime = 0;
+ pressingSpell3 = true;
+ [self releaseE];
+ }
+ 
+ if (countWKeyDown > 0) {
+ //W Key went down so reset everything
+ pressingSpell2 = false;
+ countWKeyDown = 0;
+ countWKeyUp = 0;
+ } else if (countWKeyUp == 1) {
+ pressingSpell2LastTime = 0;
+ pressingSpell2 = true;
+ [self releaseW];
+ }
+ 
+ if (countRKeyDown > 0) {
+ //W Key went down so reset everything
+ pressingSpell4 = false;
+ countRKeyDown = 0;
+ countRKeyUp = 0;
+ } else if (countRKeyUp == 1) {
+ pressingSpell4LastTime = 0;
+ pressingSpell4 = true;
+ [self releaseR];
+ }
+ 
+ //pressingSpell1 = keyQPressed;
+ //pressingSpell2 = keyWPressed;
+ //pressingSpell3 = keyEPressed;
+ //pressingSpell4 = keyRPressed;
+ 
+ [self timerLogic];
+ }
+ */
 - (void)tapRecall {
-    [self pressRecall];
-    [self releaseRecall];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressRecall];
+        [self releaseRecall];
+    });
 }
 
 - (void)tapQ {
-    [self pressQ];
-    [self releaseQ];
+    qCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressQ];
+        [self releaseQ];
+    });
 }
 - (void)tapW {
-    [self pressW];
-    [self releaseW];
+    wCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressW];
+        [self releaseW];
+    });
 }
 - (void)tapE {
-    [self pressE];
-    [self releaseE];
+    eCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressE];
+        [self releaseE];
+    });
 }
 - (void)tapR {
-    [self pressR];
-    [self releaseR];
+    rCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressR];
+        [self releaseR];
+    });
 }
 
 
 
 - (void)tapSpell1 {
-    [self pressQ];
-    //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    qCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressQ];
         [self releaseQ];
-    //});
+    });
+    
 }
 - (void)tapSpell2 {
-    [self pressW];
-    [self releaseW];
+    wCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressW];
+        [self releaseW];
+    });
 }
 - (void)tapSpell3 {
-    [self pressE];
-    [self releaseE];
+    eCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressE];
+        [self releaseE];
+    });
 }
 - (void)tapSpell4 {
-    [self pressR];
-    [self releaseR];
+    rCountSimulatedReleases += 1;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressR];
+        [self releaseR];
+    });
 }
 - (void)tapActive1 {
-    [self pressActive1];
-    [self releaseActive1];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressActive1];
+        [self releaseActive1];
+    });
 }
 - (void)tapActive2 {
-    [self pressActive2];
-    [self releaseActive2];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressActive2];
+        [self releaseActive2];
+    });
 }
 - (void)tapActive3 {
-    [self pressActive3];
-    [self releaseActive3];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressActive3];
+        [self releaseActive3];
+    });
 }
 - (void)tapActive5 {
-    [self pressActive5];
-    [self releaseActive5];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressActive5];
+        [self releaseActive5];
+    });
 }
 - (void)tapActive6 {
-    [self pressActive6];
-    [self releaseActive6];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressActive6];
+        [self releaseActive6];
+    });
 }
 - (void)tapActive7 {
-    [self pressActive7];
-    [self releaseActive7];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressActive7];
+        [self releaseActive7];
+        
+    });
 }
 - (void)tapWard {
-    [self pressWard];
-    [self releaseWard];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [self pressWard];
+        [self releaseWard];
+        
+    });
 }
 
 
@@ -763,7 +831,6 @@ double avg = 0;
     CFRelease(event);
 }
 - (void)releaseQ {
-    qCountSimulatedReleases += 1;
     CGEventRef event = CGEventCreateKeyboardEvent(NULL, 12, NO);
     CGEventPost(kCGSessionEventTap, event);
     CFRelease(event);
@@ -775,7 +842,6 @@ double avg = 0;
     CFRelease(event);
 }
 - (void)releaseW {
-    wCountSimulatedReleases += 1;
     CGEventRef event = CGEventCreateKeyboardEvent(NULL, 13, NO);
     CGEventPost(kCGHIDEventTap, event);
     CFRelease(event);
@@ -787,7 +853,6 @@ double avg = 0;
     CFRelease(event);
 }
 - (void)releaseE {
-    eCountSimulatedReleases += 1;
     CGEventRef event = CGEventCreateKeyboardEvent(NULL, 14, NO);
     CGEventPost(kCGHIDEventTap, event);
     CFRelease(event);
@@ -799,7 +864,6 @@ double avg = 0;
     CFRelease(event);
 }
 - (void)releaseR {
-    rCountSimulatedReleases += 1;
     CGEventRef event = CGEventCreateKeyboardEvent(NULL, 15, NO);
     CGEventPost(kCGHIDEventTap, event);
     CFRelease(event);
@@ -807,46 +871,46 @@ double avg = 0;
 
 
 /*
-- (void)pressSpell1 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 12, YES);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}
-- (void)releaseSpell1 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 12, NO);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}
-- (void)pressSpell2 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 13, YES);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}
-- (void)releaseSpell2 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 13, NO);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}
-- (void)pressSpell3 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 14, YES);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}
-- (void)releaseSpell3 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 14, NO);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}
-- (void)pressSpell4 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 15, YES);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}
-- (void)releaseSpell4 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 15, NO);
-    CGEventPost(kCGHIDEventTap, event);
-    CFRelease(event);
-}*/
+ - (void)pressSpell1 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 12, YES);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }
+ - (void)releaseSpell1 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 12, NO);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }
+ - (void)pressSpell2 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 13, YES);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }
+ - (void)releaseSpell2 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 13, NO);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }
+ - (void)pressSpell3 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 14, YES);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }
+ - (void)releaseSpell3 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 14, NO);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }
+ - (void)pressSpell4 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 15, YES);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }
+ - (void)releaseSpell4 {
+ CGEventRef event = CGEventCreateKeyboardEvent(NULL, 15, NO);
+ CGEventPost(kCGHIDEventTap, event);
+ CFRelease(event);
+ }*/
 - (void)pressActive1 {
     CGEventRef event = CGEventCreateKeyboardEvent(NULL, 18, YES);
     CGEventPost(kCGHIDEventTap, event);
@@ -963,9 +1027,9 @@ double avg = 0;
     CFRunLoopSourceRef runLoopSource;
     
     // Create an event tap. We are interested in key presses.
-    kCGKeyboardEventAutorepeat;
-    kCGEventKeyUp;
-    eventMask = ((1 << kCGEventKeyDown) | (1 << kCGEventKeyUp) | (1 << kCGEventFlagsChanged));
+    //kCGKeyboardEventAutorepeat;
+    //kCGEventKeyUp;
+    eventMask = ((1 << kCGEventKeyDown) | (1 << kCGEventKeyUp)); // | (1 << kCGEventFlagsChanged)
     //kCGEventTapOptionDefault
     eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0,
                                 eventMask, myCGEventCallback, NULL);
