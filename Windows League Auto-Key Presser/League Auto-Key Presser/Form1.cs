@@ -36,10 +36,10 @@ namespace League_Auto_Key_Presser
         int keyWCountUp = 0;
         int keyECountUp = 0;
         int keyRCountUp = 0;
-        bool keyQPressed = false;
-        bool keyWPressed = false;
-        bool keyEPressed = false;
-        bool keyRPressed = false;
+        int spell1Sent = 0;
+        int spell2Sent = 0;
+        int spell3Sent = 0;
+        int spell4Sent = 0;
         bool keyTPressed = false;
 
         bool pressingSpell1 = false;
@@ -95,11 +95,6 @@ namespace League_Auto_Key_Presser
 
         [DllImport("ntdll.dll", SetLastError = true)]
         static extern int NtSetTimerResolution(int DesiredResolution, bool SetResolution, out int CurrentResolution);
-
-        Thread qThread = new Thread(spell1Thread);
-        Thread wThread = new Thread(spell2Thread);
-        Thread eThread = new Thread(spell3Thread);
-        Thread rThread = new Thread(spell4Thread);
 
         public Form1()
         {
@@ -209,11 +204,6 @@ namespace League_Auto_Key_Presser
             _autoIT2.AutoItSetOption("SendKeyDownDelay", 0);
             _autoIT3.AutoItSetOption("SendKeyDownDelay", 0);
             _autoIT4.AutoItSetOption("SendKeyDownDelay", 0);
-
-            qThread.Start();
-            wThread.Start();
-            eThread.Start();
-            rThread.Start();
         }
         void timer_Tick()
         {
@@ -288,6 +278,7 @@ namespace League_Auto_Key_Presser
                         runActives();
                     }
                 }
+                
         }
         void preactivateQ(int interval)
         {
@@ -361,84 +352,80 @@ namespace League_Auto_Key_Presser
 
         void HookManager_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            bool go = false;
+            //bool go = false;
             if (e.KeyCode == Keys.T && keyTPressed)
             { //T key
                 keyTPressed = false;
                 wardHopStopwatch.Restart();
-                go = true;
+                //go = true;
             }
             if (e.KeyCode == Keys.Q) // && keyQPressed
             { //Q
                 if (autoKeyOnBool)
                 {
                     keyQCountUp++;
-                    if (keyQCountUp > spell1Sent)
+                    if (keyQCountUp > spell1Sent && spell1Sent != 0)
                     {
-                        keyQPressed = false;
+                        pressingSpell1 = false;
                         keyQCountUp = 0;
                         spell1Sent = 0;
                     }
                 }
                 else
                 {
-                    keyQPressed = false;
+                    pressingSpell1 = false;
                 }
-                go = true;
             }
             if (e.KeyCode == Keys.W)
             { //W
-                 if (autoKeyOnBool) {
-                keyWCountUp++;
-                if (keyWCountUp > spell2Sent)
+                if (autoKeyOnBool)
                 {
-                    keyWPressed = false;
-                    keyWCountUp = 0;
-                    spell2Sent = 0;
+                    keyWCountUp++;
+                    if (keyWCountUp > spell2Sent && spell2Sent != 0)
+                    {
+                        pressingSpell2 = false;
+                        keyWCountUp = 0;
+                        spell2Sent = 0;
+                    }
                 }
-                 }  
                 else
                 {
-                    keyWPressed = false;
+                    pressingSpell2 = false;
                 }
-                go = true;
             }
             if (e.KeyCode == Keys.E)
             { //E
-                 if (autoKeyOnBool) {
-                keyECountUp++;
-                if (keyECountUp > spell3Sent)
+                if (autoKeyOnBool)
                 {
-                    keyEPressed = false;
-                    keyECountUp = 0;
-                    spell3Sent = 0;
+                    keyECountUp++;
+                    if (keyECountUp > spell3Sent && spell3Sent != 0)
+                    {
+                        pressingSpell3 = false;
+                        keyECountUp = 0;
+                        spell3Sent = 0;
+                    }
                 }
-                 }
                 else
                 {
-                    keyEPressed = false;
+                    pressingSpell3 = false;
                 }
-                go = true;
             }
             if (e.KeyCode == Keys.R)
             { //R
-                if (autoKeyOnBool) {
+                if (autoKeyOnBool)
+                {
                     keyRCountUp++;
-                    if (keyRCountUp > spell4Sent) {
-                        keyRPressed = false;
+                    if (keyRCountUp > spell4Sent && spell4Sent != 0)
+                    {
+                        pressingSpell4 = false;
                         keyRCountUp = 0;
                         spell4Sent = 0;
                     }
                 }
                 else
                 {
-                    keyRPressed = false;
+                    pressingSpell4 = false;
                 }
-                go = true;
-            }
-            if (go)
-            {
-                runLogicPress();
             }
         }
 
@@ -450,25 +437,45 @@ namespace League_Auto_Key_Presser
                 keyTPressed = true;
                 go = true;
             }
-            if (e.KeyCode == Keys.Q) //&& !keyQPressed
+            if (e.KeyCode == Keys.Q)
             { //Q
-                keyQPressed = true;
-                go = true;
+                if (!pressingSpell1)
+                {
+                    pressingSpell1 = true;
+                    go = true;
+                    keyQCountUp = 0;
+                    spell1Sent = 0;
+                }
             }
             if (e.KeyCode == Keys.W)
             { //W
-                keyWPressed = true;
-                go = true;
+                if (!pressingSpell2)
+                {
+                    pressingSpell2 = true;
+                    go = true;
+                    keyWCountUp = 0;
+                    spell2Sent = 0;
+                }
             }
-            if (e.KeyCode == Keys.E)
+            if (e.KeyCode == Keys.E && !pressingSpell3)
             { //E
-                keyEPressed = true;
-                go = true;
+                if (!pressingSpell3)
+                {
+                    pressingSpell3 = true;
+                    go = true;
+                    keyECountUp = 0;
+                    spell3Sent = 0;
+                }
             }
-            if (e.KeyCode == Keys.R)
+            if (e.KeyCode == Keys.R && !pressingSpell4)
             { //R
-                keyRPressed = true;
-                go = true;
+                if (!pressingSpell4)
+                {
+                    pressingSpell4 = true;
+                    go = true;
+                    keyRCountUp = 0;
+                    spell4Sent = 0;
+                }
             }
             if (go)
             {
@@ -477,55 +484,87 @@ namespace League_Auto_Key_Presser
         }
         void runLogicPress()
         {
-            pressingSpell1 = keyQPressed;
-            pressingSpell2 = keyWPressed;
-            pressingSpell3 = keyEPressed;
-            pressingSpell4 = keyRPressed;
             timer_Tick();
         }
         void tapSpell1()
         {
-            spell1Send = true;
+            spell1Sent++;
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT1.Send("q");
+            });
         }
         void tapSpell2()
         {
-            spell2Send = true;
+            spell2Sent++;
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT2.Send("w");
+            });
         }
         void tapSpell3()
         {
-            spell3Send = true;
+            spell3Sent++;
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT3.Send("e");
+            });
         }
         void tapSpell4()
         {
-            spell4Send = true;
+            spell4Sent++;
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT4.Send("r");
+            });
         }
         void tapActive1()
         {
-                _autoIT.Send("1"); 
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT.Send("1");
+            });
         }
         void tapActive2()
         {
-                _autoIT.Send("2"); 
+                Task.Factory.StartNew(() =>
+                {
+                    _autoIT.Send("2");
+                });
         }
         void tapActive3()
         {
-                _autoIT.Send("3"); 
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT.Send("3");
+            });
         }
         void tapWard()
         {
-                _autoIT.Send("4"); 
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT.Send("4");
+            });
         }
         void tapActive5()
         {
-                _autoIT.Send("5"); 
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT.Send("5");
+            });
         }
         void tapActive6()
         {
-                _autoIT.Send("6"); 
+            Task.Factory.StartNew(() =>
+            {
+                _autoIT.Send("6");
+            });
         }
         void tapActive7()
         {
+            Task.Factory.StartNew(() => {
                 _autoIT.Send("7"); 
+            });
         }
 
         private void active1On_CheckedChanged(object sender, EventArgs e)
@@ -546,10 +585,6 @@ namespace League_Auto_Key_Presser
         private void autoKeyOn_CheckedChanged(object sender, EventArgs e)
         {
             autoKeyOnBool = ((CheckBox)sender).Checked;
-            keyQPressed = false;
-            keyWPressed = false;
-            keyEPressed = false;
-            keyRPressed = false;
 
             pressingSpell1 = false;
             pressingSpell2 = false;
@@ -564,7 +599,6 @@ namespace League_Auto_Key_Presser
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             timer.Stop();
-            allThreadsOn = false;
             //Save state
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var settings = configFile.AppSettings.Settings;
@@ -599,14 +633,6 @@ namespace League_Auto_Key_Presser
             settings.Add("activeKey", activeKey.ToString());
             configFile.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            //End save state
-            //try { qThread.Abort(); } catch { }
-            //try { wThread.Abort(); }
-            //catch { }
-            //try { eThread.Abort(); }
-            //catch { }
-            //try { rThread.Abort(); }
-            //catch { }
             Application.Exit();
             Environment.Exit(0);
         }
@@ -729,70 +755,6 @@ namespace League_Auto_Key_Presser
         private void wardHopKeyComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             wardHopKey = wardHopKeyComboBox.Text.ToCharArray()[0];
-        }
-
-        static volatile bool spell1Send = false;
-        static volatile bool spell2Send = false;
-        static volatile bool spell3Send = false;
-        static volatile bool spell4Send = false;
-        static volatile int spell1Sent = 0;
-        static volatile int spell2Sent = 0;
-        static volatile int spell3Sent = 0;
-        static volatile int spell4Sent = 0;
-
-        static volatile bool allThreadsOn = true;
-
-        static void spell1Thread()
-        {
-            while (allThreadsOn)
-            {
-                if (spell1Send)
-                {
-                    _autoIT1.Send("q");
-                    spell1Send = false;
-                    spell1Sent++;
-                }
-                Thread.Sleep(1);
-            }
-        }
-        static void spell2Thread()
-        {
-            while (allThreadsOn)
-            {
-                if (spell2Send)
-                {
-                    _autoIT2.Send("w");
-                    spell2Send = false;
-                    spell2Sent++;
-                }
-                Thread.Sleep(1);
-            }
-        }
-        static void spell3Thread()
-        {
-            while (allThreadsOn)
-            {
-                if (spell3Send)
-                {
-                    _autoIT3.Send("e");
-                    spell3Send = false;
-                    spell3Sent++;
-                }
-                Thread.Sleep(1);
-            }
-        }
-        static void spell4Thread()
-        {
-            while (allThreadsOn)
-            {
-                if (spell4Send)
-                {
-                    _autoIT4.Send("r");
-                    spell4Send = false;
-                    spell4Sent += 1;
-                }
-                Thread.Sleep(1);
-            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
