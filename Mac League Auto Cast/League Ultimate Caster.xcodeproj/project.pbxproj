@@ -155,7 +155,7 @@
 		C9014B1D1AD0EFF2006BED3B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Matthew French";
 				TargetAttributes = {
 					C9014B241AD0EFF2006BED3B = {
@@ -265,6 +265,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -328,6 +329,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Key Press Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "League Ultimate Caster";
 			};
 			name = Debug;
@@ -339,6 +341,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Key Press Test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "League Ultimate Caster";
 			};
 			name = Release;
@@ -358,6 +361,7 @@
 				);
 				INFOPLIST_FILE = "Key Press TestTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "League Ultimate CasterTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/League Ultimate Caster.app/Contents/MacOS/League Ultimate Caster";
 			};
@@ -374,6 +378,7 @@
 				);
 				INFOPLIST_FILE = "Key Press TestTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "test.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "League Ultimate CasterTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/League Ultimate Caster.app/Contents/MacOS/League Ultimate Caster";
 			};

@@ -384,7 +384,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
         }
     }
     
-    if (keycode == 12 && running) { //Q
+    if (keycode == 12) { //Q
+        if (running) {
         if (type == kCGEventKeyDown) {
             qCount += 1;
             if (pressingSpell1 == false) runLogicImmediately = true;
@@ -405,9 +406,18 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             qCount = 0;
             pressingSpell1 = false;
         }
+        } else {
+            if (type == kCGEventKeyDown) {
+                runLogicImmediately = true;
+                pressingSpell1 = true;
+            } else if (type == kCGEventKeyUp) {
+                pressingSpell1 = false;
+            }
+        }
     }
     
-    if (keycode == 13 && running) { //w
+    if (keycode == 13) { //w
+        if (running) {
         if (type == kCGEventKeyDown) {
             wCount += 1;
             if (pressingSpell2 == false) runLogicImmediately = true;
@@ -428,9 +438,18 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             wCount = 0;
             pressingSpell2 = false;
         }
+        } else {
+            if (type == kCGEventKeyDown) {
+                runLogicImmediately = true;
+                pressingSpell2 = true;
+            } else if (type == kCGEventKeyUp) {
+                pressingSpell2 = false;
+            }
+        }
     }
     
-    if (keycode == 14 && running) { //e
+    if (keycode == 14) { //e
+        if (running) {
         if (type == kCGEventKeyDown) {
             eCount += 1;
             if (pressingSpell3 == false) runLogicImmediately = true;
@@ -451,9 +470,18 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             eCount = 0;
             pressingSpell3 = false;
         }
+        } else {
+            if (type == kCGEventKeyDown) {
+                runLogicImmediately = true;
+                pressingSpell3 = true;
+            } else if (type == kCGEventKeyUp) {
+                pressingSpell3 = false;
+            }
+        }
     }
     
-    if (keycode == 15 && running) { //r
+    if (keycode == 15) { //r
+        if (running) {
         if (type == kCGEventKeyDown) {
             rCount += 1;
             if (pressingSpell4 == false) runLogicImmediately = true;
@@ -473,6 +501,14 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             returnEvent = false;
             rCount = 0;
             pressingSpell4 = false;
+        }
+        } else {
+            if (type == kCGEventKeyDown) {
+                runLogicImmediately = true;
+                pressingSpell4 = true;
+            } else if (type == kCGEventKeyUp) {
+                pressingSpell4 = false;
+            }
         }
     }
     
@@ -518,54 +554,64 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
         avg += mach_absolute_time() - lastTime;
         lastTime = mach_absolute_time();
     }*/
-    
-    
-    if (running) {
-        //Ward hop
-        if (keyTPressed && wardHopOn) {
-            //Place ward
-            uint64_t elapsedTime = mach_absolute_time() - wardHopLastTime;
-            if (getTimeInMilliseconds(elapsedTime) >= 1000) {
-                wardHopLastTime =mach_absolute_time();
-                [self tapWard];
-            }
-            //Try to hop
-            if (wardHopKey == 'Q') [self preactivateQ:pressSpell1Interval];
-            if (wardHopKey == 'W') [self preactivateW:pressSpell2Interval];
-            if (wardHopKey == 'E') [self preactivateE:pressSpell3Interval];
-            if (wardHopKey == 'R') [self preactivateR:pressSpell4Interval];
+    //Ward hop
+    if (keyTPressed && wardHopOn) {
+        //Place ward
+        uint64_t elapsedTime = mach_absolute_time() - wardHopLastTime;
+        if (getTimeInMilliseconds(elapsedTime) >= 1000) {
+            wardHopLastTime =mach_absolute_time();
+            [self tapWard];
         }
+        //Try to hop
+        if (wardHopKey == 'Q') [self preactivateQ:pressSpell1Interval];
+        if (wardHopKey == 'W') [self preactivateW:pressSpell2Interval];
+        if (wardHopKey == 'E') [self preactivateE:pressSpell3Interval];
+        if (wardHopKey == 'R') [self preactivateR:pressSpell4Interval];
+    }
+    
+    
+    
+    
         
         
         if (pressingSpell1) {
+            if (running) {
             if (qPreactivateW) [self preactivateW:pressSpell1Interval];
             if (qPreactivateE) [self preactivateE:pressSpell1Interval];
             if (qPreactivateR) [self preactivateR:pressSpell1Interval];
             [self preactivateQ:pressSpell1Interval];
+            }
             if (activeKey == 'Q') {[self activateActives];}
         }
         if (pressingSpell2) {
+            if (running) {
             if (wPreactivateQ) [self preactivateQ:pressSpell2Interval];
             if (wPreactivateE) [self preactivateE:pressSpell2Interval];
             if (wPreactivateR) [self preactivateR:pressSpell2Interval];
             [self preactivateW:pressSpell2Interval];
+            }
             if (activeKey == 'W') {[self activateActives];}
         }
         if (pressingSpell3) {
+            if (running) {
             if (ePreactivateQ) [self preactivateQ:pressSpell3Interval];
             if (ePreactivateW) [self preactivateW:pressSpell3Interval];
             if (ePreactivateR) [self preactivateR:pressSpell3Interval];
             [self preactivateE:pressSpell3Interval];
+            }
             if (activeKey == 'E') {[self activateActives];}
         }
         if (pressingSpell4) {
+            if (running) {
             if (rPreactivateQ) [self preactivateQ:pressSpell4Interval];
             if (rPreactivateW) [self preactivateW:pressSpell4Interval];
             if (rPreactivateE) [self preactivateE:pressSpell4Interval];
             [self preactivateR:pressSpell4Interval];
+            }
             if (activeKey == 'R') {[self activateActives];}
         }
-    }/* else {
+    
+    /* else {
       if (keyTPressed) {
       uint64_t elapsedTime = mach_absolute_time() - wardHopLastTime;
       if (getTimeInMilliseconds( elapsedTime ) >= 550) {
@@ -987,12 +1033,12 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
     CFRelease(event);
 }
 - (void)pressActive7 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 24, YES);
+    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 0x1A, YES);
     CGEventPost(kCGHIDEventTap, event);
     CFRelease(event);
 }
 - (void)releaseActive7 {
-    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 24, NO);
+    CGEventRef event = CGEventCreateKeyboardEvent(NULL, 0x1A, NO);
     CGEventPost(kCGHIDEventTap, event);
     CFRelease(event);
 }
@@ -1060,7 +1106,7 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
     
     // Create an event tap. We are interested in key presses.
     eventMask = ((1 << kCGEventMouseMoved) | (1 << kCGEventLeftMouseDown) | (1 << kCGEventLeftMouseDragged)  | (1 << kCGEventLeftMouseUp)  | (1 << kCGEventRightMouseDown) | (1 << kCGEventRightMouseDragged)  | (1 << kCGEventRightMouseUp));
-    eventTap = CGEventTapCreate(kCGSessionEventTap, kCGEventTapOptionListenOnly, 0,
+    eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0,
                                 eventMask, myCGEventCallbackMouse, NULL);
     if (!eventTap) {
         fprintf(stderr, "failed to create event tap\n");
