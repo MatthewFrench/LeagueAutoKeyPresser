@@ -195,7 +195,7 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
     //                                       selector:@selector(timerLogic)
     //                                       userInfo:nil
     //                                        repeats:YES];
-    timer = CreateDispatchTimer(NSEC_PER_SEC/2000, //30ull * NSEC_PER_SEC
+    timer = CreateDispatchTimer(NSEC_PER_SEC/1000, //30ull * NSEC_PER_SEC
                                 0, //1ull * NSEC_PER_SEC
                                 dispatch_get_main_queue(),
                                 ^{ [self timerLogic]; });
