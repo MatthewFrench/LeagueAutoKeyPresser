@@ -401,7 +401,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             qCountSimulatedReleases = 0;
             returnEvent = false;
         }
-        if (pressingSpell1 == true && qCount == -1 && qCountReleases -1 == qCountSimulatedReleases) {
+        if (pressingSpell1 == true && qCount == -1 && qCountReleases + 1 >= qCountSimulatedReleases) {
             returnEvent = false;
             qCount = 0;
             pressingSpell1 = false;
@@ -433,7 +433,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             wCountSimulatedReleases = 0;
             returnEvent = false;
         }
-        if (pressingSpell2 == true && wCount == -1 && wCountReleases -1 == wCountSimulatedReleases) {
+        if (pressingSpell2 == true && wCount == -1 && wCountReleases + 1 >= wCountSimulatedReleases) {
             returnEvent = false;
             wCount = 0;
             pressingSpell2 = false;
@@ -453,9 +453,11 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
         if (type == kCGEventKeyDown) {
             eCount += 1;
             if (pressingSpell3 == false) runLogicImmediately = true;
+            //NSLog(@"E down eCount: %d", eCount);
         } else if (type == kCGEventKeyUp) {
             eCount -= 1;
             eCountReleases += 1;
+            //NSLog(@"E up eCount: %d, eCountReleases: %d, eCountSimulatedReleases: %d", eCount, eCountReleases, eCountSimulatedReleases);
         }
         if (pressingSpell3 == false && eCount >= 1) {
             pressingSpell3LastTime = 0;
@@ -465,7 +467,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             eCountSimulatedReleases = 0;
             returnEvent = false;
         }
-        if (pressingSpell3 == true && eCount == -1 && eCountReleases -1 == eCountSimulatedReleases) {
+        if (pressingSpell3 == true && eCount == -1 && eCountReleases + 1 >= eCountSimulatedReleases) {
             returnEvent = false;
             eCount = 0;
             pressingSpell3 = false;
@@ -497,7 +499,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             rCountSimulatedReleases = 0;
             returnEvent = false;
         }
-        if (pressingSpell4 == true && rCount == -1 && rCountReleases -1 == rCountSimulatedReleases) {
+        if (pressingSpell4 == true && rCount == -1 && rCountReleases + 1 >= rCountSimulatedReleases) {
             returnEvent = false;
             rCount = 0;
             pressingSpell4 = false;
@@ -561,12 +563,22 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
         if (getTimeInMilliseconds(elapsedTime) >= 1000) {
             wardHopLastTime =mach_absolute_time();
             [self tapWard];
+            
+            //Try to hop
+            for (int i = 0; i <= 4; i++) { //Keep trying for 200 milliseconds
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC/1000 * (i * 50 + 30)), dispatch_get_main_queue(), ^{
+                    if (wardHopKey == 'Q') [self tapSpell1];
+                    if (wardHopKey == 'W') [self tapSpell2];
+                    if (wardHopKey == 'E') [self tapSpell3];
+                    if (wardHopKey == 'R') [self tapSpell4];
+                });
+            }
+        } else {
+            if (wardHopKey == 'Q') [self preactivateQ:pressSpell1Interval];
+            if (wardHopKey == 'W') [self preactivateW:pressSpell2Interval];
+            if (wardHopKey == 'E') [self preactivateE:pressSpell3Interval];
+            if (wardHopKey == 'R') [self preactivateR:pressSpell4Interval];
         }
-        //Try to hop
-        if (wardHopKey == 'Q') [self preactivateQ:pressSpell1Interval];
-        if (wardHopKey == 'W') [self preactivateW:pressSpell2Interval];
-        if (wardHopKey == 'E') [self preactivateE:pressSpell3Interval];
-        if (wardHopKey == 'R') [self preactivateR:pressSpell4Interval];
     }
     
     
