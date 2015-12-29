@@ -44,6 +44,12 @@
     IBOutlet NSButton* rPreactivateWCheckBox;
     IBOutlet NSButton* rPreactivateECheckBox;
     
+    IBOutlet NSTextField *qCountLbl, *qSimReleaseLbl, *qReleaseLbl,
+    *wCountLbl, *wSimReleaseLbl, *wReleaseLbl,
+    *eCountLbl, *eSimReleaseLbl, *eReleaseLbl,
+    *rCountLbl, *rSimReleaseLbl, *rReleaseLbl,
+    *qStatusLbl, *wStatusLbl, *eStatusLbl, *rStatusLbl;
+    
     id activity;
     
     CGPoint mouseLocation;

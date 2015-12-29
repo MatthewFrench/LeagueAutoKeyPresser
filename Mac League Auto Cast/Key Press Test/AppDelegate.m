@@ -79,7 +79,7 @@ char wardHopKey = 'Q';
 
 char activeKey = 'E';
 
-dispatch_source_t timer;
+dispatch_source_t timer, uiTimer;
 dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
                                       uint64_t leewayNanoseconds,
                                       dispatch_queue_t queue,
@@ -199,6 +199,11 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
                                 0, //1ull * NSEC_PER_SEC
                                 dispatch_get_main_queue(),
                                 ^{ [self timerLogic]; });
+    
+    uiTimer = CreateDispatchTimer(NSEC_PER_SEC/1000, //30ull * NSEC_PER_SEC
+                                  0, //1ull * NSEC_PER_SEC
+                                  dispatch_get_main_queue(),
+                                  ^{ [self uiLogic]; });
 }
 - (IBAction)turnOnOff:(NSButton*)sender {
     keyQPressed = 0;
@@ -226,6 +231,107 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
     rCount = 0;
     
     [self removeFocus];
+}
+bool lastPressedQ = false;
+int lastQCount = 0, lastQSimRelease = 0, lastQRelease = 0;
+bool lastPressedW = false;
+int lastWCount = 0, lastWSimRelease = 0, lastWRelease = 0;
+bool lastPressedE = false;
+int lastECount = 0, lastESimRelease = 0, lastERelease = 0;
+bool lastPressedR = false;
+int lastRCount = 0, lastRSimRelease = 0, lastRRelease = 0;
+- (void)uiLogic {
+    //Q
+    if (pressingSpell1 && !lastPressedQ) {
+        [qStatusLbl setTextColor:[NSColor greenColor]];
+        [qStatusLbl setStringValue:@"On"];
+        lastPressedQ = true;
+    } else if (lastPressedQ && !pressingSpell1) {
+        [qStatusLbl setTextColor:[NSColor redColor]];
+        [qStatusLbl setStringValue:@"Off"];
+        lastPressedQ = false;
+    }
+    if (lastQCount != qCount) {
+        lastQCount = qCount;
+        [qCountLbl setStringValue:[NSString stringWithFormat:@"%d", qCount]];
+    }
+    if (lastQSimRelease != qCountSimulatedReleases) {
+        lastQSimRelease = qCountSimulatedReleases;
+        [qSimReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", qCountSimulatedReleases]];
+    }
+    if (lastQRelease != qCountReleases) {
+        lastQRelease = qCountReleases;
+        [qReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", qCountReleases]];
+    }
+    
+    //W
+    if (pressingSpell2 && !lastPressedW) {
+        [wStatusLbl setTextColor:[NSColor greenColor]];
+        [wStatusLbl setStringValue:@"On"];
+        lastPressedW = true;
+    } else if (lastPressedW && !pressingSpell2) {
+        [wStatusLbl setTextColor:[NSColor redColor]];
+        [wStatusLbl setStringValue:@"Off"];
+        lastPressedW = false;
+    }
+    if (lastWCount != wCount) {
+        lastWCount = wCount;
+        [wCountLbl setStringValue:[NSString stringWithFormat:@"%d", wCount]];
+    }
+    if (lastWSimRelease != wCountSimulatedReleases) {
+        lastWSimRelease = wCountSimulatedReleases;
+        [wSimReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", wCountSimulatedReleases]];
+    }
+    if (lastWRelease != wCountReleases) {
+        lastWRelease = wCountReleases;
+        [wReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", wCountReleases]];
+    }
+    
+    //e
+    if (pressingSpell3 && !lastPressedE) {
+        [eStatusLbl setTextColor:[NSColor greenColor]];
+        [eStatusLbl setStringValue:@"On"];
+        lastPressedE = true;
+    } else if (lastPressedE && !pressingSpell3) {
+        [eStatusLbl setTextColor:[NSColor redColor]];
+        [eStatusLbl setStringValue:@"Off"];
+        lastPressedE = false;
+    }
+    if (lastECount != eCount) {
+        lastECount = eCount;
+        [eCountLbl setStringValue:[NSString stringWithFormat:@"%d", eCount]];
+    }
+    if (lastESimRelease != eCountSimulatedReleases) {
+        lastESimRelease = eCountSimulatedReleases;
+        [eSimReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", eCountSimulatedReleases]];
+    }
+    if (lastERelease != eCountReleases) {
+        lastERelease = eCountReleases;
+        [eReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", eCountReleases]];
+    }
+    
+    //r
+    if (pressingSpell4 && !lastPressedR) {
+        [rStatusLbl setTextColor:[NSColor greenColor]];
+        [rStatusLbl setStringValue:@"On"];
+        lastPressedR = true;
+    } else if (lastPressedR && !pressingSpell4) {
+        [rStatusLbl setTextColor:[NSColor redColor]];
+        [rStatusLbl setStringValue:@"Off"];
+        lastPressedR = false;
+    }
+    if (lastRCount != rCount) {
+        lastRCount = rCount;
+        [rCountLbl setStringValue:[NSString stringWithFormat:@"%d", rCount]];
+    }
+    if (lastRSimRelease != rCountSimulatedReleases) {
+        lastRSimRelease = rCountSimulatedReleases;
+        [rSimReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", rCountSimulatedReleases]];
+    }
+    if (lastRRelease != rCountReleases) {
+        lastRRelease = rCountReleases;
+        [rReleaseLbl setStringValue:[NSString stringWithFormat:@"%d", rCountReleases]];
+    }
 }
 - (IBAction)active1OnOff:(id)sender {
     active1On = !active1On;
@@ -405,6 +511,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             returnEvent = false;
             qCount = 0;
             pressingSpell1 = false;
+            qCountReleases = 0;
+            qCountSimulatedReleases = 0;
         }
         } else {
             if (type == kCGEventKeyDown) {
@@ -437,6 +545,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             returnEvent = false;
             wCount = 0;
             pressingSpell2 = false;
+            wCountReleases = 0;
+            wCountSimulatedReleases = 0;
         }
         } else {
             if (type == kCGEventKeyDown) {
@@ -471,6 +581,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             returnEvent = false;
             eCount = 0;
             pressingSpell3 = false;
+            eCountReleases = 0;
+            eCountSimulatedReleases = 0;
         }
         } else {
             if (type == kCGEventKeyDown) {
@@ -503,6 +615,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
             returnEvent = false;
             rCount = 0;
             pressingSpell4 = false;
+            rCountReleases = 0;
+            rCountSimulatedReleases = 0;
         }
         } else {
             if (type == kCGEventKeyDown) {
@@ -567,10 +681,10 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
             //Try to hop
             for (int i = 0; i <= 4; i++) { //Keep trying for 200 milliseconds
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC/1000 * (i * 50 + 30)), dispatch_get_main_queue(), ^{
-                    if (wardHopKey == 'Q') [self tapSpell1];
-                    if (wardHopKey == 'W') [self tapSpell2];
-                    if (wardHopKey == 'E') [self tapSpell3];
-                    if (wardHopKey == 'R') [self tapSpell4];
+                    if (wardHopKey == 'Q') [self tapQ];
+                    if (wardHopKey == 'W') [self tapW];
+                    if (wardHopKey == 'E') [self tapE];
+                    if (wardHopKey == 'R') [self tapR];
                 });
             }
         } else {
@@ -646,28 +760,28 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
     uint64_t elapsedTime = mach_absolute_time() - pressingSpell1LastTime;
     if (getTimeInMilliseconds(elapsedTime) >= interval) {
         pressingSpell1LastTime = mach_absolute_time();
-        [self tapSpell1];
+        [self tapQ];
     }
 }
 - (void) preactivateW:(double)interval {
     uint64_t elapsedTime = mach_absolute_time() - pressingSpell2LastTime;
     if (getTimeInMilliseconds(elapsedTime) >= interval) {
         pressingSpell2LastTime = mach_absolute_time();
-        [self tapSpell2];
+        [self tapW];
     }
 }
 - (void) preactivateE:(double)interval {
     uint64_t elapsedTime = mach_absolute_time() - pressingSpell3LastTime;
     if (getTimeInMilliseconds(elapsedTime) >= interval) {
         pressingSpell3LastTime = mach_absolute_time();
-        [self tapSpell3];
+        [self tapE];
     }
 }
 - (void) preactivateR:(double)interval {
     uint64_t elapsedTime = mach_absolute_time() - pressingSpell4LastTime;
     if (getTimeInMilliseconds(elapsedTime) >= interval) {
         pressingSpell4LastTime = mach_absolute_time();
-        [self tapSpell4];
+        [self tapR];
     }
 }
 - (void) activateActives {
@@ -768,36 +882,52 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
 }
 
 - (void)tapQ {
-    qCountSimulatedReleases += 1;
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
-        [self pressQ];
-        [self releaseQ];
-    });
+    if (pressingSpell1) {
+        qCountSimulatedReleases += 1;
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+             if (pressingSpell1) {
+                 [self pressQ];
+                 [self releaseQ];
+             }
+        });
+    }
 }
 - (void)tapW {
+    if (pressingSpell2) {
     wCountSimulatedReleases += 1;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        if (pressingSpell2) {
         [self pressW];
         [self releaseW];
+        }
     });
+    }
 }
 - (void)tapE {
+    if (pressingSpell3) {
     eCountSimulatedReleases += 1;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        if (pressingSpell3) {
         [self pressE];
         [self releaseE];
+        }
     });
+    }
 }
 - (void)tapR {
+    if (pressingSpell4) {
     rCountSimulatedReleases += 1;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        if (pressingSpell4) {
         [self pressR];
         [self releaseR];
+        }
     });
+    }
 }
 
 
-
+/*
 - (void)tapSpell1 {
     qCountSimulatedReleases += 1;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
@@ -826,7 +956,7 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
         [self pressR];
         [self releaseR];
     });
-}
+}*/
 - (void)tapActive1 {
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
         [self pressActive1];
