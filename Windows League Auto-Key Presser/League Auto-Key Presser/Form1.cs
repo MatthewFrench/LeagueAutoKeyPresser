@@ -22,7 +22,7 @@ using System.Threading;
 
 namespace League_Auto_Key_Presser
 {
-    public partial class Form1 : Form
+    public partial class LeagueUltimateCasterForm : Form
     {
         static AutoItX3 _autoIT = new AutoItX3();
         static AutoItX3 _autoIT1 = new AutoItX3();
@@ -96,7 +96,7 @@ namespace League_Auto_Key_Presser
         [DllImport("ntdll.dll", SetLastError = true)]
         static extern int NtSetTimerResolution(int DesiredResolution, bool SetResolution, out int CurrentResolution);
 
-        public Form1()
+        public LeagueUltimateCasterForm()
         {
             InitializeComponent();
 
@@ -133,12 +133,12 @@ namespace League_Auto_Key_Presser
                 wardHopKey = Convert.ToChar(appSettings["wardHopKey"]);
                 activeKey = Convert.ToChar(appSettings["activeKey"]);
             }
-            qValueText.Text = pressSpell1Interval.ToString();
-            wValueText.Text = pressSpell2Interval.ToString();
-            eValueText.Text = pressSpell3Interval.ToString();
-            rValueText.Text = pressSpell4Interval.ToString();
-            activeValueText.Text = pressActiveInterval.ToString();
-            autoKeyOn.Checked = autoKeyOnBool;
+            qMillisecondsText.Text = pressSpell1Interval.ToString();
+            wMillisecondsText.Text = pressSpell2Interval.ToString();
+            eMillisecondsText.Text = pressSpell3Interval.ToString();
+            rMillisecondsText.Text = pressSpell4Interval.ToString();
+            activeMillisecondsText.Text = pressActiveInterval.ToString();
+            autoKeyOnCheckbox.Checked = autoKeyOnBool;
             active1On.Checked = active1OnBool;
             active2On.Checked = active2OnBool;
             active3On.Checked = active3OnBool;
@@ -639,27 +639,27 @@ namespace League_Auto_Key_Presser
 
         private void qValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell1Interval = Convert.ToInt32(qValueText.Text);
+            pressSpell1Interval = Convert.ToInt32(qMillisecondsText.Text);
         }
 
         private void wValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell2Interval = Convert.ToInt32(wValueText.Text);
+            pressSpell2Interval = Convert.ToInt32(wMillisecondsText.Text);
         }
 
         private void eValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell3Interval = Convert.ToInt32(eValueText.Text);
+            pressSpell3Interval = Convert.ToInt32(eMillisecondsText.Text);
         }
 
         private void rValueText_TextChanged(object sender, EventArgs e)
         {
-            pressSpell4Interval = Convert.ToInt32(rValueText.Text);
+            pressSpell4Interval = Convert.ToInt32(rMillisecondsText.Text);
         }
 
         private void activeValueText_TextChanged(object sender, EventArgs e)
         {
-            pressActiveInterval = Convert.ToInt32(activeValueText.Text);
+            pressActiveInterval = Convert.ToInt32(activeMillisecondsText.Text);
         }
 
         private void active5On_CheckedChanged(object sender, EventArgs e)
@@ -762,6 +762,16 @@ namespace League_Auto_Key_Presser
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
         {
 
         }
