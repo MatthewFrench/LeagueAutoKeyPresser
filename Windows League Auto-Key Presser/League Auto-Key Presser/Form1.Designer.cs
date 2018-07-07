@@ -49,7 +49,6 @@
             this.rMillisecondsText = new System.Windows.Forms.TextBox();
             this.activeMillisecondsText = new System.Windows.Forms.TextBox();
             this.wardHopCheckBox = new System.Windows.Forms.CheckBox();
-            this.wardHopKeyComboBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -93,6 +92,16 @@
             this.rightClickPreactivateActive5Checkbox = new System.Windows.Forms.CheckBox();
             this.rightClickPreactivateActive6Checkbox = new System.Windows.Forms.CheckBox();
             this.rightClickPreactivateActive7Checkbox = new System.Windows.Forms.CheckBox();
+            this.profileComboBox = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.profileNameText = new System.Windows.Forms.TextBox();
+            this.newProfileButton = new System.Windows.Forms.Button();
+            this.duplicateProfileButton = new System.Windows.Forms.Button();
+            this.deleteProfileButton = new System.Windows.Forms.Button();
+            this.wardHopRCheckbox = new System.Windows.Forms.CheckBox();
+            this.wardHopECheckbox = new System.Windows.Forms.CheckBox();
+            this.wardHopWCheckbox = new System.Windows.Forms.CheckBox();
+            this.wardHopQCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -107,7 +116,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 105);
+            this.label3.Location = new System.Drawing.Point(57, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(184, 13);
             this.label3.TabIndex = 2;
@@ -116,7 +125,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(57, 130);
+            this.label4.Location = new System.Drawing.Point(57, 190);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(184, 13);
             this.label4.TabIndex = 3;
@@ -125,7 +134,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(57, 155);
+            this.label5.Location = new System.Drawing.Point(57, 215);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(183, 13);
             this.label5.TabIndex = 4;
@@ -134,7 +143,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(57, 178);
+            this.label6.Location = new System.Drawing.Point(57, 238);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(184, 13);
             this.label6.TabIndex = 5;
@@ -156,7 +165,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(57, 203);
+            this.label7.Location = new System.Drawing.Point(57, 263);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(262, 13);
             this.label7.TabIndex = 7;
@@ -166,7 +175,7 @@
             // active1On
             // 
             this.active1On.AutoSize = true;
-            this.active1On.Location = new System.Drawing.Point(62, 227);
+            this.active1On.Location = new System.Drawing.Point(62, 287);
             this.active1On.Name = "active1On";
             this.active1On.Size = new System.Drawing.Size(89, 17);
             this.active1On.TabIndex = 8;
@@ -177,7 +186,7 @@
             // active2On
             // 
             this.active2On.AutoSize = true;
-            this.active2On.Location = new System.Drawing.Point(63, 251);
+            this.active2On.Location = new System.Drawing.Point(63, 311);
             this.active2On.Name = "active2On";
             this.active2On.Size = new System.Drawing.Size(89, 17);
             this.active2On.TabIndex = 9;
@@ -188,7 +197,7 @@
             // active5On
             // 
             this.active5On.AutoSize = true;
-            this.active5On.Location = new System.Drawing.Point(179, 250);
+            this.active5On.Location = new System.Drawing.Point(179, 310);
             this.active5On.Name = "active5On";
             this.active5On.Size = new System.Drawing.Size(89, 17);
             this.active5On.TabIndex = 11;
@@ -199,7 +208,7 @@
             // active3On
             // 
             this.active3On.AutoSize = true;
-            this.active3On.Location = new System.Drawing.Point(179, 227);
+            this.active3On.Location = new System.Drawing.Point(179, 287);
             this.active3On.Name = "active3On";
             this.active3On.Size = new System.Drawing.Size(89, 17);
             this.active3On.TabIndex = 10;
@@ -210,7 +219,7 @@
             // active6On
             // 
             this.active6On.AutoSize = true;
-            this.active6On.Location = new System.Drawing.Point(274, 227);
+            this.active6On.Location = new System.Drawing.Point(274, 287);
             this.active6On.Name = "active6On";
             this.active6On.Size = new System.Drawing.Size(89, 17);
             this.active6On.TabIndex = 12;
@@ -221,7 +230,7 @@
             // active7On
             // 
             this.active7On.AutoSize = true;
-            this.active7On.Location = new System.Drawing.Point(274, 250);
+            this.active7On.Location = new System.Drawing.Point(274, 310);
             this.active7On.Name = "active7On";
             this.active7On.Size = new System.Drawing.Size(89, 17);
             this.active7On.TabIndex = 13;
@@ -232,7 +241,7 @@
             // wardCheckbox
             // 
             this.wardCheckbox.AutoSize = true;
-            this.wardCheckbox.Location = new System.Drawing.Point(62, 276);
+            this.wardCheckbox.Location = new System.Drawing.Point(62, 336);
             this.wardCheckbox.Name = "wardCheckbox";
             this.wardCheckbox.Size = new System.Drawing.Size(160, 17);
             this.wardCheckbox.TabIndex = 14;
@@ -242,7 +251,7 @@
             // 
             // qMillisecondsText
             // 
-            this.qMillisecondsText.Location = new System.Drawing.Point(79, 102);
+            this.qMillisecondsText.Location = new System.Drawing.Point(79, 162);
             this.qMillisecondsText.Name = "qMillisecondsText";
             this.qMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.qMillisecondsText.TabIndex = 15;
@@ -251,7 +260,7 @@
             // 
             // wMillisecondsText
             // 
-            this.wMillisecondsText.Location = new System.Drawing.Point(79, 127);
+            this.wMillisecondsText.Location = new System.Drawing.Point(79, 187);
             this.wMillisecondsText.Name = "wMillisecondsText";
             this.wMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.wMillisecondsText.TabIndex = 16;
@@ -260,7 +269,7 @@
             // 
             // eMillisecondsText
             // 
-            this.eMillisecondsText.Location = new System.Drawing.Point(79, 152);
+            this.eMillisecondsText.Location = new System.Drawing.Point(79, 212);
             this.eMillisecondsText.Name = "eMillisecondsText";
             this.eMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.eMillisecondsText.TabIndex = 17;
@@ -269,7 +278,7 @@
             // 
             // rMillisecondsText
             // 
-            this.rMillisecondsText.Location = new System.Drawing.Point(79, 175);
+            this.rMillisecondsText.Location = new System.Drawing.Point(79, 235);
             this.rMillisecondsText.Name = "rMillisecondsText";
             this.rMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.rMillisecondsText.TabIndex = 18;
@@ -278,7 +287,7 @@
             // 
             // activeMillisecondsText
             // 
-            this.activeMillisecondsText.Location = new System.Drawing.Point(106, 200);
+            this.activeMillisecondsText.Location = new System.Drawing.Point(106, 260);
             this.activeMillisecondsText.Name = "activeMillisecondsText";
             this.activeMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.activeMillisecondsText.TabIndex = 19;
@@ -288,35 +297,18 @@
             // wardHopCheckBox
             // 
             this.wardHopCheckBox.AutoSize = true;
-            this.wardHopCheckBox.Location = new System.Drawing.Point(62, 299);
+            this.wardHopCheckBox.Location = new System.Drawing.Point(62, 359);
             this.wardHopCheckBox.Name = "wardHopCheckBox";
-            this.wardHopCheckBox.Size = new System.Drawing.Size(170, 17);
+            this.wardHopCheckBox.Size = new System.Drawing.Size(178, 17);
             this.wardHopCheckBox.TabIndex = 21;
-            this.wardHopCheckBox.Text = "Ward hop (T Key) using ability:";
+            this.wardHopCheckBox.Text = "Ward hop (T Key) using abilities:";
             this.wardHopCheckBox.UseVisualStyleBackColor = true;
             this.wardHopCheckBox.CheckedChanged += new System.EventHandler(this.wardHopCheckBox_CheckedChanged);
-            // 
-            // wardHopKeyComboBox
-            // 
-            this.wardHopKeyComboBox.DisplayMember = "E";
-            this.wardHopKeyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.wardHopKeyComboBox.FormattingEnabled = true;
-            this.wardHopKeyComboBox.Items.AddRange(new object[] {
-            "Q",
-            "W",
-            "E",
-            "R"});
-            this.wardHopKeyComboBox.Location = new System.Drawing.Point(238, 297);
-            this.wardHopKeyComboBox.MaxDropDownItems = 4;
-            this.wardHopKeyComboBox.Name = "wardHopKeyComboBox";
-            this.wardHopKeyComboBox.Size = new System.Drawing.Size(121, 21);
-            this.wardHopKeyComboBox.TabIndex = 22;
-            this.wardHopKeyComboBox.SelectedIndexChanged += new System.EventHandler(this.wardHopKeyComboBox_SelectedIndexChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(257, 105);
+            this.label8.Location = new System.Drawing.Point(257, 165);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 13);
             this.label8.TabIndex = 23;
@@ -325,7 +317,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(257, 130);
+            this.label9.Location = new System.Drawing.Point(257, 190);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(67, 13);
             this.label9.TabIndex = 24;
@@ -334,7 +326,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(257, 155);
+            this.label10.Location = new System.Drawing.Point(257, 215);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 25;
@@ -343,7 +335,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(257, 178);
+            this.label11.Location = new System.Drawing.Point(257, 238);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(67, 13);
             this.label11.TabIndex = 26;
@@ -352,7 +344,7 @@
             // qActivateWCheckBox
             // 
             this.qActivateWCheckBox.AutoSize = true;
-            this.qActivateWCheckBox.Location = new System.Drawing.Point(330, 104);
+            this.qActivateWCheckBox.Location = new System.Drawing.Point(330, 164);
             this.qActivateWCheckBox.Name = "qActivateWCheckBox";
             this.qActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
             this.qActivateWCheckBox.TabIndex = 27;
@@ -363,7 +355,7 @@
             // qActivateECheckBox
             // 
             this.qActivateECheckBox.AutoSize = true;
-            this.qActivateECheckBox.Location = new System.Drawing.Point(370, 104);
+            this.qActivateECheckBox.Location = new System.Drawing.Point(370, 164);
             this.qActivateECheckBox.Name = "qActivateECheckBox";
             this.qActivateECheckBox.Size = new System.Drawing.Size(33, 17);
             this.qActivateECheckBox.TabIndex = 28;
@@ -374,7 +366,7 @@
             // qActivateRCheckBox
             // 
             this.qActivateRCheckBox.AutoSize = true;
-            this.qActivateRCheckBox.Location = new System.Drawing.Point(413, 104);
+            this.qActivateRCheckBox.Location = new System.Drawing.Point(413, 164);
             this.qActivateRCheckBox.Name = "qActivateRCheckBox";
             this.qActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
             this.qActivateRCheckBox.TabIndex = 29;
@@ -385,7 +377,7 @@
             // wActivateRCheckBox
             // 
             this.wActivateRCheckBox.AutoSize = true;
-            this.wActivateRCheckBox.Location = new System.Drawing.Point(413, 129);
+            this.wActivateRCheckBox.Location = new System.Drawing.Point(413, 189);
             this.wActivateRCheckBox.Name = "wActivateRCheckBox";
             this.wActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
             this.wActivateRCheckBox.TabIndex = 32;
@@ -396,7 +388,7 @@
             // wActivateECheckBox
             // 
             this.wActivateECheckBox.AutoSize = true;
-            this.wActivateECheckBox.Location = new System.Drawing.Point(370, 129);
+            this.wActivateECheckBox.Location = new System.Drawing.Point(370, 189);
             this.wActivateECheckBox.Name = "wActivateECheckBox";
             this.wActivateECheckBox.Size = new System.Drawing.Size(33, 17);
             this.wActivateECheckBox.TabIndex = 31;
@@ -407,7 +399,7 @@
             // wActivateQCheckBox
             // 
             this.wActivateQCheckBox.AutoSize = true;
-            this.wActivateQCheckBox.Location = new System.Drawing.Point(330, 129);
+            this.wActivateQCheckBox.Location = new System.Drawing.Point(330, 189);
             this.wActivateQCheckBox.Name = "wActivateQCheckBox";
             this.wActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
             this.wActivateQCheckBox.TabIndex = 30;
@@ -418,7 +410,7 @@
             // eActivateRCheckBox
             // 
             this.eActivateRCheckBox.AutoSize = true;
-            this.eActivateRCheckBox.Location = new System.Drawing.Point(413, 154);
+            this.eActivateRCheckBox.Location = new System.Drawing.Point(413, 214);
             this.eActivateRCheckBox.Name = "eActivateRCheckBox";
             this.eActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
             this.eActivateRCheckBox.TabIndex = 35;
@@ -429,7 +421,7 @@
             // eActivateWCheckBox
             // 
             this.eActivateWCheckBox.AutoSize = true;
-            this.eActivateWCheckBox.Location = new System.Drawing.Point(370, 154);
+            this.eActivateWCheckBox.Location = new System.Drawing.Point(370, 214);
             this.eActivateWCheckBox.Name = "eActivateWCheckBox";
             this.eActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
             this.eActivateWCheckBox.TabIndex = 34;
@@ -440,7 +432,7 @@
             // eActivateQCheckBox
             // 
             this.eActivateQCheckBox.AutoSize = true;
-            this.eActivateQCheckBox.Location = new System.Drawing.Point(330, 154);
+            this.eActivateQCheckBox.Location = new System.Drawing.Point(330, 214);
             this.eActivateQCheckBox.Name = "eActivateQCheckBox";
             this.eActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
             this.eActivateQCheckBox.TabIndex = 33;
@@ -451,7 +443,7 @@
             // rActivateECheckBox
             // 
             this.rActivateECheckBox.AutoSize = true;
-            this.rActivateECheckBox.Location = new System.Drawing.Point(413, 177);
+            this.rActivateECheckBox.Location = new System.Drawing.Point(413, 237);
             this.rActivateECheckBox.Name = "rActivateECheckBox";
             this.rActivateECheckBox.Size = new System.Drawing.Size(33, 17);
             this.rActivateECheckBox.TabIndex = 38;
@@ -462,7 +454,7 @@
             // rActivateWCheckBox
             // 
             this.rActivateWCheckBox.AutoSize = true;
-            this.rActivateWCheckBox.Location = new System.Drawing.Point(370, 177);
+            this.rActivateWCheckBox.Location = new System.Drawing.Point(370, 237);
             this.rActivateWCheckBox.Name = "rActivateWCheckBox";
             this.rActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
             this.rActivateWCheckBox.TabIndex = 37;
@@ -473,7 +465,7 @@
             // rActivateQCheckBox
             // 
             this.rActivateQCheckBox.AutoSize = true;
-            this.rActivateQCheckBox.Location = new System.Drawing.Point(330, 177);
+            this.rActivateQCheckBox.Location = new System.Drawing.Point(330, 237);
             this.rActivateQCheckBox.Name = "rActivateQCheckBox";
             this.rActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
             this.rActivateQCheckBox.TabIndex = 36;
@@ -484,7 +476,7 @@
             // qOnCheckbox
             // 
             this.qOnCheckbox.AutoSize = true;
-            this.qOnCheckbox.Location = new System.Drawing.Point(14, 104);
+            this.qOnCheckbox.Location = new System.Drawing.Point(14, 164);
             this.qOnCheckbox.Name = "qOnCheckbox";
             this.qOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.qOnCheckbox.TabIndex = 39;
@@ -495,7 +487,7 @@
             // wOnCheckbox
             // 
             this.wOnCheckbox.AutoSize = true;
-            this.wOnCheckbox.Location = new System.Drawing.Point(14, 129);
+            this.wOnCheckbox.Location = new System.Drawing.Point(14, 189);
             this.wOnCheckbox.Name = "wOnCheckbox";
             this.wOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.wOnCheckbox.TabIndex = 40;
@@ -505,7 +497,7 @@
             // eOnCheckbox
             // 
             this.eOnCheckbox.AutoSize = true;
-            this.eOnCheckbox.Location = new System.Drawing.Point(14, 154);
+            this.eOnCheckbox.Location = new System.Drawing.Point(14, 214);
             this.eOnCheckbox.Name = "eOnCheckbox";
             this.eOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.eOnCheckbox.TabIndex = 41;
@@ -515,7 +507,7 @@
             // rOnCheckbox
             // 
             this.rOnCheckbox.AutoSize = true;
-            this.rOnCheckbox.Location = new System.Drawing.Point(14, 177);
+            this.rOnCheckbox.Location = new System.Drawing.Point(14, 237);
             this.rOnCheckbox.Name = "rOnCheckbox";
             this.rOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.rOnCheckbox.TabIndex = 42;
@@ -525,7 +517,7 @@
             // bindActivesToECheckbox
             // 
             this.bindActivesToECheckbox.AutoSize = true;
-            this.bindActivesToECheckbox.Location = new System.Drawing.Point(408, 202);
+            this.bindActivesToECheckbox.Location = new System.Drawing.Point(408, 262);
             this.bindActivesToECheckbox.Name = "bindActivesToECheckbox";
             this.bindActivesToECheckbox.Size = new System.Drawing.Size(33, 17);
             this.bindActivesToECheckbox.TabIndex = 45;
@@ -535,7 +527,7 @@
             // bindActivesToWCheckbox
             // 
             this.bindActivesToWCheckbox.AutoSize = true;
-            this.bindActivesToWCheckbox.Location = new System.Drawing.Point(365, 202);
+            this.bindActivesToWCheckbox.Location = new System.Drawing.Point(365, 262);
             this.bindActivesToWCheckbox.Name = "bindActivesToWCheckbox";
             this.bindActivesToWCheckbox.Size = new System.Drawing.Size(37, 17);
             this.bindActivesToWCheckbox.TabIndex = 44;
@@ -545,7 +537,7 @@
             // bindActivesToQCheckbox
             // 
             this.bindActivesToQCheckbox.AutoSize = true;
-            this.bindActivesToQCheckbox.Location = new System.Drawing.Point(325, 202);
+            this.bindActivesToQCheckbox.Location = new System.Drawing.Point(325, 262);
             this.bindActivesToQCheckbox.Name = "bindActivesToQCheckbox";
             this.bindActivesToQCheckbox.Size = new System.Drawing.Size(34, 17);
             this.bindActivesToQCheckbox.TabIndex = 43;
@@ -555,7 +547,7 @@
             // bindActivesToRCheckbox
             // 
             this.bindActivesToRCheckbox.AutoSize = true;
-            this.bindActivesToRCheckbox.Location = new System.Drawing.Point(447, 202);
+            this.bindActivesToRCheckbox.Location = new System.Drawing.Point(447, 262);
             this.bindActivesToRCheckbox.Name = "bindActivesToRCheckbox";
             this.bindActivesToRCheckbox.Size = new System.Drawing.Size(34, 17);
             this.bindActivesToRCheckbox.TabIndex = 46;
@@ -565,7 +557,7 @@
             // activesOnCheckbox
             // 
             this.activesOnCheckbox.AutoSize = true;
-            this.activesOnCheckbox.Location = new System.Drawing.Point(14, 202);
+            this.activesOnCheckbox.Location = new System.Drawing.Point(14, 262);
             this.activesOnCheckbox.Name = "activesOnCheckbox";
             this.activesOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.activesOnCheckbox.TabIndex = 47;
@@ -607,7 +599,7 @@
             // rightClickOnCheckbox
             // 
             this.rightClickOnCheckbox.AutoSize = true;
-            this.rightClickOnCheckbox.Location = new System.Drawing.Point(14, 326);
+            this.rightClickOnCheckbox.Location = new System.Drawing.Point(14, 386);
             this.rightClickOnCheckbox.Name = "rightClickOnCheckbox";
             this.rightClickOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.rightClickOnCheckbox.TabIndex = 53;
@@ -616,7 +608,7 @@
             // 
             // rightClickMillisecondsText
             // 
-            this.rightClickMillisecondsText.Location = new System.Drawing.Point(149, 324);
+            this.rightClickMillisecondsText.Location = new System.Drawing.Point(149, 384);
             this.rightClickMillisecondsText.Name = "rightClickMillisecondsText";
             this.rightClickMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.rightClickMillisecondsText.TabIndex = 52;
@@ -625,7 +617,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(57, 327);
+            this.label2.Location = new System.Drawing.Point(57, 387);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 13);
             this.label2.TabIndex = 51;
@@ -634,7 +626,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(228, 327);
+            this.label12.Location = new System.Drawing.Point(228, 387);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(89, 13);
             this.label12.TabIndex = 54;
@@ -643,7 +635,7 @@
             // rightClickPreactivateRCheckbox
             // 
             this.rightClickPreactivateRCheckbox.AutoSize = true;
-            this.rightClickPreactivateRCheckbox.Location = new System.Drawing.Point(252, 345);
+            this.rightClickPreactivateRCheckbox.Location = new System.Drawing.Point(252, 408);
             this.rightClickPreactivateRCheckbox.Name = "rightClickPreactivateRCheckbox";
             this.rightClickPreactivateRCheckbox.Size = new System.Drawing.Size(34, 17);
             this.rightClickPreactivateRCheckbox.TabIndex = 58;
@@ -653,7 +645,7 @@
             // rightClickPreactivateECheckbox
             // 
             this.rightClickPreactivateECheckbox.AutoSize = true;
-            this.rightClickPreactivateECheckbox.Location = new System.Drawing.Point(213, 345);
+            this.rightClickPreactivateECheckbox.Location = new System.Drawing.Point(213, 408);
             this.rightClickPreactivateECheckbox.Name = "rightClickPreactivateECheckbox";
             this.rightClickPreactivateECheckbox.Size = new System.Drawing.Size(33, 17);
             this.rightClickPreactivateECheckbox.TabIndex = 57;
@@ -663,7 +655,7 @@
             // rightClickPreactivateWCheckbox
             // 
             this.rightClickPreactivateWCheckbox.AutoSize = true;
-            this.rightClickPreactivateWCheckbox.Location = new System.Drawing.Point(170, 345);
+            this.rightClickPreactivateWCheckbox.Location = new System.Drawing.Point(170, 408);
             this.rightClickPreactivateWCheckbox.Name = "rightClickPreactivateWCheckbox";
             this.rightClickPreactivateWCheckbox.Size = new System.Drawing.Size(37, 17);
             this.rightClickPreactivateWCheckbox.TabIndex = 56;
@@ -673,7 +665,7 @@
             // rightClickPreactivateQCheckbox
             // 
             this.rightClickPreactivateQCheckbox.AutoSize = true;
-            this.rightClickPreactivateQCheckbox.Location = new System.Drawing.Point(130, 345);
+            this.rightClickPreactivateQCheckbox.Location = new System.Drawing.Point(130, 408);
             this.rightClickPreactivateQCheckbox.Name = "rightClickPreactivateQCheckbox";
             this.rightClickPreactivateQCheckbox.Size = new System.Drawing.Size(34, 17);
             this.rightClickPreactivateQCheckbox.TabIndex = 55;
@@ -683,7 +675,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(57, 346);
+            this.label13.Location = new System.Drawing.Point(57, 409);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(67, 13);
             this.label13.TabIndex = 59;
@@ -692,7 +684,7 @@
             // rightClickPreactivateActive1Checkbox
             // 
             this.rightClickPreactivateActive1Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive1Checkbox.Location = new System.Drawing.Point(292, 345);
+            this.rightClickPreactivateActive1Checkbox.Location = new System.Drawing.Point(292, 408);
             this.rightClickPreactivateActive1Checkbox.Name = "rightClickPreactivateActive1Checkbox";
             this.rightClickPreactivateActive1Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive1Checkbox.TabIndex = 60;
@@ -702,7 +694,7 @@
             // rightClickPreactivateActive2Checkbox
             // 
             this.rightClickPreactivateActive2Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive2Checkbox.Location = new System.Drawing.Point(387, 345);
+            this.rightClickPreactivateActive2Checkbox.Location = new System.Drawing.Point(387, 408);
             this.rightClickPreactivateActive2Checkbox.Name = "rightClickPreactivateActive2Checkbox";
             this.rightClickPreactivateActive2Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive2Checkbox.TabIndex = 61;
@@ -712,7 +704,7 @@
             // rightClickPreactivateActive3Checkbox
             // 
             this.rightClickPreactivateActive3Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive3Checkbox.Location = new System.Drawing.Point(130, 364);
+            this.rightClickPreactivateActive3Checkbox.Location = new System.Drawing.Point(130, 427);
             this.rightClickPreactivateActive3Checkbox.Name = "rightClickPreactivateActive3Checkbox";
             this.rightClickPreactivateActive3Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive3Checkbox.TabIndex = 62;
@@ -722,7 +714,7 @@
             // rightClickPreactivateActive5Checkbox
             // 
             this.rightClickPreactivateActive5Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive5Checkbox.Location = new System.Drawing.Point(225, 364);
+            this.rightClickPreactivateActive5Checkbox.Location = new System.Drawing.Point(225, 427);
             this.rightClickPreactivateActive5Checkbox.Name = "rightClickPreactivateActive5Checkbox";
             this.rightClickPreactivateActive5Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive5Checkbox.TabIndex = 63;
@@ -732,7 +724,7 @@
             // rightClickPreactivateActive6Checkbox
             // 
             this.rightClickPreactivateActive6Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive6Checkbox.Location = new System.Drawing.Point(318, 364);
+            this.rightClickPreactivateActive6Checkbox.Location = new System.Drawing.Point(318, 427);
             this.rightClickPreactivateActive6Checkbox.Name = "rightClickPreactivateActive6Checkbox";
             this.rightClickPreactivateActive6Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive6Checkbox.TabIndex = 64;
@@ -742,18 +734,127 @@
             // rightClickPreactivateActive7Checkbox
             // 
             this.rightClickPreactivateActive7Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive7Checkbox.Location = new System.Drawing.Point(409, 364);
+            this.rightClickPreactivateActive7Checkbox.Location = new System.Drawing.Point(409, 427);
             this.rightClickPreactivateActive7Checkbox.Name = "rightClickPreactivateActive7Checkbox";
             this.rightClickPreactivateActive7Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive7Checkbox.TabIndex = 65;
             this.rightClickPreactivateActive7Checkbox.Text = "Do #7 Active";
             this.rightClickPreactivateActive7Checkbox.UseVisualStyleBackColor = true;
             // 
+            // profileComboBox
+            // 
+            this.profileComboBox.DisplayMember = "E";
+            this.profileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.profileComboBox.FormattingEnabled = true;
+            this.profileComboBox.Items.AddRange(new object[] {
+            "Q",
+            "W",
+            "E",
+            "R"});
+            this.profileComboBox.Location = new System.Drawing.Point(57, 98);
+            this.profileComboBox.MaxDropDownItems = 4;
+            this.profileComboBox.Name = "profileComboBox";
+            this.profileComboBox.Size = new System.Drawing.Size(216, 21);
+            this.profileComboBox.TabIndex = 66;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(12, 101);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(39, 13);
+            this.label14.TabIndex = 67;
+            this.label14.Text = "Profile:";
+            // 
+            // profileNameText
+            // 
+            this.profileNameText.Location = new System.Drawing.Point(279, 99);
+            this.profileNameText.Name = "profileNameText";
+            this.profileNameText.Size = new System.Drawing.Size(202, 20);
+            this.profileNameText.TabIndex = 68;
+            // 
+            // newProfileButton
+            // 
+            this.newProfileButton.Location = new System.Drawing.Point(12, 125);
+            this.newProfileButton.Name = "newProfileButton";
+            this.newProfileButton.Size = new System.Drawing.Size(75, 23);
+            this.newProfileButton.TabIndex = 69;
+            this.newProfileButton.Text = "New Profile";
+            this.newProfileButton.UseVisualStyleBackColor = true;
+            // 
+            // duplicateProfileButton
+            // 
+            this.duplicateProfileButton.Location = new System.Drawing.Point(106, 125);
+            this.duplicateProfileButton.Name = "duplicateProfileButton";
+            this.duplicateProfileButton.Size = new System.Drawing.Size(103, 23);
+            this.duplicateProfileButton.TabIndex = 70;
+            this.duplicateProfileButton.Text = "Duplicate Profile";
+            this.duplicateProfileButton.UseVisualStyleBackColor = true;
+            // 
+            // deleteProfileButton
+            // 
+            this.deleteProfileButton.Location = new System.Drawing.Point(378, 125);
+            this.deleteProfileButton.Name = "deleteProfileButton";
+            this.deleteProfileButton.Size = new System.Drawing.Size(103, 23);
+            this.deleteProfileButton.TabIndex = 71;
+            this.deleteProfileButton.Text = "Delete Profile";
+            this.deleteProfileButton.UseVisualStyleBackColor = true;
+            // 
+            // wardHopRCheckbox
+            // 
+            this.wardHopRCheckbox.AutoSize = true;
+            this.wardHopRCheckbox.Location = new System.Drawing.Point(361, 359);
+            this.wardHopRCheckbox.Name = "wardHopRCheckbox";
+            this.wardHopRCheckbox.Size = new System.Drawing.Size(34, 17);
+            this.wardHopRCheckbox.TabIndex = 75;
+            this.wardHopRCheckbox.Text = "R";
+            this.wardHopRCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // wardHopECheckbox
+            // 
+            this.wardHopECheckbox.AutoSize = true;
+            this.wardHopECheckbox.Location = new System.Drawing.Point(322, 359);
+            this.wardHopECheckbox.Name = "wardHopECheckbox";
+            this.wardHopECheckbox.Size = new System.Drawing.Size(33, 17);
+            this.wardHopECheckbox.TabIndex = 74;
+            this.wardHopECheckbox.Text = "E";
+            this.wardHopECheckbox.UseVisualStyleBackColor = true;
+            // 
+            // wardHopWCheckbox
+            // 
+            this.wardHopWCheckbox.AutoSize = true;
+            this.wardHopWCheckbox.Location = new System.Drawing.Point(279, 359);
+            this.wardHopWCheckbox.Name = "wardHopWCheckbox";
+            this.wardHopWCheckbox.Size = new System.Drawing.Size(37, 17);
+            this.wardHopWCheckbox.TabIndex = 73;
+            this.wardHopWCheckbox.Text = "W";
+            this.wardHopWCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // wardHopQCheckbox
+            // 
+            this.wardHopQCheckbox.AutoSize = true;
+            this.wardHopQCheckbox.Location = new System.Drawing.Point(239, 359);
+            this.wardHopQCheckbox.Name = "wardHopQCheckbox";
+            this.wardHopQCheckbox.Size = new System.Drawing.Size(34, 17);
+            this.wardHopQCheckbox.TabIndex = 72;
+            this.wardHopQCheckbox.Text = "Q";
+            this.wardHopQCheckbox.UseVisualStyleBackColor = true;
+            // 
             // LeagueUltimateCasterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 385);
+            this.ClientSize = new System.Drawing.Size(516, 456);
+            this.Controls.Add(this.wardHopRCheckbox);
+            this.Controls.Add(this.wardHopECheckbox);
+            this.Controls.Add(this.wardHopWCheckbox);
+            this.Controls.Add(this.wardHopQCheckbox);
+            this.Controls.Add(this.deleteProfileButton);
+            this.Controls.Add(this.duplicateProfileButton);
+            this.Controls.Add(this.newProfileButton);
+            this.Controls.Add(this.profileNameText);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.profileComboBox);
             this.Controls.Add(this.rightClickPreactivateActive7Checkbox);
             this.Controls.Add(this.rightClickPreactivateActive6Checkbox);
             this.Controls.Add(this.rightClickPreactivateActive5Checkbox);
@@ -797,7 +898,6 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.wardHopKeyComboBox);
             this.Controls.Add(this.wardHopCheckBox);
             this.Controls.Add(this.activeMillisecondsText);
             this.Controls.Add(this.rMillisecondsText);
@@ -850,7 +950,6 @@
         private System.Windows.Forms.TextBox rMillisecondsText;
         private System.Windows.Forms.TextBox activeMillisecondsText;
         private System.Windows.Forms.CheckBox wardHopCheckBox;
-        private System.Windows.Forms.ComboBox wardHopKeyComboBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
@@ -894,6 +993,16 @@
         private System.Windows.Forms.CheckBox rightClickPreactivateActive5Checkbox;
         private System.Windows.Forms.CheckBox rightClickPreactivateActive6Checkbox;
         private System.Windows.Forms.CheckBox rightClickPreactivateActive7Checkbox;
+        private System.Windows.Forms.ComboBox profileComboBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox profileNameText;
+        private System.Windows.Forms.Button newProfileButton;
+        private System.Windows.Forms.Button duplicateProfileButton;
+        private System.Windows.Forms.Button deleteProfileButton;
+        private System.Windows.Forms.CheckBox wardHopRCheckbox;
+        private System.Windows.Forms.CheckBox wardHopECheckbox;
+        private System.Windows.Forms.CheckBox wardHopWCheckbox;
+        private System.Windows.Forms.CheckBox wardHopQCheckbox;
     }
 }
 
