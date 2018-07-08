@@ -9,68 +9,68 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 {
     public class ProfileData
     {
-        public string ProfileName { get; set; }
+        public string ProfileName { get; set; } = "New Profile";
         //Q
-        public bool QOn { get; set; }
-        public int QMillisecondDelay { get; set; }
-        public int QPreactivateW { get; set; }
-        public int QPreactivateE { get; set; }
-        public int QPreactivateR { get; set; }
+        public bool QOn { get; set; } = false;
+        public int QMillisecondDelay { get; set; } = 80;
+        public bool QPreactivateW { get; set; } = false;
+        public bool QPreactivateE { get; set; } = false;
+        public bool QPreactivateR { get; set; } = false;
         //W
-        public bool WOn { get; set; }
-        public int WMillisecondDelay { get; set; }
-        public int WPreactivateQ { get; set; }
-        public int WPreactivateE { get; set; }
-        public int WPreactivateR { get; set; }
+        public bool WOn { get; set; } = false;
+        public int WMillisecondDelay { get; set; } = 90;
+        public bool WPreactivateQ { get; set; } = false;
+        public bool WPreactivateE { get; set; } = false;
+        public bool WPreactivateR { get; set; } = false;
         //E
-        public bool EOn { get; set; }
-        public int EMillisecondDelay { get; set; }
-        public int EPreactivateQ { get; set; }
-        public int EPreactivateW { get; set; }
-        public int EPreactivateR { get; set; }
+        public bool EOn { get; set; } = false;
+        public int EMillisecondDelay { get; set; } = 100;
+        public bool EPreactivateQ { get; set; } = false;
+        public bool EPreactivateW { get; set; } = false;
+        public bool EPreactivateR { get; set; } = false;
         //R
-        public bool ROn { get; set; }
-        public int RMillisecondDelay { get; set; }
-        public int RPreactivateQ { get; set; }
-        public int RPreactivateW { get; set; }
-        public int RPreactivateE { get; set; }
+        public bool ROn { get; set; } = false;
+        public int RMillisecondDelay { get; set; } = 110;
+        public bool RPreactivateQ { get; set; } = false;
+        public bool RPreactivateW { get; set; } = false;
+        public bool RPreactivateE { get; set; } = false;
 
         //Actives
-        public bool ActivesOn { get; set; }
-        public int ActivesMillisecondDelay { get; set; }
-        public int ActivesBoundToQ { get; set; }
-        public int ActivesBoundToW { get; set; }
-        public int ActivesBoundToE { get; set; }
-        public int ActivesBoundToR { get; set; }
-        public int ActivesDo1 { get; set; }
-        public int ActivesDo2 { get; set; }
-        public int ActivesDo3 { get; set; }
-        public int ActivesDo5 { get; set; }
-        public int ActivesDo6 { get; set; }
-        public int ActivesDo7 { get; set; }
+        public bool ActivesOn { get; set; } = false;
+        public int ActivesMillisecondDelay { get; set; } = 200;
+        public bool ActivesBoundToQ { get; set; } = false;
+        public bool ActivesBoundToW { get; set; } = false;
+        public bool ActivesBoundToE { get; set; } = false;
+        public bool ActivesBoundToR { get; set; } = false;
+        public bool ActivesDo1 { get; set; } = false;
+        public bool ActivesDo2 { get; set; } = false;
+        public bool ActivesDo3 { get; set; } = false;
+        public bool ActivesDo5 { get; set; } = false;
+        public bool ActivesDo6 { get; set; } = false;
+        public bool ActivesDo7 { get; set; } = false;
 
         //Ward
-        public bool AutoWardOn { get; set; }
+        public bool AutoWardOn { get; set; } = false;
 
         //Ward Hop
-        public bool WardHopOn { get; set; }
-        public bool WardHopUsingQ { get; set; }
-        public bool WardHopUsingW { get; set; }
-        public bool WardHopUsingE { get; set; }
-        public bool WardHopUsingR { get; set; }
+        public bool WardHopOn { get; set; } = false;
+        public bool WardHopUsingQ { get; set; } = false;
+        public bool WardHopUsingW { get; set; } = false;
+        public bool WardHopUsingE { get; set; } = false;
+        public bool WardHopUsingR { get; set; } = false;
 
         //Right Click Spam
-        public bool RightClickSpamOn { get; set; }
-        public int RightClickMillisecondDelay { get; set; }
-        public int RightClickPreactivateQ { get; set; }
-        public int RightClickPreactivateW { get; set; }
-        public int RightClickPreactivateE { get; set; }
-        public int RightClickPreactivateR { get; set; }
-        public int RightClickPreactivate1 { get; set; }
-        public int RightClickPreactivate2 { get; set; }
-        public int RightClickPreactivate3 { get; set; }
-        public int RightClickPreactivate5 { get; set; }
-        public int RightClickPreactivate6 { get; set; }
-        public int RightClickPreactivate7 { get; set; }
+        public bool RightClickSpamOn { get; set; } = false;
+        public int RightClickMillisecondDelay { get; set; } = 50;
+        public bool RightClickPreactivateQ { get; set; } = false;
+        public bool RightClickPreactivateW { get; set; } = false;
+        public bool RightClickPreactivateE { get; set; } = false;
+        public bool RightClickPreactivateR { get; set; } = false;
+        public bool RightClickPreactivate1 { get; set; } = false;
+        public bool RightClickPreactivate2 { get; set; } = false;
+        public bool RightClickPreactivate3 { get; set; } = false;
+        public bool RightClickPreactivate5 { get; set; } = false;
+        public bool RightClickPreactivate6 { get; set; } = false;
+        public bool RightClickPreactivate7 { get; set; } = false;
     }
 }
