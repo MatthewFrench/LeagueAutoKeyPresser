@@ -493,6 +493,7 @@
             this.wOnCheckbox.TabIndex = 40;
             this.wOnCheckbox.Text = "On";
             this.wOnCheckbox.UseVisualStyleBackColor = true;
+            this.wOnCheckbox.CheckedChanged += new System.EventHandler(this.wOnCheckbox_CheckedChanged);
             // 
             // eOnCheckbox
             // 
@@ -503,6 +504,7 @@
             this.eOnCheckbox.TabIndex = 41;
             this.eOnCheckbox.Text = "On";
             this.eOnCheckbox.UseVisualStyleBackColor = true;
+            this.eOnCheckbox.CheckedChanged += new System.EventHandler(this.eOnCheckbox_CheckedChanged);
             // 
             // rOnCheckbox
             // 
@@ -513,6 +515,7 @@
             this.rOnCheckbox.TabIndex = 42;
             this.rOnCheckbox.Text = "On";
             this.rOnCheckbox.UseVisualStyleBackColor = true;
+            this.rOnCheckbox.CheckedChanged += new System.EventHandler(this.rOnCheckbox_CheckedChanged);
             // 
             // bindActivesToECheckbox
             // 
@@ -523,6 +526,7 @@
             this.bindActivesToECheckbox.TabIndex = 45;
             this.bindActivesToECheckbox.Text = "E";
             this.bindActivesToECheckbox.UseVisualStyleBackColor = true;
+            this.bindActivesToECheckbox.CheckedChanged += new System.EventHandler(this.bindActivesToECheckbox_CheckedChanged);
             // 
             // bindActivesToWCheckbox
             // 
@@ -533,6 +537,7 @@
             this.bindActivesToWCheckbox.TabIndex = 44;
             this.bindActivesToWCheckbox.Text = "W";
             this.bindActivesToWCheckbox.UseVisualStyleBackColor = true;
+            this.bindActivesToWCheckbox.CheckedChanged += new System.EventHandler(this.bindActivesToWCheckbox_CheckedChanged);
             // 
             // bindActivesToQCheckbox
             // 
@@ -543,6 +548,7 @@
             this.bindActivesToQCheckbox.TabIndex = 43;
             this.bindActivesToQCheckbox.Text = "Q";
             this.bindActivesToQCheckbox.UseVisualStyleBackColor = true;
+            this.bindActivesToQCheckbox.CheckedChanged += new System.EventHandler(this.bindActivesToQCheckbox_CheckedChanged);
             // 
             // bindActivesToRCheckbox
             // 
@@ -553,6 +559,7 @@
             this.bindActivesToRCheckbox.TabIndex = 46;
             this.bindActivesToRCheckbox.Text = "R";
             this.bindActivesToRCheckbox.UseVisualStyleBackColor = true;
+            this.bindActivesToRCheckbox.CheckedChanged += new System.EventHandler(this.bindActivesToRCheckbox_CheckedChanged);
             // 
             // activesOnCheckbox
             // 
@@ -563,6 +570,7 @@
             this.activesOnCheckbox.TabIndex = 47;
             this.activesOnCheckbox.Text = "On";
             this.activesOnCheckbox.UseVisualStyleBackColor = true;
+            this.activesOnCheckbox.CheckedChanged += new System.EventHandler(this.activesOnCheckbox_CheckedChanged);
             // 
             // turnOnWhenAvailableCheckbox
             // 
@@ -608,6 +616,7 @@
             this.rightClickOnCheckbox.TabIndex = 53;
             this.rightClickOnCheckbox.Text = "On";
             this.rightClickOnCheckbox.UseVisualStyleBackColor = true;
+            this.rightClickOnCheckbox.CheckedChanged += new System.EventHandler(this.rightClickOnCheckbox_CheckedChanged);
             // 
             // rightClickMillisecondsText
             // 
@@ -616,6 +625,7 @@
             this.rightClickMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.rightClickMillisecondsText.TabIndex = 52;
             this.rightClickMillisecondsText.Text = "100";
+            this.rightClickMillisecondsText.TextChanged += new System.EventHandler(this.rightClickMillisecondsText_TextChanged);
             // 
             // label2
             // 
@@ -644,6 +654,7 @@
             this.rightClickPreactivateRCheckbox.TabIndex = 58;
             this.rightClickPreactivateRCheckbox.Text = "R";
             this.rightClickPreactivateRCheckbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateRCheckbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateRCheckbox_CheckedChanged);
             // 
             // rightClickPreactivateECheckbox
             // 
@@ -654,6 +665,7 @@
             this.rightClickPreactivateECheckbox.TabIndex = 57;
             this.rightClickPreactivateECheckbox.Text = "E";
             this.rightClickPreactivateECheckbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateECheckbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateECheckbox_CheckedChanged);
             // 
             // rightClickPreactivateWCheckbox
             // 
@@ -664,6 +676,7 @@
             this.rightClickPreactivateWCheckbox.TabIndex = 56;
             this.rightClickPreactivateWCheckbox.Text = "W";
             this.rightClickPreactivateWCheckbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateWCheckbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateWCheckbox_CheckedChanged);
             // 
             // rightClickPreactivateQCheckbox
             // 
@@ -674,6 +687,7 @@
             this.rightClickPreactivateQCheckbox.TabIndex = 55;
             this.rightClickPreactivateQCheckbox.Text = "Q";
             this.rightClickPreactivateQCheckbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateQCheckbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateQCheckbox_CheckedChanged);
             // 
             // label13
             // 
@@ -693,6 +707,7 @@
             this.rightClickPreactivateActive1Checkbox.TabIndex = 60;
             this.rightClickPreactivateActive1Checkbox.Text = "Do #1 Active";
             this.rightClickPreactivateActive1Checkbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateActive1Checkbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateActive1Checkbox_CheckedChanged);
             // 
             // rightClickPreactivateActive2Checkbox
             // 
@@ -703,6 +718,7 @@
             this.rightClickPreactivateActive2Checkbox.TabIndex = 61;
             this.rightClickPreactivateActive2Checkbox.Text = "Do #2 Active";
             this.rightClickPreactivateActive2Checkbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateActive2Checkbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateActive2Checkbox_CheckedChanged);
             // 
             // rightClickPreactivateActive3Checkbox
             // 
@@ -713,6 +729,7 @@
             this.rightClickPreactivateActive3Checkbox.TabIndex = 62;
             this.rightClickPreactivateActive3Checkbox.Text = "Do #3 Active";
             this.rightClickPreactivateActive3Checkbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateActive3Checkbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateActive3Checkbox_CheckedChanged);
             // 
             // rightClickPreactivateActive5Checkbox
             // 
@@ -723,6 +740,7 @@
             this.rightClickPreactivateActive5Checkbox.TabIndex = 63;
             this.rightClickPreactivateActive5Checkbox.Text = "Do #5 Active";
             this.rightClickPreactivateActive5Checkbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateActive5Checkbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateActive5Checkbox_CheckedChanged);
             // 
             // rightClickPreactivateActive6Checkbox
             // 
@@ -733,6 +751,7 @@
             this.rightClickPreactivateActive6Checkbox.TabIndex = 64;
             this.rightClickPreactivateActive6Checkbox.Text = "Do #6 Active";
             this.rightClickPreactivateActive6Checkbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateActive6Checkbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateActive6Checkbox_CheckedChanged);
             // 
             // rightClickPreactivateActive7Checkbox
             // 
@@ -743,6 +762,7 @@
             this.rightClickPreactivateActive7Checkbox.TabIndex = 65;
             this.rightClickPreactivateActive7Checkbox.Text = "Do #7 Active";
             this.rightClickPreactivateActive7Checkbox.UseVisualStyleBackColor = true;
+            this.rightClickPreactivateActive7Checkbox.CheckedChanged += new System.EventHandler(this.rightClickPreactivateActive7Checkbox_CheckedChanged);
             // 
             // profileComboBox
             // 
@@ -812,6 +832,7 @@
             this.wardHopRCheckbox.TabIndex = 75;
             this.wardHopRCheckbox.Text = "R";
             this.wardHopRCheckbox.UseVisualStyleBackColor = true;
+            this.wardHopRCheckbox.CheckedChanged += new System.EventHandler(this.wardHopRCheckbox_CheckedChanged);
             // 
             // wardHopECheckbox
             // 
@@ -822,6 +843,7 @@
             this.wardHopECheckbox.TabIndex = 74;
             this.wardHopECheckbox.Text = "E";
             this.wardHopECheckbox.UseVisualStyleBackColor = true;
+            this.wardHopECheckbox.CheckedChanged += new System.EventHandler(this.wardHopECheckbox_CheckedChanged);
             // 
             // wardHopWCheckbox
             // 
@@ -832,6 +854,7 @@
             this.wardHopWCheckbox.TabIndex = 73;
             this.wardHopWCheckbox.Text = "W";
             this.wardHopWCheckbox.UseVisualStyleBackColor = true;
+            this.wardHopWCheckbox.CheckedChanged += new System.EventHandler(this.wardHopWCheckbox_CheckedChanged);
             // 
             // wardHopQCheckbox
             // 
@@ -842,6 +865,7 @@
             this.wardHopQCheckbox.TabIndex = 72;
             this.wardHopQCheckbox.Text = "Q";
             this.wardHopQCheckbox.UseVisualStyleBackColor = true;
+            this.wardHopQCheckbox.CheckedChanged += new System.EventHandler(this.wardHopQCheckbox_CheckedChanged);
             // 
             // LeagueUltimateCasterForm
             // 

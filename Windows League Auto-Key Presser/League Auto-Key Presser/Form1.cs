@@ -99,17 +99,20 @@ namespace League_Auto_Key_Presser
 
         private void active1On_CheckedChanged(object sender, EventArgs e)
         {
-            //active1OnBool = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.ActivesDo1 = active1On.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void active2On_CheckedChanged(object sender, EventArgs e)
         {
-            //active2OnBool = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.ActivesDo2 = active2On.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void active3On_CheckedChanged(object sender, EventArgs e)
         {
-            //active3OnBool = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.ActivesDo3 = active3On.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void autoKeyOn_CheckedChanged(object sender, EventArgs e)
@@ -152,47 +155,85 @@ namespace League_Auto_Key_Presser
 
         private void qValueText_TextChanged(object sender, EventArgs e)
         {
-            //pressSpell1Interval = Convert.ToInt32(qMillisecondsText.Text);
+            int milliseconds = 10;
+            try
+            {
+                milliseconds = Convert.ToInt32(qMillisecondsText.Text);
+            } catch (Exception) { }
+            casterController.SelectedProfile.QSpellData.MillisecondDelay = milliseconds;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void wValueText_TextChanged(object sender, EventArgs e)
         {
-            //pressSpell2Interval = Convert.ToInt32(wMillisecondsText.Text);
+            int milliseconds = 10;
+            try
+            {
+                milliseconds = Convert.ToInt32(wMillisecondsText.Text);
+            }
+            catch (Exception) { }
+            casterController.SelectedProfile.WSpellData.MillisecondDelay = milliseconds;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void eValueText_TextChanged(object sender, EventArgs e)
         {
-            //pressSpell3Interval = Convert.ToInt32(eMillisecondsText.Text);
+            int milliseconds = 10;
+            try
+            {
+                milliseconds = Convert.ToInt32(eMillisecondsText.Text);
+            }
+            catch (Exception) { }
+            casterController.SelectedProfile.ESpellData.MillisecondDelay = milliseconds;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void rValueText_TextChanged(object sender, EventArgs e)
         {
-            //pressSpell4Interval = Convert.ToInt32(rMillisecondsText.Text);
+            int milliseconds = 10;
+            try
+            {
+                milliseconds = Convert.ToInt32(rMillisecondsText.Text);
+            }
+            catch (Exception) { }
+            casterController.SelectedProfile.RSpellData.MillisecondDelay = milliseconds;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void activeValueText_TextChanged(object sender, EventArgs e)
         {
-            //pressActiveInterval = Convert.ToInt32(activeMillisecondsText.Text);
+            int milliseconds = 10;
+            try
+            {
+                milliseconds = Convert.ToInt32(activeMillisecondsText.Text);
+            }
+            catch (Exception) { }
+            casterController.SelectedProfile.ActivesMillisecondDelay = milliseconds;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void active5On_CheckedChanged(object sender, EventArgs e)
         {
-            //active5OnBool = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.ActivesDo5 = active5On.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void active6On_CheckedChanged(object sender, EventArgs e)
         {
-            //active6OnBool = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.ActivesDo6 = active6On.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void active7On_CheckedChanged(object sender, EventArgs e)
         {
-            //active7OnBool = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.ActivesDo7 = active7On.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void wardCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            //wardOnBool = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.AutoWardOn = wardCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void activeKeyComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -202,67 +243,163 @@ namespace League_Auto_Key_Presser
 
         private void qActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //qPreactivateW = ((CheckBox)sender).Checked;
+            if (qActivateWCheckBox.Checked)
+            {
+                casterController.SelectedProfile.QSpellData.Preactivate.Add('W');
+            } else
+            {
+                casterController.SelectedProfile.QSpellData.Preactivate.Remove('W');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void qActivateECheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //qPreactivateE = ((CheckBox)sender).Checked;
+            if (qActivateECheckBox.Checked)
+            {
+                casterController.SelectedProfile.QSpellData.Preactivate.Add('E');
+            }
+            else
+            {
+                casterController.SelectedProfile.QSpellData.Preactivate.Remove('E');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void qActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //qPreactivateR = ((CheckBox)sender).Checked;
+            if (qActivateRCheckBox.Checked)
+            {
+                casterController.SelectedProfile.QSpellData.Preactivate.Add('R');
+            }
+            else
+            {
+                casterController.SelectedProfile.QSpellData.Preactivate.Remove('R');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void wActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //wPreactivateQ = ((CheckBox)sender).Checked;
+            if (wActivateQCheckBox.Checked)
+            {
+                casterController.SelectedProfile.WSpellData.Preactivate.Add('Q');
+            }
+            else
+            {
+                casterController.SelectedProfile.WSpellData.Preactivate.Remove('Q');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void wActivateECheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //wPreactivateE = ((CheckBox)sender).Checked;
+            if (wActivateECheckBox.Checked)
+            {
+                casterController.SelectedProfile.WSpellData.Preactivate.Add('E');
+            }
+            else
+            {
+                casterController.SelectedProfile.WSpellData.Preactivate.Remove('E');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void wActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //wPreactivateR = ((CheckBox)sender).Checked;
+            if (wActivateRCheckBox.Checked)
+            {
+                casterController.SelectedProfile.WSpellData.Preactivate.Add('R');
+            }
+            else
+            {
+                casterController.SelectedProfile.WSpellData.Preactivate.Remove('R');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void eActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //ePreactivateQ = ((CheckBox)sender).Checked;
+            if (eActivateQCheckBox.Checked)
+            {
+                casterController.SelectedProfile.ESpellData.Preactivate.Add('Q');
+            }
+            else
+            {
+                casterController.SelectedProfile.ESpellData.Preactivate.Remove('Q');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void eActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //ePreactivateW = ((CheckBox)sender).Checked;
+            if (eActivateWCheckBox.Checked)
+            {
+                casterController.SelectedProfile.ESpellData.Preactivate.Add('W');
+            }
+            else
+            {
+                casterController.SelectedProfile.ESpellData.Preactivate.Remove('W');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void eActivateRCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //ePreactivateR = ((CheckBox)sender).Checked;
+            if (eActivateRCheckBox.Checked)
+            {
+                casterController.SelectedProfile.ESpellData.Preactivate.Add('R');
+            }
+            else
+            {
+                casterController.SelectedProfile.ESpellData.Preactivate.Remove('R');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void rActivateQCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //rPreactivateQ = ((CheckBox)sender).Checked;
+            if (rActivateQCheckBox.Checked)
+            {
+                casterController.SelectedProfile.RSpellData.Preactivate.Add('Q');
+            }
+            else
+            {
+                casterController.SelectedProfile.RSpellData.Preactivate.Remove('Q');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void rActivateWCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //rPreactivateW = ((CheckBox)sender).Checked;
+            if (rActivateWCheckBox.Checked)
+            {
+                casterController.SelectedProfile.RSpellData.Preactivate.Add('W');
+            }
+            else
+            {
+                casterController.SelectedProfile.RSpellData.Preactivate.Remove('W');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void rActivateECheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //rPreactivateE = ((CheckBox)sender).Checked;
+            if (rActivateECheckBox.Checked)
+            {
+                casterController.SelectedProfile.RSpellData.Preactivate.Add('E');
+            }
+            else
+            {
+                casterController.SelectedProfile.RSpellData.Preactivate.Remove('E');
+            }
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void wardHopCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //wardHopOn = ((CheckBox)sender).Checked;
+            casterController.SelectedProfile.WardHopOn = wardHopCheckBox.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void wardHopKeyComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -281,7 +418,8 @@ namespace League_Auto_Key_Presser
 
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
         {
-
+            casterController.SelectedProfile.QSpellData.On = qOnCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -352,6 +490,156 @@ namespace League_Auto_Key_Presser
             profileComboBox.SelectedIndex = selectedIndex;
             UpdateProfileNamesInComboBox();
             casterController.SetSelectedProfileAtIndex(selectedIndex);
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void wOnCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.WSpellData.On = wOnCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void eOnCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.ESpellData.On = eOnCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rOnCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RSpellData.On = rOnCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void activesOnCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.ActivesOn = activesOnCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickOnCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickSpamOn = rightClickOnCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void bindActivesToQCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.ActivesBoundToQ = bindActivesToQCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void bindActivesToWCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.ActivesBoundToW = bindActivesToWCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void bindActivesToECheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.ActivesBoundToE = bindActivesToECheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void bindActivesToRCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.ActivesBoundToR = bindActivesToRCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void wardHopQCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.WardHopUsingQ = wardHopQCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void wardHopWCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.WardHopUsingW = wardHopWCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void wardHopECheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.WardHopUsingE = wardHopECheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void wardHopRCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.WardHopUsingR = wardHopRCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateQCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivateQ = rightClickPreactivateQCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateWCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivateW = rightClickPreactivateWCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateECheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivateE = rightClickPreactivateECheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateRCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivateR = rightClickPreactivateRCheckbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateActive1Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivate1 = rightClickPreactivateActive1Checkbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateActive2Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivate2 = rightClickPreactivateActive2Checkbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateActive3Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivate3 = rightClickPreactivateActive3Checkbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateActive5Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivate5 = rightClickPreactivateActive5Checkbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateActive6Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivate6 = rightClickPreactivateActive6Checkbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickPreactivateActive7Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.SelectedProfile.RightClickPreactivate7 = rightClickPreactivateActive7Checkbox.Checked;
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void rightClickMillisecondsText_TextChanged(object sender, EventArgs e)
+        {
+            int milliseconds = 10;
+            try
+            {
+                milliseconds = Convert.ToInt32(rightClickMillisecondsText.Text);
+            }
+            catch (Exception) { }
+            casterController.SelectedProfile.RightClickMillisecondDelay = milliseconds;
             casterController.GetProfileController().SaveProfiles();
         }
     }
