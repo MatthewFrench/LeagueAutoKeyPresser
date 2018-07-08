@@ -75,6 +75,7 @@ namespace League_Auto_Key_Presser
             eMillisecondsText.Text = profile.ESpellData.MillisecondDelay.ToString();
             rMillisecondsText.Text = profile.RSpellData.MillisecondDelay.ToString();
             activeMillisecondsText.Text = profile.ActivesMillisecondDelay.ToString();
+            rightClickMillisecondsText.Text = profile.RightClickMillisecondDelay.ToString();
             active1On.Checked = profile.ActivesDo1;
             active2On.Checked = profile.ActivesDo2;
             active3On.Checked = profile.ActivesDo3;
@@ -95,6 +96,30 @@ namespace League_Auto_Key_Presser
             rActivateQCheckBox.Checked = profile.RSpellData.Preactivate.Contains('Q');
             rActivateWCheckBox.Checked = profile.RSpellData.Preactivate.Contains('W');
             rActivateECheckBox.Checked = profile.RSpellData.Preactivate.Contains('E');
+            qOnCheckbox.Checked = profile.QSpellData.On;
+            wOnCheckbox.Checked = profile.WSpellData.On;
+            eOnCheckbox.Checked = profile.ESpellData.On;
+            rOnCheckbox.Checked = profile.RSpellData.On;
+            activesOnCheckbox.Checked = profile.ActivesOn;
+            bindActivesToQCheckbox.Checked = profile.ActivesBoundToQ;
+            bindActivesToWCheckbox.Checked = profile.ActivesBoundToW;
+            bindActivesToECheckbox.Checked = profile.ActivesBoundToE;
+            bindActivesToRCheckbox.Checked = profile.ActivesBoundToR;
+            wardHopQCheckbox.Checked = profile.WardHopUsingQ;
+            wardHopWCheckbox.Checked = profile.WardHopUsingW;
+            wardHopECheckbox.Checked = profile.WardHopUsingE;
+            wardHopRCheckbox.Checked = profile.WardHopUsingR;
+            rightClickOnCheckbox.Checked = profile.RightClickSpamOn;
+            rightClickPreactivateQCheckbox.Checked = profile.RightClickPreactivateQ;
+            rightClickPreactivateWCheckbox.Checked = profile.RightClickPreactivateW;
+            rightClickPreactivateECheckbox.Checked = profile.RightClickPreactivateE;
+            rightClickPreactivateRCheckbox.Checked = profile.RightClickPreactivateR;
+            rightClickPreactivateActive1Checkbox.Checked = profile.RightClickPreactivate1;
+            rightClickPreactivateActive2Checkbox.Checked = profile.RightClickPreactivate2;
+            rightClickPreactivateActive3Checkbox.Checked = profile.RightClickPreactivate3;
+            rightClickPreactivateActive5Checkbox.Checked = profile.RightClickPreactivate5;
+            rightClickPreactivateActive6Checkbox.Checked = profile.RightClickPreactivate6;
+            rightClickPreactivateActive7Checkbox.Checked = profile.RightClickPreactivate7;
         }
 
         private void active1On_CheckedChanged(object sender, EventArgs e)
