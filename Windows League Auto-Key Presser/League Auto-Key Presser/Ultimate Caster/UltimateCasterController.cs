@@ -32,14 +32,30 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         {
             this.form = form;
             profileController = new ProfileController();
-            /**
-             * 
-             */
-
-
-
-
-
+            SelectedProfile = profileController.Profiles[0];
+            qSpellController = new SpellController(this, 'Q');
+            wSpellController = new SpellController(this, 'W');
+            eSpellController = new SpellController(this, 'E');
+            rSpellController = new SpellController(this, 'R');
+            activesAndWardController = new ActivesAndWardController();
+            rightClickController = new RightClickController();
+            qSpellController.SetActivesController(activesAndWardController);
+            wSpellController.SetActivesController(activesAndWardController);
+            eSpellController.SetActivesController(activesAndWardController);
+            rSpellController.SetActivesController(activesAndWardController);
+            SpellController[] spellControllerArray = new SpellController[] { qSpellController, wSpellController, eSpellController, rSpellController };
+            foreach (SpellController spellController in spellControllerArray)
+            {
+                spellController.SetSpellController('Q', qSpellController);
+                spellController.SetSpellController('W', wSpellController);
+                spellController.SetSpellController('E', eSpellController);
+                spellController.SetSpellController('R', rSpellController);
+            }
+            qSpellController.UpdateWithSpellData(SelectedProfile.QSpellData);
+            wSpellController.UpdateWithSpellData(SelectedProfile.WSpellData);
+            eSpellController.UpdateWithSpellData(SelectedProfile.ESpellData);
+            rSpellController.UpdateWithSpellData(SelectedProfile.RSpellData);
+            
             HookManager.KeyDown += HookManager_KeyDown;
             HookManager.KeyUp += HookManager_KeyUp;
 
@@ -66,14 +82,26 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             timer.Start();
         }
 
-        public void SelectedProfileAtIndex(int index)
+        public void SetSelectedProfileAtIndex(int index)
         {
-
+            SelectedProfile = profileController.Profiles[index];
+            //Update the variables in all the controllers
+            qSpellController.UpdateWithSpellData(SelectedProfile.QSpellData);
+            wSpellController.UpdateWithSpellData(SelectedProfile.WSpellData);
+            eSpellController.UpdateWithSpellData(SelectedProfile.ESpellData);
+            rSpellController.UpdateWithSpellData(SelectedProfile.RSpellData);
+            //Update the user interface with the data
+            form.UpdateProfileInterface();
         }
 
         void timer_Tick()
         {
             //Run all spell controller and actives timer
+            qSpellController.TimerTick();
+            wSpellController.TimerTick();
+            eSpellController.TimerTick();
+            rSpellController.TimerTick();
+            activesAndWardController.OnTimerTick();
         }
 
         void HookManager_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)

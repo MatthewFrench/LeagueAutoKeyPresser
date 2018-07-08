@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
+using League_Auto_Key_Presser.Ultimate_Caster;
 
 namespace League_Auto_Key_Presser
 {
@@ -18,13 +19,9 @@ namespace League_Auto_Key_Presser
 
             //Load state
             var appSettings = ConfigurationManager.AppSettings;
+            int selectedProfileIndex = 0;
             if (appSettings.Count != 0)
             {
-                //settings.Add("ElevateProcesses", casterController.ElevateProcesses.ToString());
-                //settings.Add("LeagueProcessName", casterController.LeagueProcessName.ToString());
-                //settings.Add("OnlyRunCasterWhenProcessIsOpen", casterController.OnlyRunCasterWhenProcessIsOpen.ToString());
-                //settings.Add("UltimateCasterOn", casterController.UltimateCasterOn.ToString());
-                //settings.Add("SelectedProfile", casterController.GetProfileController().Profiles.IndexOf(casterController.SelectedProfile).ToString());
                 casterController.ElevateProcesses = Convert.ToBoolean(appSettings["ElevateProcesses"]);
                 casterController.LeagueProcessName = Convert.ToString(appSettings["LeagueProcessName"]);
                 if (casterController.LeagueProcessName.Length == 0)
@@ -33,8 +30,11 @@ namespace League_Auto_Key_Presser
                 }
                 casterController.OnlyRunCasterWhenProcessIsOpen = Convert.ToBoolean(appSettings["OnlyRunCasterWhenProcessIsOpen"]);
                 casterController.UltimateCasterOn = Convert.ToBoolean(appSettings["UltimateCasterOn"]);
-                int selectedProfileIndex = Convert.ToInt32(appSettings["SelectedProfile"]);
-                casterController.SelectedProfileAtIndex(selectedProfileIndex);
+                selectedProfileIndex = Convert.ToInt32(appSettings["SelectedProfile"]);
+                if (selectedProfileIndex < 0)
+                {
+                    selectedProfileIndex = 0;
+                }
             }
 
             //Now update the UI with the selected options
@@ -42,44 +42,57 @@ namespace League_Auto_Key_Presser
             turnOnWhenAvailableCheckbox.Checked = casterController.OnlyRunCasterWhenProcessIsOpen;
             autoKeyOnCheckbox.Checked = casterController.UltimateCasterOn;
             processNameTextbox.Text = casterController.LeagueProcessName;
-            //Update the names of profiles in the profile combo box
-            //Update the selected profile in the combo box
-            //Update the profile specific data
+            UpdateProfileNamesInComboBox();
+            casterController.SetSelectedProfileAtIndex(selectedProfileIndex);
+        }
 
-            /*
-            qMillisecondsText.Text = pressSpell1Interval.ToString();
-            wMillisecondsText.Text = pressSpell2Interval.ToString();
-            eMillisecondsText.Text = pressSpell3Interval.ToString();
-            rMillisecondsText.Text = pressSpell4Interval.ToString();
-            activeMillisecondsText.Text = pressActiveInterval.ToString();
-            autoKeyOnCheckbox.Checked = autoKeyOnBool;
-            active1On.Checked = active1OnBool;
-            active2On.Checked = active2OnBool;
-            active3On.Checked = active3OnBool;
-            active5On.Checked = active5OnBool;
-            active6On.Checked = active6OnBool;
-            active7On.Checked = active7OnBool;
-            wardCheckbox.Checked = wardOnBool;
-            wardHopCheckBox.Checked = wardHopOn;
-            qActivateWCheckBox.Checked = qPreactivateW;
-            qActivateECheckBox.Checked = qPreactivateE;
-            qActivateRCheckBox.Checked = qPreactivateR;
-            wActivateQCheckBox.Checked = wPreactivateQ;
-            wActivateECheckBox.Checked = wPreactivateE;
-            wActivateRCheckBox.Checked = wPreactivateR;
-            eActivateQCheckBox.Checked = ePreactivateQ;
-            eActivateWCheckBox.Checked = ePreactivateW;
-            eActivateRCheckBox.Checked = ePreactivateR;
-            rActivateQCheckBox.Checked = rPreactivateQ;
-            rActivateWCheckBox.Checked = rPreactivateW;
-            rActivateECheckBox.Checked = rPreactivateE;
-            wardHopKeyComboBox.Text = wardHopKey.ToString();
-            activeKeyComboBox.Text = activeKey.ToString();
-            */
-            //End load state
+        public void UpdateProfileNamesInComboBox()
+        {
+            //Loop through profiles and update the combo box with names
+            var profiles = casterController.GetProfileController().Profiles;
+            int selectedItemIndex = profileComboBox.SelectedIndex;
+            if (selectedItemIndex < 0)
+            {
+                selectedItemIndex = 0;
+            }
+            profileComboBox.Items.Clear();
+            foreach (ProfileData profile in profiles)
+            {
+                profileComboBox.Items.Add(profile.ProfileName);
+            }
+            profileComboBox.SelectedIndex = selectedItemIndex;
+        }
 
-            //activeKeyComboBox.Text = "E";
-            //wardHopKeyComboBox.Text = "Q";
+        public void UpdateProfileInterface()
+        {
+            //Update all the interface elements with profile information
+            ProfileData profile = casterController.SelectedProfile;
+            profileNameText.Text = profile.ProfileName;
+            qMillisecondsText.Text = profile.QSpellData.MillisecondDelay.ToString();
+            wMillisecondsText.Text = profile.WSpellData.MillisecondDelay.ToString();
+            eMillisecondsText.Text = profile.ESpellData.MillisecondDelay.ToString();
+            rMillisecondsText.Text = profile.RSpellData.MillisecondDelay.ToString();
+            activeMillisecondsText.Text = profile.ActivesMillisecondDelay.ToString();
+            active1On.Checked = profile.ActivesDo1;
+            active2On.Checked = profile.ActivesDo2;
+            active3On.Checked = profile.ActivesDo3;
+            active5On.Checked = profile.ActivesDo5;
+            active6On.Checked = profile.ActivesDo6;
+            active7On.Checked = profile.ActivesDo7;
+            wardCheckbox.Checked = profile.AutoWardOn;
+            wardHopCheckBox.Checked = profile.WardHopOn;
+            qActivateWCheckBox.Checked = profile.QSpellData.Preactivate.Contains('W');
+            qActivateECheckBox.Checked = profile.QSpellData.Preactivate.Contains('E');
+            qActivateRCheckBox.Checked = profile.QSpellData.Preactivate.Contains('R');
+            wActivateQCheckBox.Checked = profile.WSpellData.Preactivate.Contains('Q');
+            wActivateECheckBox.Checked = profile.WSpellData.Preactivate.Contains('E');
+            wActivateRCheckBox.Checked = profile.WSpellData.Preactivate.Contains('R');
+            eActivateQCheckBox.Checked = profile.ESpellData.Preactivate.Contains('Q');
+            eActivateWCheckBox.Checked = profile.ESpellData.Preactivate.Contains('W');
+            eActivateRCheckBox.Checked = profile.ESpellData.Preactivate.Contains('R');
+            rActivateQCheckBox.Checked = profile.RSpellData.Preactivate.Contains('Q');
+            rActivateWCheckBox.Checked = profile.RSpellData.Preactivate.Contains('W');
+            rActivateECheckBox.Checked = profile.RSpellData.Preactivate.Contains('E');
         }
 
         private void active1On_CheckedChanged(object sender, EventArgs e)
@@ -295,7 +308,8 @@ namespace League_Auto_Key_Presser
 
         private void profileNameText_TextChanged(object sender, EventArgs e)
         {
-
+            casterController.SelectedProfile.ProfileName = profileNameText.Text;
+            UpdateProfileNamesInComboBox();
         }
     }
     

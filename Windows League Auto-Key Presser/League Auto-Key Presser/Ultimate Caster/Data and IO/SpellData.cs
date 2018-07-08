@@ -11,7 +11,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         public char SpellKey { get; set; } = 'Q';
         public bool On { get; set; } = false;
         public int MillisecondDelay { get; set; } = 80;
-        HashSet<char> Preactivate = new HashSet<char>();
+        public HashSet<char> Preactivate = new HashSet<char>();
 
         public SpellData(char spellKey, int milliseconds)
         {

@@ -26,6 +26,9 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             } else
             {
                 Profiles = new List<ProfileData>();
+            }
+            if (Profiles.Count == 0)
+            {
                 Profiles.Add(new ProfileData());
                 SaveProfiles();
             }

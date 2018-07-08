@@ -11,23 +11,27 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
     class SpellController
     {
         static AutoItX3 _autoIT = new AutoItX3();
-        bool ultimateCasterIsOn = false;
-        bool spellCasterIsOn = false;
         int keyCountUp = 0;
         int spellSent = 0;
         bool pressingSpell = false;
         Stopwatch spellStopwatch = Stopwatch.StartNew();
-        int pressSpellInterval = 10;
         char spellKey;
         Dictionary<char, SpellController> spellControllers = new Dictionary<char, SpellController>();
-        HashSet<char> enabledPreactives = new HashSet<char>();
-        bool runActivesOnThisSpell = false;
         ActivesAndWardController activesController;
-        public SpellController(char spellKey)
+        UltimateCasterController ultimateCasterController;
+        SpellData spellData;
+
+        public SpellController(UltimateCasterController ultimateCasterController, char spellKey)
         {
+            this.ultimateCasterController = ultimateCasterController;
             this.spellKey = spellKey;
             _autoIT.AutoItSetOption("SendKeyDelay", 0);
             _autoIT.AutoItSetOption("SendKeyDownDelay", 0);
+        }
+
+        public void UpdateWithSpellData(SpellData newSpellData)
+        {
+            spellData = newSpellData;
         }
 
         public void SetActivesController(ActivesAndWardController activesController)
@@ -42,21 +46,21 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 
         public void EnablePreactive(char key)
         {
-            enabledPreactives.Add(key);
+            spellData.Preactivate.Add(key);
         }
 
         public void DisablePreactive(char key)
         {
-            enabledPreactives.Remove(key);
+            spellData.Preactivate.Remove(key);
         }
 
         public void TimerTick()
         {
             if (pressingSpell)
             {
-                if (ultimateCasterIsOn)
+                if (ultimateCasterController.UltimateCasterOn)
                 {
-                    foreach (char key in enabledPreactives)
+                    foreach (char key in spellData.Preactivate)
                     {
                         SpellController spellController;
                         if (spellControllers.TryGetValue(key, out spellController))
@@ -66,16 +70,18 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
                     }
                     Preactivate();
                 }
+                /*
                 if (runActivesOnThisSpell)
                 {
                     activesController.RunActives();
                 }
+                */
             }
         }
 
         public void Preactivate()
         {
-            if (spellStopwatch.ElapsedMilliseconds >= pressSpellInterval)
+            if (spellStopwatch.ElapsedMilliseconds >= spellData.MillisecondDelay)
             {
                 spellStopwatch.Restart();
                 TapSpell();
@@ -86,7 +92,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         {
             //if (e.KeyCode == Keys.Q) // && keyQPressed
             //{ //Q
-                if (ultimateCasterIsOn)
+                if (ultimateCasterController.UltimateCasterOn)
                 {
                     keyCountUp++;
                     if (keyCountUp > spellSent && spellSent != 0)
