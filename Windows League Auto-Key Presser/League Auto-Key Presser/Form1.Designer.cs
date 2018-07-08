@@ -241,11 +241,11 @@
             // wardCheckbox
             // 
             this.wardCheckbox.AutoSize = true;
-            this.wardCheckbox.Location = new System.Drawing.Point(62, 336);
+            this.wardCheckbox.Location = new System.Drawing.Point(13, 335);
             this.wardCheckbox.Name = "wardCheckbox";
-            this.wardCheckbox.Size = new System.Drawing.Size(160, 17);
+            this.wardCheckbox.Size = new System.Drawing.Size(186, 17);
             this.wardCheckbox.TabIndex = 14;
-            this.wardCheckbox.Text = "Place ward every 6 seconds";
+            this.wardCheckbox.Text = "On    Place ward every 6 seconds";
             this.wardCheckbox.UseVisualStyleBackColor = true;
             this.wardCheckbox.CheckedChanged += new System.EventHandler(this.wardCheckbox_CheckedChanged);
             // 
@@ -297,11 +297,11 @@
             // wardHopCheckBox
             // 
             this.wardHopCheckBox.AutoSize = true;
-            this.wardHopCheckBox.Location = new System.Drawing.Point(62, 359);
+            this.wardHopCheckBox.Location = new System.Drawing.Point(13, 359);
             this.wardHopCheckBox.Name = "wardHopCheckBox";
-            this.wardHopCheckBox.Size = new System.Drawing.Size(178, 17);
+            this.wardHopCheckBox.Size = new System.Drawing.Size(201, 17);
             this.wardHopCheckBox.TabIndex = 21;
-            this.wardHopCheckBox.Text = "Ward hop (T Key) using abilities:";
+            this.wardHopCheckBox.Text = "On   Ward hop (T Key) using abilities:";
             this.wardHopCheckBox.UseVisualStyleBackColor = true;
             this.wardHopCheckBox.CheckedChanged += new System.EventHandler(this.wardHopCheckBox_CheckedChanged);
             // 
@@ -803,7 +803,7 @@
             // wardHopRCheckbox
             // 
             this.wardHopRCheckbox.AutoSize = true;
-            this.wardHopRCheckbox.Location = new System.Drawing.Point(361, 359);
+            this.wardHopRCheckbox.Location = new System.Drawing.Point(334, 360);
             this.wardHopRCheckbox.Name = "wardHopRCheckbox";
             this.wardHopRCheckbox.Size = new System.Drawing.Size(34, 17);
             this.wardHopRCheckbox.TabIndex = 75;
@@ -813,7 +813,7 @@
             // wardHopECheckbox
             // 
             this.wardHopECheckbox.AutoSize = true;
-            this.wardHopECheckbox.Location = new System.Drawing.Point(322, 359);
+            this.wardHopECheckbox.Location = new System.Drawing.Point(295, 360);
             this.wardHopECheckbox.Name = "wardHopECheckbox";
             this.wardHopECheckbox.Size = new System.Drawing.Size(33, 17);
             this.wardHopECheckbox.TabIndex = 74;
@@ -823,7 +823,7 @@
             // wardHopWCheckbox
             // 
             this.wardHopWCheckbox.AutoSize = true;
-            this.wardHopWCheckbox.Location = new System.Drawing.Point(279, 359);
+            this.wardHopWCheckbox.Location = new System.Drawing.Point(252, 360);
             this.wardHopWCheckbox.Name = "wardHopWCheckbox";
             this.wardHopWCheckbox.Size = new System.Drawing.Size(37, 17);
             this.wardHopWCheckbox.TabIndex = 73;
@@ -833,7 +833,7 @@
             // wardHopQCheckbox
             // 
             this.wardHopQCheckbox.AutoSize = true;
-            this.wardHopQCheckbox.Location = new System.Drawing.Point(239, 359);
+            this.wardHopQCheckbox.Location = new System.Drawing.Point(212, 360);
             this.wardHopQCheckbox.Name = "wardHopQCheckbox";
             this.wardHopQCheckbox.Size = new System.Drawing.Size(34, 17);
             this.wardHopQCheckbox.TabIndex = 72;

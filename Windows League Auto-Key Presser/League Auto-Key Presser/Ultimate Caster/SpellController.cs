@@ -19,7 +19,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         Stopwatch spellStopwatch = Stopwatch.StartNew();
         int pressSpellInterval = 10;
         char spellKey;
-        Dictionary<char, SpellController> preactivateSpellControllers = new Dictionary<char, SpellController>();
+        Dictionary<char, SpellController> spellControllers = new Dictionary<char, SpellController>();
         HashSet<char> enabledPreactives = new HashSet<char>();
         bool runActivesOnThisSpell = false;
         ActivesController activesController;
@@ -35,9 +35,9 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             this.activesController = activesController;
         }
 
-        public void AddPreactivateSpellController(char key, SpellController spellController)
+        public void SetSpellController(char key, SpellController spellController)
         {
-            preactivateSpellControllers.Add(key, spellController);
+            spellControllers.Add(key, spellController);
         }
 
         public void EnablePreactive(char key)
@@ -59,7 +59,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
                     foreach (char key in enabledPreactives)
                     {
                         SpellController spellController;
-                        if (preactivateSpellControllers.TryGetValue(key, out spellController))
+                        if (spellControllers.TryGetValue(key, out spellController))
                         {
                             spellController.Preactivate();
                         }

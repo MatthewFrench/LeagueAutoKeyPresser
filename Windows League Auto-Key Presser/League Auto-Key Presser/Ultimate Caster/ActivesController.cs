@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using AutoItX3Lib;
 namespace League_Auto_Key_Presser.Ultimate_Caster
 {
     class ActivesController
@@ -25,9 +26,26 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         bool active7OnBool = false;
         bool wardOnBool = false;
         bool wardHopOn = false;
-        char wardHopKey = 'Q';
 
         char activeKey = 'E';
+
+        Dictionary<char, SpellController> spellControllers = new Dictionary<char, SpellController>();
+        HashSet<char> wardHopPreactives = new HashSet<char>();
+
+        public void SetSpellController(char key, SpellController spellController)
+        {
+            spellControllers.Add(key, spellController);
+        }
+
+        public void EnableWardHopPreactive(char key)
+        {
+            wardHopPreactives.Add(key);
+        }
+
+        public void DisableWardHopPreactive(char key)
+        {
+            wardHopPreactives.Remove(key);
+        }
 
         public void RunActives()
         {
@@ -36,33 +54,33 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
                 activeStopwatch.Restart();
                 if (active1OnBool)
                 {
-                    tapActive1();
+                    TapActive1();
                 }
                 if (active2OnBool)
                 {
-                    tapActive2();
+                    TapActive2();
                 }
                 if (active3OnBool)
                 {
-                    tapActive3();
+                    TapActive3();
                 }
                 if (active5OnBool)
                 {
-                    tapActive5();
+                    TapActive5();
                 }
                 if (active6OnBool)
                 {
-                    tapActive6();
+                    TapActive6();
                 }
                 if (active7OnBool)
                 {
-                    tapActive7();
+                    TapActive7();
                 }
             }
             if (pressingWardStopwatch.ElapsedMilliseconds >= pressWardInterval && wardOnBool)
             {
                 pressingWardStopwatch.Restart();
-                tapWard();
+                TapWard();
             }
         }
 
@@ -75,25 +93,29 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
                 if (wardHopStopwatch.ElapsedMilliseconds >= 1000)
                 {
                     wardHopStopwatch.Restart();
-                    tapWard();
+                    TapWard();
                 }
                 //Try to hop
-                if (wardHopKey == 'Q') preactivateQ(pressSpell1Interval);
-                if (wardHopKey == 'W') preactivateW(pressSpell2Interval);
-                if (wardHopKey == 'E') preactivateE(pressSpell3Interval);
-                if (wardHopKey == 'R') preactivateR(pressSpell4Interval);
+                foreach (char key in wardHopPreactives)
+                {
+                    SpellController spellController;
+                    if (spellControllers.TryGetValue(key, out spellController))
+                    {
+                        spellController.Preactivate();
+                    }
+                }
             }
         }
 
         public void OnKeyUp()
         {
 
-            if (e.KeyCode == Keys.T && keyTPressed)
-            { //T key
+            //if (e.KeyCode == Keys.T && keyTPressed)
+            //{ //T key
                 keyTPressed = false;
                 wardHopStopwatch.Restart();
                 //go = true;
-            }
+            //}
         }
 
         public void OnKeyDown()
@@ -104,49 +126,49 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             //    go = true;
             //}
         }
-        void tapActive1()
+        void TapActive1()
         {
             Task.Factory.StartNew(() =>
             {
                 _autoIT.Send("1");
             });
         }
-        void tapActive2()
+        void TapActive2()
         {
             Task.Factory.StartNew(() =>
             {
                 _autoIT.Send("2");
             });
         }
-        void tapActive3()
+        void TapActive3()
         {
             Task.Factory.StartNew(() =>
             {
                 _autoIT.Send("3");
             });
         }
-        void tapWard()
+        void TapWard()
         {
             Task.Factory.StartNew(() =>
             {
                 _autoIT.Send("4");
             });
         }
-        void tapActive5()
+        void TapActive5()
         {
             Task.Factory.StartNew(() =>
             {
                 _autoIT.Send("5");
             });
         }
-        void tapActive6()
+        void TapActive6()
         {
             Task.Factory.StartNew(() =>
             {
                 _autoIT.Send("6");
             });
         }
-        void tapActive7()
+        void TapActive7()
         {
             Task.Factory.StartNew(() => {
                 _autoIT.Send("7");

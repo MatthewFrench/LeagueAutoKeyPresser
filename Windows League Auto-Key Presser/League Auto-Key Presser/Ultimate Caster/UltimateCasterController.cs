@@ -17,6 +17,15 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 
         public UltimateCasterController()
         {
+
+            /**
+             * 
+             */
+
+
+
+
+
             HookManager.KeyDown += HookManager_KeyDown;
             HookManager.KeyUp += HookManager_KeyUp;
 
