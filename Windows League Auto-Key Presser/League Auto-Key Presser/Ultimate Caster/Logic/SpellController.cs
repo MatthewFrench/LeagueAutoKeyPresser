@@ -31,6 +31,11 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             _autoIT.AutoItSetOption("SendKeyDownDelay", 0);
         }
 
+        public bool IsPressed()
+        {
+            return pressingSpell;
+        }
+
         public void UpdateWithSpellData(SpellData newSpellData)
         {
             spellData = newSpellData;
@@ -44,16 +49,6 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         public void SetSpellController(char key, SpellController spellController)
         {
             spellControllers.Add(key, spellController);
-        }
-
-        public void EnablePreactive(char key)
-        {
-            spellData.Preactivate.Add(key);
-        }
-
-        public void DisablePreactive(char key)
-        {
-            spellData.Preactivate.Remove(key);
         }
 
         public void TimerTick()
@@ -72,12 +67,6 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
                     }
                     Preactivate();
                 }
-                /*
-                if (runActivesOnThisSpell)
-                {
-                    activesController.RunActives();
-                }
-                */
             }
         }
 

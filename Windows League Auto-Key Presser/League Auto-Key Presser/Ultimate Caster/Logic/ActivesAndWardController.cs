@@ -15,69 +15,104 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         Stopwatch activeStopwatch = Stopwatch.StartNew();
         Stopwatch wardHopStopwatch = Stopwatch.StartNew();
         Stopwatch pressingWardStopwatch = Stopwatch.StartNew();
-        int pressActiveInterval = 500;
 
-        int pressWardInterval = 6000;
-        bool active1OnBool = false;
-        bool active2OnBool = false;
-        bool active3OnBool = false;
-        bool active5OnBool = false;
-        bool active6OnBool = false;
-        bool active7OnBool = false;
-        bool wardOnBool = false;
-        bool wardHopOn = false;
+        const int pressWardInterval = 6000;
 
-        char activeKey = 'E';
+        SpellController qSpellController, wSpellController, eSpellController, rSpellController;
+        RightClickController rightClickController;
+        UltimateCasterController ultimateCasterController;
 
-        Dictionary<char, SpellController> spellControllers = new Dictionary<char, SpellController>();
-        HashSet<char> wardHopPreactives = new HashSet<char>();
-
-        public void SetSpellController(char key, SpellController spellController)
+        public ActivesAndWardController(UltimateCasterController ultimateCasterController)
         {
-            spellControllers.Add(key, spellController);
+            this.ultimateCasterController = ultimateCasterController;
+            _autoIT.AutoItSetOption("SendKeyDelay", 0);
+            _autoIT.AutoItSetOption("SendKeyDownDelay", 0);
         }
 
-        public void EnableWardHopPreactive(char key)
+        public void SetRightClickController(RightClickController rightClickController)
         {
-            wardHopPreactives.Add(key);
+            this.rightClickController = rightClickController;
         }
 
-        public void DisableWardHopPreactive(char key)
+        public void SetQSpellController(SpellController spellController)
         {
-            wardHopPreactives.Remove(key);
+            qSpellController = spellController;
         }
 
-        public void RunActives()
+        public void SetWSpellController(SpellController spellController)
         {
-            if (activeStopwatch.ElapsedMilliseconds >= pressActiveInterval)
+            wSpellController = spellController;
+        }
+
+        public void SetESpellController(SpellController spellController)
+        {
+            eSpellController = spellController;
+        }
+
+        public void SetRSpellController(SpellController spellController)
+        {
+            rSpellController = spellController;
+        }
+
+        public void PreactivateActives()
+        {
+            var profile = ultimateCasterController.SelectedProfile;
+            if (activeStopwatch.ElapsedMilliseconds >= profile.ActivesMillisecondDelay)
             {
-                activeStopwatch.Restart();
-                if (active1OnBool)
+                var runActives = profile.ActivesOn && ((profile.ActivesBoundToQ && qSpellController.IsPressed()) ||
+                (profile.ActivesBoundToW && wSpellController.IsPressed()) ||
+                (profile.ActivesBoundToE && eSpellController.IsPressed()) ||
+                (profile.ActivesBoundToR && rSpellController.IsPressed()));
+
+                if (runActives || (profile.RightClickSpamOn && rightClickController.IsPressed()))
+                {
+                    activeStopwatch.Restart();
+                }
+
+                if ((profile.ActivesDo1 && runActives) || 
+                        (profile.RightClickSpamOn && rightClickController.IsPressed() && profile.RightClickPreactivate1))
                 {
                     TapActive1();
                 }
-                if (active2OnBool)
+                if ((profile.ActivesDo2 && runActives) ||
+                        (profile.RightClickSpamOn && rightClickController.IsPressed() && profile.RightClickPreactivate2))
                 {
                     TapActive2();
                 }
-                if (active3OnBool)
+                if ((profile.ActivesDo3 && runActives) ||
+                        (profile.RightClickSpamOn && rightClickController.IsPressed() && profile.RightClickPreactivate3))
                 {
                     TapActive3();
                 }
-                if (active5OnBool)
+                if ((profile.ActivesDo5 && runActives) ||
+                        (profile.RightClickSpamOn && rightClickController.IsPressed() && profile.RightClickPreactivate5))
                 {
                     TapActive5();
                 }
-                if (active6OnBool)
+                if ((profile.ActivesDo6 && runActives) ||
+                        (profile.RightClickSpamOn && rightClickController.IsPressed() && profile.RightClickPreactivate6))
                 {
                     TapActive6();
                 }
-                if (active7OnBool)
+                if ((profile.ActivesDo7 && runActives) ||
+                        (profile.RightClickSpamOn && rightClickController.IsPressed() && profile.RightClickPreactivate7))
                 {
                     TapActive7();
                 }
             }
-            if (pressingWardStopwatch.ElapsedMilliseconds >= pressWardInterval && wardOnBool)
+        }
+
+        public void RunActives()
+        {
+            var profile = ultimateCasterController.SelectedProfile;
+            if ((profile.ActivesBoundToQ && qSpellController.IsPressed()) ||
+                (profile.ActivesBoundToW && wSpellController.IsPressed()) ||
+                (profile.ActivesBoundToE && eSpellController.IsPressed()) ||
+                (profile.ActivesBoundToR && rSpellController.IsPressed()))
+            {
+                PreactivateActives();
+            }
+            if (pressingWardStopwatch.ElapsedMilliseconds >= pressWardInterval && profile.AutoWardOn)
             {
                 pressingWardStopwatch.Restart();
                 TapWard();
@@ -86,93 +121,88 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 
         public void OnTimerTick()
         {
-            //Ward hop
-            if (keyTPressed && wardHopOn)
+            var profile = ultimateCasterController.SelectedProfile;
+            if (ultimateCasterController.IsOn())
             {
-                //Place ward
-                if (wardHopStopwatch.ElapsedMilliseconds >= 1000)
+                //Ward hop
+                if (keyTPressed && profile.WardHopOn)
                 {
-                    wardHopStopwatch.Restart();
-                    TapWard();
-                }
-                //Try to hop
-                foreach (char key in wardHopPreactives)
-                {
-                    SpellController spellController;
-                    if (spellControllers.TryGetValue(key, out spellController))
+                    //Place ward
+                    if (wardHopStopwatch.ElapsedMilliseconds >= 500)
                     {
-                        spellController.Preactivate();
+                        wardHopStopwatch.Restart();
+                        TapWard();
                     }
+                    //Try to hop
+                    Task.Factory.StartNew(() =>
+                    {
+                        if (profile.WardHopUsingQ)
+                        {
+                            qSpellController.Preactivate();
+                        }
+                        if (profile.WardHopUsingW)
+                        {
+                            wSpellController.Preactivate();
+                        }
+                        if (profile.WardHopUsingE)
+                        {
+                            eSpellController.Preactivate();
+                        }
+                        if (profile.WardHopUsingR)
+                        {
+                            rSpellController.Preactivate();
+                        }
+                    });
                 }
+                RunActives();
             }
         }
 
-        public void OnKeyUp()
+        public void WardHopOnKeyUp()
         {
-
-            //if (e.KeyCode == Keys.T && keyTPressed)
-            //{ //T key
+            if (keyTPressed)
+            { //T key
                 keyTPressed = false;
                 wardHopStopwatch.Restart();
-                //go = true;
-            //}
+            }
         }
 
-        public void OnKeyDown()
+        public bool WardHopOnKeyDown()
         {
-            //if (e.KeyCode == Keys.T && !keyTPressed)
-            //{ //T key
+            if (!keyTPressed)
+            { //T key
                 keyTPressed = true;
-            //    go = true;
-            //}
+                return true;
+            }
+            return false;
         }
-        void TapActive1()
+        public void TapActive1()
         {
-            Task.Factory.StartNew(() =>
-            {
-                _autoIT.Send("1");
-            });
+            _autoIT.Send("1");
         }
-        void TapActive2()
+        public void TapActive2()
         {
-            Task.Factory.StartNew(() =>
-            {
-                _autoIT.Send("2");
-            });
+            _autoIT.Send("2");
         }
-        void TapActive3()
+        public void TapActive3()
         {
-            Task.Factory.StartNew(() =>
-            {
-                _autoIT.Send("3");
-            });
+            _autoIT.Send("3");
         }
-        void TapWard()
+        public void TapWard()
         {
-            Task.Factory.StartNew(() =>
-            {
-                _autoIT.Send("4");
-            });
+            _autoIT.Send("4");
         }
-        void TapActive5()
+        public void TapActive5()
         {
-            Task.Factory.StartNew(() =>
-            {
-                _autoIT.Send("5");
-            });
+            _autoIT.Send("5");
         }
-        void TapActive6()
+        public void TapActive6()
         {
-            Task.Factory.StartNew(() =>
-            {
-                _autoIT.Send("6");
-            });
+            _autoIT.Send("6");
         }
-        void TapActive7()
+        public void TapActive7()
         {
-            Task.Factory.StartNew(() => {
-                _autoIT.Send("7");
-            });
+            _autoIT.Send("7");
         }
     }
 }

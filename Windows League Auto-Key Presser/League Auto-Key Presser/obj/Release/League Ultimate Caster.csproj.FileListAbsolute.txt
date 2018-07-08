@@ -22,3 +22,18 @@ C:\Users\Matthew\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key P
 C:\Users\Matthew\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League_Auto_Key_Presser.Form1.resources
 C:\Users\Matthew\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League_Auto_Key_Presser.Properties.Resources.resources
 C:\Users\Matthew\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.GenerateResource.Cache
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\Interop.AutoItX3Lib.dll
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.ResolveComReference.cache
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League_Auto_Key_Presser.LeagueUltimateCasterForm.resources
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League_Auto_Key_Presser.Properties.Resources.resources
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.GenerateResource.cache
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.CoreCompileInputs.cache
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.exe
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.pdb
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\League Ultimate Caster.exe.config
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\League Ultimate Caster.exe
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\League Ultimate Caster.pdb
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\Gma.System.MouseKeyHook.dll
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\Newtonsoft.Json.dll
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\Newtonsoft.Json.xml
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.CopyComplete

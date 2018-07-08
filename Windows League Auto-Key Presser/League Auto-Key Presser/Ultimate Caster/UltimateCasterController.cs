@@ -2,12 +2,10 @@
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Gma.UserActivityMonitor;
-using AutoItX3Lib;
 using System.Windows.Forms;
-using HighPrecisionTimer;
 using System.Security.Principal;
 using System.Collections.Generic;
+using Gma.System.MouseKeyHook;
 
 namespace League_Auto_Key_Presser.Ultimate_Caster
 {
@@ -23,14 +21,16 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         ActivesAndWardController activesAndWardController;
         RightClickController rightClickController;
         ATimer timer = null;
-        public bool UltimateCasterOn { get; set; } = false;
-        public bool OnlyRunCasterWhenProcessIsOpen { get; set; } = false;
-        public bool OnlyRunCasterWhenProcessIsFocused { get; set; } = false;
-        public string LeagueProcessName { get; set; } = "";
-        public bool ElevateProcesses { get; set; } = false;
+        public bool UltimateCasterOn { get; set; } = true;
+        public bool OnlyRunCasterWhenProcessIsOpen { get; set; } = true;
+        public bool OnlyRunCasterWhenProcessIsFocused { get; set; } = true;
+        public string LeagueProcessName { get; set; } = "League of Legends.exe";
+        public bool ElevateProcesses { get; set; } = true;
         Stopwatch checkProcessesStopwatch = new Stopwatch();
         private bool leagueProcessOpen = false;
         private bool leagueProcessIsFocused = false;
+
+        private IKeyboardMouseEvents m_Events;
 
         [DllImport("ntdll.dll", SetLastError = true)]
         static extern int NtSetTimerResolution(int DesiredResolution, bool SetResolution, out int CurrentResolution);
@@ -48,12 +48,22 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             wSpellController = new SpellController(this, 'W');
             eSpellController = new SpellController(this, 'E');
             rSpellController = new SpellController(this, 'R');
-            activesAndWardController = new ActivesAndWardController();
-            rightClickController = new RightClickController();
+            activesAndWardController = new ActivesAndWardController(this);
+            rightClickController = new RightClickController(this);
+            activesAndWardController.SetRightClickController(rightClickController);
+            rightClickController.SetActivesController(activesAndWardController);
+            rightClickController.SetQSpellController(qSpellController);
+            rightClickController.SetWSpellController(wSpellController);
+            rightClickController.SetESpellController(eSpellController);
+            rightClickController.SetRSpellController(rSpellController);
             qSpellController.SetActivesController(activesAndWardController);
             wSpellController.SetActivesController(activesAndWardController);
             eSpellController.SetActivesController(activesAndWardController);
             rSpellController.SetActivesController(activesAndWardController);
+            activesAndWardController.SetQSpellController(qSpellController);
+            activesAndWardController.SetWSpellController(wSpellController);
+            activesAndWardController.SetESpellController(eSpellController);
+            activesAndWardController.SetRSpellController(rSpellController);
             SpellController[] spellControllerArray = new SpellController[] { qSpellController, wSpellController, eSpellController, rSpellController };
             foreach (SpellController spellController in spellControllerArray)
             {
@@ -69,8 +79,12 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 
             checkProcessesStopwatch.Start();
 
-            HookManager.KeyDown += HookManager_KeyDown;
-            HookManager.KeyUp += HookManager_KeyUp;
+            m_Events = Hook.GlobalEvents();
+            m_Events.KeyDown += HookManager_KeyDown;
+            m_Events.KeyUp += HookManager_KeyUp;
+
+            m_Events.MouseDown += HookManager_MouseDown;
+            m_Events.MouseUp += HookManager_MouseUp;
 
             // The requested resolution in 100 ns units:
             int DesiredResolution = 1000;
@@ -201,6 +215,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             eSpellController.TimerTick();
             rSpellController.TimerTick();
             activesAndWardController.OnTimerTick();
+            rightClickController.TimerTick();
         }
 
         void HookManager_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -221,6 +236,9 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             else if (e.KeyCode == Keys.R)
             {
                 rSpellController.OnKeyUp();
+            } else if (e.KeyCode == Keys.T)
+            {
+                activesAndWardController.WardHopOnKeyUp();
             }
         }
 
@@ -243,12 +261,36 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             {
                 triggeredKeyDown = rSpellController.OnKeyDown();
             }
+            else if (e.KeyCode == Keys.T)
+            {
+                triggeredKeyDown = activesAndWardController.WardHopOnKeyDown();
+            }
             //Do a timer tick for immediate responsiveness
             if (triggeredKeyDown)
             {
                 runLogicPress();
             }
         }
+        
+        private void HookManager_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                rightClickController.OnMouseUp();
+            }
+        }
+
+        private void HookManager_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (rightClickController.OnMouseDown())
+                {
+                    runLogicPress();
+                }
+            }
+        }
+
         void runLogicPress()
         {
             timer_Tick();

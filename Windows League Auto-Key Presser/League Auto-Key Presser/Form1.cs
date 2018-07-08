@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Configuration;
-using System.Threading;
 using System.Threading.Tasks;
 using League_Auto_Key_Presser.Ultimate_Caster;
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace League_Auto_Key_Presser
 {
@@ -26,7 +24,7 @@ namespace League_Auto_Key_Presser
             {
                 casterController.ElevateProcesses = Convert.ToBoolean(appSettings["ElevateProcesses"]);
                 casterController.LeagueProcessName = Convert.ToString(appSettings["LeagueProcessName"]);
-                if (casterController.LeagueProcessName.Length == 0)
+                if (casterController.LeagueProcessName == null || casterController.LeagueProcessName.Length == 0)
                 {
                     casterController.LeagueProcessName = "League of Legends.exe";
                 }
@@ -151,14 +149,6 @@ namespace League_Auto_Key_Presser
         private void autoKeyOn_CheckedChanged(object sender, EventArgs e)
         {
             casterController.UltimateCasterOn = autoKeyOnCheckbox.Checked;
-            /*
-            autoKeyOnBool = ((CheckBox)sender).Checked;
-
-            pressingSpell1 = false;
-            pressingSpell2 = false;
-            pressingSpell3 = false;
-            pressingSpell4 = false;
-            */
         }
 
         private void Form1_Load(object sender, EventArgs e)

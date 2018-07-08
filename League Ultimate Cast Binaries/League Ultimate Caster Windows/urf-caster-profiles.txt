@@ -1,0 +1,59 @@
+[
+  {
+    "ProfileName": "Garen Do Everything On Right Click",
+    "QSpellData": {
+      "Preactivate": [],
+      "SpellKey": "Q",
+      "On": false,
+      "MillisecondDelay": 80
+    },
+    "WSpellData": {
+      "Preactivate": [],
+      "SpellKey": "W",
+      "On": false,
+      "MillisecondDelay": 90
+    },
+    "ESpellData": {
+      "Preactivate": [],
+      "SpellKey": "E",
+      "On": false,
+      "MillisecondDelay": 100
+    },
+    "RSpellData": {
+      "Preactivate": [],
+      "SpellKey": "R",
+      "On": false,
+      "MillisecondDelay": 110
+    },
+    "ActivesOn": false,
+    "ActivesMillisecondDelay": 200,
+    "ActivesBoundToQ": false,
+    "ActivesBoundToW": false,
+    "ActivesBoundToE": false,
+    "ActivesBoundToR": false,
+    "ActivesDo1": false,
+    "ActivesDo2": false,
+    "ActivesDo3": false,
+    "ActivesDo5": false,
+    "ActivesDo6": false,
+    "ActivesDo7": false,
+    "AutoWardOn": false,
+    "WardHopOn": false,
+    "WardHopUsingQ": false,
+    "WardHopUsingW": false,
+    "WardHopUsingE": false,
+    "WardHopUsingR": false,
+    "RightClickSpamOn": true,
+    "RightClickMillisecondDelay": 50,
+    "RightClickPreactivateQ": true,
+    "RightClickPreactivateW": true,
+    "RightClickPreactivateE": true,
+    "RightClickPreactivateR": false,
+    "RightClickPreactivate1": true,
+    "RightClickPreactivate2": true,
+    "RightClickPreactivate3": true,
+    "RightClickPreactivate5": true,
+    "RightClickPreactivate6": true,
+    "RightClickPreactivate7": true
+  }
+]

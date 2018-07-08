@@ -1,3 +1,7 @@
 C:\Users\Matthew\Desktop\GlobalHook\Gma.UserActivityMonitor\bin\Release\Gma.UserActivityMonitor.dll
 C:\Users\Matthew\Desktop\GlobalHook\Gma.UserActivityMonitor\obj\Release\Gma.UserActivityMonitor.csprojResolveAssemblyReference.cache
 C:\Users\Matthew\Desktop\GlobalHook\Gma.UserActivityMonitor\obj\Release\Gma.UserActivityMonitor.dll
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\GlobalHook\Gma.UserActivityMonitor\bin\Release\Gma.UserActivityMonitor.dll
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\GlobalHook\Gma.UserActivityMonitor\obj\Release\Gma.UserActivityMonitor.csprojAssemblyReference.cache
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\GlobalHook\Gma.UserActivityMonitor\obj\Release\Gma.UserActivityMonitor.csproj.CoreCompileInputs.cache
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\GlobalHook\Gma.UserActivityMonitor\obj\Release\Gma.UserActivityMonitor.dll
