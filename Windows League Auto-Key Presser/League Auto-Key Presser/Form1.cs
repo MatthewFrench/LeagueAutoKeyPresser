@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using League_Auto_Key_Presser.Ultimate_Caster;
+using Newtonsoft.Json;
 
 namespace League_Auto_Key_Presser
 {
@@ -43,6 +44,7 @@ namespace League_Auto_Key_Presser
             autoKeyOnCheckbox.Checked = casterController.UltimateCasterOn;
             processNameTextbox.Text = casterController.LeagueProcessName;
             UpdateProfileNamesInComboBox();
+            profileComboBox.SelectedIndex = selectedProfileIndex;
             casterController.SetSelectedProfileAtIndex(selectedProfileIndex);
         }
 
@@ -137,7 +139,8 @@ namespace League_Auto_Key_Presser
             settings.Add("LeagueProcessName", casterController.LeagueProcessName.ToString());
             settings.Add("OnlyRunCasterWhenProcessIsOpen", casterController.OnlyRunCasterWhenProcessIsOpen.ToString());
             settings.Add("UltimateCasterOn", casterController.UltimateCasterOn.ToString());
-            settings.Add("SelectedProfile", casterController.GetProfileController().Profiles.IndexOf(casterController.SelectedProfile).ToString());
+            int selectedProfile = casterController.GetProfileController().Profiles.IndexOf(casterController.SelectedProfile);
+            settings.Add("SelectedProfile", selectedProfile.ToString());
             configFile.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
 
@@ -304,6 +307,7 @@ namespace League_Auto_Key_Presser
         private void profileComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Change selected profile
+            casterController.SetSelectedProfileAtIndex(profileComboBox.SelectedIndex);
         }
 
         private void profileNameText_TextChanged(object sender, EventArgs e)
@@ -311,6 +315,44 @@ namespace League_Auto_Key_Presser
             casterController.SelectedProfile.ProfileName = profileNameText.Text;
             UpdateProfileNamesInComboBox();
         }
+
+        private void newProfileButton_Click(object sender, EventArgs e)
+        {
+            casterController.GetProfileController().Profiles.Add(new ProfileData());
+            UpdateProfileNamesInComboBox();
+            profileComboBox.SelectedIndex = casterController.GetProfileController().Profiles.Count - 1;
+            casterController.SetSelectedProfileAtIndex(profileComboBox.SelectedIndex);
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void duplicateProfileButton_Click(object sender, EventArgs e)
+        {
+            var newProfile = JsonConvert.DeserializeObject<ProfileData>(JsonConvert.SerializeObject(casterController.SelectedProfile));
+            newProfile.ProfileName += " Copy";
+            casterController.GetProfileController().Profiles.Add(newProfile);
+            UpdateProfileNamesInComboBox();
+            profileComboBox.SelectedIndex = casterController.GetProfileController().Profiles.Count - 1;
+            casterController.SetSelectedProfileAtIndex(profileComboBox.SelectedIndex);
+            casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void deleteProfileButton_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = casterController.GetProfileController().Profiles.IndexOf(casterController.SelectedProfile);
+            casterController.GetProfileController().Profiles.Remove(casterController.SelectedProfile);
+            selectedIndex--;
+            if (selectedIndex < 0)
+            {
+                selectedIndex = 0;
+            }
+            if (casterController.GetProfileController().Profiles.Count == 0)
+            {
+                casterController.GetProfileController().Profiles.Add(new ProfileData());
+            }
+            profileComboBox.SelectedIndex = selectedIndex;
+            UpdateProfileNamesInComboBox();
+            casterController.SetSelectedProfileAtIndex(selectedIndex);
+            casterController.GetProfileController().SaveProfiles();
+        }
     }
-    
 }

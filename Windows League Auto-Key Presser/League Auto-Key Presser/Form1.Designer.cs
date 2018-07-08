@@ -107,50 +107,45 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(210, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(105, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(475, 25);
+            this.label1.Size = new System.Drawing.Size(236, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Designed for League of Legends by Matt French";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(114, 317);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.Location = new System.Drawing.Point(57, 165);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(374, 25);
+            this.label3.Size = new System.Drawing.Size(184, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Q -                            millisecond delay";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(114, 365);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Location = new System.Drawing.Point(57, 190);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(372, 25);
+            this.label4.Size = new System.Drawing.Size(184, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "W -                           millisecond delay";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(114, 413);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label5.Location = new System.Drawing.Point(57, 215);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(372, 25);
+            this.label5.Size = new System.Drawing.Size(183, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "E -                            millisecond delay";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(114, 458);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label6.Location = new System.Drawing.Point(57, 238);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(373, 25);
+            this.label6.Size = new System.Drawing.Size(184, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "R -                            millisecond delay";
             // 
@@ -159,10 +154,9 @@
             this.autoKeyOnCheckbox.AutoSize = true;
             this.autoKeyOnCheckbox.Checked = true;
             this.autoKeyOnCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoKeyOnCheckbox.Location = new System.Drawing.Point(126, 56);
-            this.autoKeyOnCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.autoKeyOnCheckbox.Location = new System.Drawing.Point(63, 29);
             this.autoKeyOnCheckbox.Name = "autoKeyOnCheckbox";
-            this.autoKeyOnCheckbox.Size = new System.Drawing.Size(586, 29);
+            this.autoKeyOnCheckbox.Size = new System.Drawing.Size(292, 17);
             this.autoKeyOnCheckbox.TabIndex = 6;
             this.autoKeyOnCheckbox.Text = "League Auto Press Keys On - It mashes the keys quickly";
             this.autoKeyOnCheckbox.UseVisualStyleBackColor = true;
@@ -171,10 +165,9 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(114, 506);
-            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label7.Location = new System.Drawing.Point(57, 263);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(530, 25);
+            this.label7.Size = new System.Drawing.Size(262, 13);
             this.label7.TabIndex = 7;
             this.label7.Text = "Actives -                            millisecond delay, bound to:";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -182,10 +175,9 @@
             // active1On
             // 
             this.active1On.AutoSize = true;
-            this.active1On.Location = new System.Drawing.Point(124, 552);
-            this.active1On.Margin = new System.Windows.Forms.Padding(6);
+            this.active1On.Location = new System.Drawing.Point(62, 287);
             this.active1On.Name = "active1On";
-            this.active1On.Size = new System.Drawing.Size(166, 29);
+            this.active1On.Size = new System.Drawing.Size(89, 17);
             this.active1On.TabIndex = 8;
             this.active1On.Text = "Do #1 Active";
             this.active1On.UseVisualStyleBackColor = true;
@@ -194,10 +186,9 @@
             // active2On
             // 
             this.active2On.AutoSize = true;
-            this.active2On.Location = new System.Drawing.Point(126, 598);
-            this.active2On.Margin = new System.Windows.Forms.Padding(6);
+            this.active2On.Location = new System.Drawing.Point(63, 311);
             this.active2On.Name = "active2On";
-            this.active2On.Size = new System.Drawing.Size(166, 29);
+            this.active2On.Size = new System.Drawing.Size(89, 17);
             this.active2On.TabIndex = 9;
             this.active2On.Text = "Do #2 Active";
             this.active2On.UseVisualStyleBackColor = true;
@@ -206,10 +197,9 @@
             // active5On
             // 
             this.active5On.AutoSize = true;
-            this.active5On.Location = new System.Drawing.Point(358, 596);
-            this.active5On.Margin = new System.Windows.Forms.Padding(6);
+            this.active5On.Location = new System.Drawing.Point(179, 310);
             this.active5On.Name = "active5On";
-            this.active5On.Size = new System.Drawing.Size(166, 29);
+            this.active5On.Size = new System.Drawing.Size(89, 17);
             this.active5On.TabIndex = 11;
             this.active5On.Text = "Do #5 Active";
             this.active5On.UseVisualStyleBackColor = true;
@@ -218,10 +208,9 @@
             // active3On
             // 
             this.active3On.AutoSize = true;
-            this.active3On.Location = new System.Drawing.Point(358, 552);
-            this.active3On.Margin = new System.Windows.Forms.Padding(6);
+            this.active3On.Location = new System.Drawing.Point(179, 287);
             this.active3On.Name = "active3On";
-            this.active3On.Size = new System.Drawing.Size(166, 29);
+            this.active3On.Size = new System.Drawing.Size(89, 17);
             this.active3On.TabIndex = 10;
             this.active3On.Text = "Do #3 Active";
             this.active3On.UseVisualStyleBackColor = true;
@@ -230,10 +219,9 @@
             // active6On
             // 
             this.active6On.AutoSize = true;
-            this.active6On.Location = new System.Drawing.Point(548, 552);
-            this.active6On.Margin = new System.Windows.Forms.Padding(6);
+            this.active6On.Location = new System.Drawing.Point(274, 287);
             this.active6On.Name = "active6On";
-            this.active6On.Size = new System.Drawing.Size(166, 29);
+            this.active6On.Size = new System.Drawing.Size(89, 17);
             this.active6On.TabIndex = 12;
             this.active6On.Text = "Do #6 Active";
             this.active6On.UseVisualStyleBackColor = true;
@@ -242,10 +230,9 @@
             // active7On
             // 
             this.active7On.AutoSize = true;
-            this.active7On.Location = new System.Drawing.Point(548, 596);
-            this.active7On.Margin = new System.Windows.Forms.Padding(6);
+            this.active7On.Location = new System.Drawing.Point(274, 310);
             this.active7On.Name = "active7On";
-            this.active7On.Size = new System.Drawing.Size(166, 29);
+            this.active7On.Size = new System.Drawing.Size(89, 17);
             this.active7On.TabIndex = 13;
             this.active7On.Text = "Do #7 Active";
             this.active7On.UseVisualStyleBackColor = true;
@@ -254,10 +241,9 @@
             // wardCheckbox
             // 
             this.wardCheckbox.AutoSize = true;
-            this.wardCheckbox.Location = new System.Drawing.Point(26, 644);
-            this.wardCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.wardCheckbox.Location = new System.Drawing.Point(13, 335);
             this.wardCheckbox.Name = "wardCheckbox";
-            this.wardCheckbox.Size = new System.Drawing.Size(366, 29);
+            this.wardCheckbox.Size = new System.Drawing.Size(186, 17);
             this.wardCheckbox.TabIndex = 14;
             this.wardCheckbox.Text = "On    Place ward every 6 seconds";
             this.wardCheckbox.UseVisualStyleBackColor = true;
@@ -265,50 +251,45 @@
             // 
             // qMillisecondsText
             // 
-            this.qMillisecondsText.Location = new System.Drawing.Point(158, 312);
-            this.qMillisecondsText.Margin = new System.Windows.Forms.Padding(6);
+            this.qMillisecondsText.Location = new System.Drawing.Point(79, 162);
             this.qMillisecondsText.Name = "qMillisecondsText";
-            this.qMillisecondsText.Size = new System.Drawing.Size(142, 31);
+            this.qMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.qMillisecondsText.TabIndex = 15;
             this.qMillisecondsText.Text = "10";
             this.qMillisecondsText.TextChanged += new System.EventHandler(this.qValueText_TextChanged);
             // 
             // wMillisecondsText
             // 
-            this.wMillisecondsText.Location = new System.Drawing.Point(158, 360);
-            this.wMillisecondsText.Margin = new System.Windows.Forms.Padding(6);
+            this.wMillisecondsText.Location = new System.Drawing.Point(79, 187);
             this.wMillisecondsText.Name = "wMillisecondsText";
-            this.wMillisecondsText.Size = new System.Drawing.Size(142, 31);
+            this.wMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.wMillisecondsText.TabIndex = 16;
             this.wMillisecondsText.Text = "10";
             this.wMillisecondsText.TextChanged += new System.EventHandler(this.wValueText_TextChanged);
             // 
             // eMillisecondsText
             // 
-            this.eMillisecondsText.Location = new System.Drawing.Point(158, 408);
-            this.eMillisecondsText.Margin = new System.Windows.Forms.Padding(6);
+            this.eMillisecondsText.Location = new System.Drawing.Point(79, 212);
             this.eMillisecondsText.Name = "eMillisecondsText";
-            this.eMillisecondsText.Size = new System.Drawing.Size(142, 31);
+            this.eMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.eMillisecondsText.TabIndex = 17;
             this.eMillisecondsText.Text = "10";
             this.eMillisecondsText.TextChanged += new System.EventHandler(this.eValueText_TextChanged);
             // 
             // rMillisecondsText
             // 
-            this.rMillisecondsText.Location = new System.Drawing.Point(158, 452);
-            this.rMillisecondsText.Margin = new System.Windows.Forms.Padding(6);
+            this.rMillisecondsText.Location = new System.Drawing.Point(79, 235);
             this.rMillisecondsText.Name = "rMillisecondsText";
-            this.rMillisecondsText.Size = new System.Drawing.Size(142, 31);
+            this.rMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.rMillisecondsText.TabIndex = 18;
             this.rMillisecondsText.Text = "100";
             this.rMillisecondsText.TextChanged += new System.EventHandler(this.rValueText_TextChanged);
             // 
             // activeMillisecondsText
             // 
-            this.activeMillisecondsText.Location = new System.Drawing.Point(212, 500);
-            this.activeMillisecondsText.Margin = new System.Windows.Forms.Padding(6);
+            this.activeMillisecondsText.Location = new System.Drawing.Point(106, 260);
             this.activeMillisecondsText.Name = "activeMillisecondsText";
-            this.activeMillisecondsText.Size = new System.Drawing.Size(142, 31);
+            this.activeMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.activeMillisecondsText.TabIndex = 19;
             this.activeMillisecondsText.Text = "500";
             this.activeMillisecondsText.TextChanged += new System.EventHandler(this.activeValueText_TextChanged);
@@ -316,10 +297,9 @@
             // wardHopCheckBox
             // 
             this.wardHopCheckBox.AutoSize = true;
-            this.wardHopCheckBox.Location = new System.Drawing.Point(26, 690);
-            this.wardHopCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.wardHopCheckBox.Location = new System.Drawing.Point(13, 359);
             this.wardHopCheckBox.Name = "wardHopCheckBox";
-            this.wardHopCheckBox.Size = new System.Drawing.Size(402, 29);
+            this.wardHopCheckBox.Size = new System.Drawing.Size(201, 17);
             this.wardHopCheckBox.TabIndex = 21;
             this.wardHopCheckBox.Text = "On   Ward hop (T Key) using abilities:";
             this.wardHopCheckBox.UseVisualStyleBackColor = true;
@@ -328,50 +308,45 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(514, 317);
-            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label8.Location = new System.Drawing.Point(257, 165);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(133, 25);
+            this.label8.Size = new System.Drawing.Size(67, 13);
             this.label8.TabIndex = 23;
             this.label8.Text = "Pre-activate:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(514, 365);
-            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label9.Location = new System.Drawing.Point(257, 190);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(133, 25);
+            this.label9.Size = new System.Drawing.Size(67, 13);
             this.label9.TabIndex = 24;
             this.label9.Text = "Pre-activate:";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(514, 413);
-            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label10.Location = new System.Drawing.Point(257, 215);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(133, 25);
+            this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 25;
             this.label10.Text = "Pre-activate:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(514, 458);
-            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label11.Location = new System.Drawing.Point(257, 238);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(133, 25);
+            this.label11.Size = new System.Drawing.Size(67, 13);
             this.label11.TabIndex = 26;
             this.label11.Text = "Pre-activate:";
             // 
             // qActivateWCheckBox
             // 
             this.qActivateWCheckBox.AutoSize = true;
-            this.qActivateWCheckBox.Location = new System.Drawing.Point(660, 315);
-            this.qActivateWCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.qActivateWCheckBox.Location = new System.Drawing.Point(330, 164);
             this.qActivateWCheckBox.Name = "qActivateWCheckBox";
-            this.qActivateWCheckBox.Size = new System.Drawing.Size(64, 29);
+            this.qActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
             this.qActivateWCheckBox.TabIndex = 27;
             this.qActivateWCheckBox.Text = "W";
             this.qActivateWCheckBox.UseVisualStyleBackColor = true;
@@ -380,10 +355,9 @@
             // qActivateECheckBox
             // 
             this.qActivateECheckBox.AutoSize = true;
-            this.qActivateECheckBox.Location = new System.Drawing.Point(740, 315);
-            this.qActivateECheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.qActivateECheckBox.Location = new System.Drawing.Point(370, 164);
             this.qActivateECheckBox.Name = "qActivateECheckBox";
-            this.qActivateECheckBox.Size = new System.Drawing.Size(58, 29);
+            this.qActivateECheckBox.Size = new System.Drawing.Size(33, 17);
             this.qActivateECheckBox.TabIndex = 28;
             this.qActivateECheckBox.Text = "E";
             this.qActivateECheckBox.UseVisualStyleBackColor = true;
@@ -392,10 +366,9 @@
             // qActivateRCheckBox
             // 
             this.qActivateRCheckBox.AutoSize = true;
-            this.qActivateRCheckBox.Location = new System.Drawing.Point(826, 315);
-            this.qActivateRCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.qActivateRCheckBox.Location = new System.Drawing.Point(413, 164);
             this.qActivateRCheckBox.Name = "qActivateRCheckBox";
-            this.qActivateRCheckBox.Size = new System.Drawing.Size(59, 29);
+            this.qActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
             this.qActivateRCheckBox.TabIndex = 29;
             this.qActivateRCheckBox.Text = "R";
             this.qActivateRCheckBox.UseVisualStyleBackColor = true;
@@ -404,10 +377,9 @@
             // wActivateRCheckBox
             // 
             this.wActivateRCheckBox.AutoSize = true;
-            this.wActivateRCheckBox.Location = new System.Drawing.Point(826, 363);
-            this.wActivateRCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.wActivateRCheckBox.Location = new System.Drawing.Point(413, 189);
             this.wActivateRCheckBox.Name = "wActivateRCheckBox";
-            this.wActivateRCheckBox.Size = new System.Drawing.Size(59, 29);
+            this.wActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
             this.wActivateRCheckBox.TabIndex = 32;
             this.wActivateRCheckBox.Text = "R";
             this.wActivateRCheckBox.UseVisualStyleBackColor = true;
@@ -416,10 +388,9 @@
             // wActivateECheckBox
             // 
             this.wActivateECheckBox.AutoSize = true;
-            this.wActivateECheckBox.Location = new System.Drawing.Point(740, 363);
-            this.wActivateECheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.wActivateECheckBox.Location = new System.Drawing.Point(370, 189);
             this.wActivateECheckBox.Name = "wActivateECheckBox";
-            this.wActivateECheckBox.Size = new System.Drawing.Size(58, 29);
+            this.wActivateECheckBox.Size = new System.Drawing.Size(33, 17);
             this.wActivateECheckBox.TabIndex = 31;
             this.wActivateECheckBox.Text = "E";
             this.wActivateECheckBox.UseVisualStyleBackColor = true;
@@ -428,10 +399,9 @@
             // wActivateQCheckBox
             // 
             this.wActivateQCheckBox.AutoSize = true;
-            this.wActivateQCheckBox.Location = new System.Drawing.Point(660, 363);
-            this.wActivateQCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.wActivateQCheckBox.Location = new System.Drawing.Point(330, 189);
             this.wActivateQCheckBox.Name = "wActivateQCheckBox";
-            this.wActivateQCheckBox.Size = new System.Drawing.Size(60, 29);
+            this.wActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
             this.wActivateQCheckBox.TabIndex = 30;
             this.wActivateQCheckBox.Text = "Q";
             this.wActivateQCheckBox.UseVisualStyleBackColor = true;
@@ -440,10 +410,9 @@
             // eActivateRCheckBox
             // 
             this.eActivateRCheckBox.AutoSize = true;
-            this.eActivateRCheckBox.Location = new System.Drawing.Point(826, 412);
-            this.eActivateRCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.eActivateRCheckBox.Location = new System.Drawing.Point(413, 214);
             this.eActivateRCheckBox.Name = "eActivateRCheckBox";
-            this.eActivateRCheckBox.Size = new System.Drawing.Size(59, 29);
+            this.eActivateRCheckBox.Size = new System.Drawing.Size(34, 17);
             this.eActivateRCheckBox.TabIndex = 35;
             this.eActivateRCheckBox.Text = "R";
             this.eActivateRCheckBox.UseVisualStyleBackColor = true;
@@ -452,10 +421,9 @@
             // eActivateWCheckBox
             // 
             this.eActivateWCheckBox.AutoSize = true;
-            this.eActivateWCheckBox.Location = new System.Drawing.Point(740, 412);
-            this.eActivateWCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.eActivateWCheckBox.Location = new System.Drawing.Point(370, 214);
             this.eActivateWCheckBox.Name = "eActivateWCheckBox";
-            this.eActivateWCheckBox.Size = new System.Drawing.Size(64, 29);
+            this.eActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
             this.eActivateWCheckBox.TabIndex = 34;
             this.eActivateWCheckBox.Text = "W";
             this.eActivateWCheckBox.UseVisualStyleBackColor = true;
@@ -464,10 +432,9 @@
             // eActivateQCheckBox
             // 
             this.eActivateQCheckBox.AutoSize = true;
-            this.eActivateQCheckBox.Location = new System.Drawing.Point(660, 412);
-            this.eActivateQCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.eActivateQCheckBox.Location = new System.Drawing.Point(330, 214);
             this.eActivateQCheckBox.Name = "eActivateQCheckBox";
-            this.eActivateQCheckBox.Size = new System.Drawing.Size(60, 29);
+            this.eActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
             this.eActivateQCheckBox.TabIndex = 33;
             this.eActivateQCheckBox.Text = "Q";
             this.eActivateQCheckBox.UseVisualStyleBackColor = true;
@@ -476,10 +443,9 @@
             // rActivateECheckBox
             // 
             this.rActivateECheckBox.AutoSize = true;
-            this.rActivateECheckBox.Location = new System.Drawing.Point(826, 456);
-            this.rActivateECheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.rActivateECheckBox.Location = new System.Drawing.Point(413, 237);
             this.rActivateECheckBox.Name = "rActivateECheckBox";
-            this.rActivateECheckBox.Size = new System.Drawing.Size(58, 29);
+            this.rActivateECheckBox.Size = new System.Drawing.Size(33, 17);
             this.rActivateECheckBox.TabIndex = 38;
             this.rActivateECheckBox.Text = "E";
             this.rActivateECheckBox.UseVisualStyleBackColor = true;
@@ -488,10 +454,9 @@
             // rActivateWCheckBox
             // 
             this.rActivateWCheckBox.AutoSize = true;
-            this.rActivateWCheckBox.Location = new System.Drawing.Point(740, 456);
-            this.rActivateWCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.rActivateWCheckBox.Location = new System.Drawing.Point(370, 237);
             this.rActivateWCheckBox.Name = "rActivateWCheckBox";
-            this.rActivateWCheckBox.Size = new System.Drawing.Size(64, 29);
+            this.rActivateWCheckBox.Size = new System.Drawing.Size(37, 17);
             this.rActivateWCheckBox.TabIndex = 37;
             this.rActivateWCheckBox.Text = "W";
             this.rActivateWCheckBox.UseVisualStyleBackColor = true;
@@ -500,10 +465,9 @@
             // rActivateQCheckBox
             // 
             this.rActivateQCheckBox.AutoSize = true;
-            this.rActivateQCheckBox.Location = new System.Drawing.Point(660, 456);
-            this.rActivateQCheckBox.Margin = new System.Windows.Forms.Padding(6);
+            this.rActivateQCheckBox.Location = new System.Drawing.Point(330, 237);
             this.rActivateQCheckBox.Name = "rActivateQCheckBox";
-            this.rActivateQCheckBox.Size = new System.Drawing.Size(60, 29);
+            this.rActivateQCheckBox.Size = new System.Drawing.Size(34, 17);
             this.rActivateQCheckBox.TabIndex = 36;
             this.rActivateQCheckBox.Text = "Q";
             this.rActivateQCheckBox.UseVisualStyleBackColor = true;
@@ -512,10 +476,9 @@
             // qOnCheckbox
             // 
             this.qOnCheckbox.AutoSize = true;
-            this.qOnCheckbox.Location = new System.Drawing.Point(28, 315);
-            this.qOnCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.qOnCheckbox.Location = new System.Drawing.Point(14, 164);
             this.qOnCheckbox.Name = "qOnCheckbox";
-            this.qOnCheckbox.Size = new System.Drawing.Size(72, 29);
+            this.qOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.qOnCheckbox.TabIndex = 39;
             this.qOnCheckbox.Text = "On";
             this.qOnCheckbox.UseVisualStyleBackColor = true;
@@ -524,10 +487,9 @@
             // wOnCheckbox
             // 
             this.wOnCheckbox.AutoSize = true;
-            this.wOnCheckbox.Location = new System.Drawing.Point(28, 363);
-            this.wOnCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.wOnCheckbox.Location = new System.Drawing.Point(14, 189);
             this.wOnCheckbox.Name = "wOnCheckbox";
-            this.wOnCheckbox.Size = new System.Drawing.Size(72, 29);
+            this.wOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.wOnCheckbox.TabIndex = 40;
             this.wOnCheckbox.Text = "On";
             this.wOnCheckbox.UseVisualStyleBackColor = true;
@@ -535,10 +497,9 @@
             // eOnCheckbox
             // 
             this.eOnCheckbox.AutoSize = true;
-            this.eOnCheckbox.Location = new System.Drawing.Point(28, 412);
-            this.eOnCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.eOnCheckbox.Location = new System.Drawing.Point(14, 214);
             this.eOnCheckbox.Name = "eOnCheckbox";
-            this.eOnCheckbox.Size = new System.Drawing.Size(72, 29);
+            this.eOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.eOnCheckbox.TabIndex = 41;
             this.eOnCheckbox.Text = "On";
             this.eOnCheckbox.UseVisualStyleBackColor = true;
@@ -546,10 +507,9 @@
             // rOnCheckbox
             // 
             this.rOnCheckbox.AutoSize = true;
-            this.rOnCheckbox.Location = new System.Drawing.Point(28, 456);
-            this.rOnCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rOnCheckbox.Location = new System.Drawing.Point(14, 237);
             this.rOnCheckbox.Name = "rOnCheckbox";
-            this.rOnCheckbox.Size = new System.Drawing.Size(72, 29);
+            this.rOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.rOnCheckbox.TabIndex = 42;
             this.rOnCheckbox.Text = "On";
             this.rOnCheckbox.UseVisualStyleBackColor = true;
@@ -557,10 +517,9 @@
             // bindActivesToECheckbox
             // 
             this.bindActivesToECheckbox.AutoSize = true;
-            this.bindActivesToECheckbox.Location = new System.Drawing.Point(816, 504);
-            this.bindActivesToECheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.bindActivesToECheckbox.Location = new System.Drawing.Point(408, 262);
             this.bindActivesToECheckbox.Name = "bindActivesToECheckbox";
-            this.bindActivesToECheckbox.Size = new System.Drawing.Size(58, 29);
+            this.bindActivesToECheckbox.Size = new System.Drawing.Size(33, 17);
             this.bindActivesToECheckbox.TabIndex = 45;
             this.bindActivesToECheckbox.Text = "E";
             this.bindActivesToECheckbox.UseVisualStyleBackColor = true;
@@ -568,10 +527,9 @@
             // bindActivesToWCheckbox
             // 
             this.bindActivesToWCheckbox.AutoSize = true;
-            this.bindActivesToWCheckbox.Location = new System.Drawing.Point(730, 504);
-            this.bindActivesToWCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.bindActivesToWCheckbox.Location = new System.Drawing.Point(365, 262);
             this.bindActivesToWCheckbox.Name = "bindActivesToWCheckbox";
-            this.bindActivesToWCheckbox.Size = new System.Drawing.Size(64, 29);
+            this.bindActivesToWCheckbox.Size = new System.Drawing.Size(37, 17);
             this.bindActivesToWCheckbox.TabIndex = 44;
             this.bindActivesToWCheckbox.Text = "W";
             this.bindActivesToWCheckbox.UseVisualStyleBackColor = true;
@@ -579,10 +537,9 @@
             // bindActivesToQCheckbox
             // 
             this.bindActivesToQCheckbox.AutoSize = true;
-            this.bindActivesToQCheckbox.Location = new System.Drawing.Point(650, 504);
-            this.bindActivesToQCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.bindActivesToQCheckbox.Location = new System.Drawing.Point(325, 262);
             this.bindActivesToQCheckbox.Name = "bindActivesToQCheckbox";
-            this.bindActivesToQCheckbox.Size = new System.Drawing.Size(60, 29);
+            this.bindActivesToQCheckbox.Size = new System.Drawing.Size(34, 17);
             this.bindActivesToQCheckbox.TabIndex = 43;
             this.bindActivesToQCheckbox.Text = "Q";
             this.bindActivesToQCheckbox.UseVisualStyleBackColor = true;
@@ -590,10 +547,9 @@
             // bindActivesToRCheckbox
             // 
             this.bindActivesToRCheckbox.AutoSize = true;
-            this.bindActivesToRCheckbox.Location = new System.Drawing.Point(894, 504);
-            this.bindActivesToRCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.bindActivesToRCheckbox.Location = new System.Drawing.Point(447, 262);
             this.bindActivesToRCheckbox.Name = "bindActivesToRCheckbox";
-            this.bindActivesToRCheckbox.Size = new System.Drawing.Size(59, 29);
+            this.bindActivesToRCheckbox.Size = new System.Drawing.Size(34, 17);
             this.bindActivesToRCheckbox.TabIndex = 46;
             this.bindActivesToRCheckbox.Text = "R";
             this.bindActivesToRCheckbox.UseVisualStyleBackColor = true;
@@ -601,10 +557,9 @@
             // activesOnCheckbox
             // 
             this.activesOnCheckbox.AutoSize = true;
-            this.activesOnCheckbox.Location = new System.Drawing.Point(28, 504);
-            this.activesOnCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.activesOnCheckbox.Location = new System.Drawing.Point(14, 262);
             this.activesOnCheckbox.Name = "activesOnCheckbox";
-            this.activesOnCheckbox.Size = new System.Drawing.Size(72, 29);
+            this.activesOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.activesOnCheckbox.TabIndex = 47;
             this.activesOnCheckbox.Text = "On";
             this.activesOnCheckbox.UseVisualStyleBackColor = true;
@@ -614,10 +569,9 @@
             this.turnOnWhenAvailableCheckbox.AutoSize = true;
             this.turnOnWhenAvailableCheckbox.Checked = true;
             this.turnOnWhenAvailableCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.turnOnWhenAvailableCheckbox.Location = new System.Drawing.Point(126, 100);
-            this.turnOnWhenAvailableCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.turnOnWhenAvailableCheckbox.Location = new System.Drawing.Point(63, 52);
             this.turnOnWhenAvailableCheckbox.Name = "turnOnWhenAvailableCheckbox";
-            this.turnOnWhenAvailableCheckbox.Size = new System.Drawing.Size(420, 29);
+            this.turnOnWhenAvailableCheckbox.Size = new System.Drawing.Size(210, 17);
             this.turnOnWhenAvailableCheckbox.TabIndex = 48;
             this.turnOnWhenAvailableCheckbox.Text = "Only turn on when process is available:";
             this.turnOnWhenAvailableCheckbox.UseVisualStyleBackColor = true;
@@ -625,10 +579,9 @@
             // 
             // processNameTextbox
             // 
-            this.processNameTextbox.Location = new System.Drawing.Point(548, 96);
-            this.processNameTextbox.Margin = new System.Windows.Forms.Padding(6);
+            this.processNameTextbox.Location = new System.Drawing.Point(274, 50);
             this.processNameTextbox.Name = "processNameTextbox";
-            this.processNameTextbox.Size = new System.Drawing.Size(410, 31);
+            this.processNameTextbox.Size = new System.Drawing.Size(207, 20);
             this.processNameTextbox.TabIndex = 49;
             this.processNameTextbox.Text = "League of Legends.exe";
             this.processNameTextbox.TextChanged += new System.EventHandler(this.processNameTextbox_TextChanged);
@@ -638,10 +591,9 @@
             this.elevateApplicationsCheckbox.AutoSize = true;
             this.elevateApplicationsCheckbox.Checked = true;
             this.elevateApplicationsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.elevateApplicationsCheckbox.Location = new System.Drawing.Point(126, 144);
-            this.elevateApplicationsCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.elevateApplicationsCheckbox.Location = new System.Drawing.Point(63, 75);
             this.elevateApplicationsCheckbox.Name = "elevateApplicationsCheckbox";
-            this.elevateApplicationsCheckbox.Size = new System.Drawing.Size(648, 29);
+            this.elevateApplicationsCheckbox.Size = new System.Drawing.Size(322, 17);
             this.elevateApplicationsCheckbox.TabIndex = 50;
             this.elevateApplicationsCheckbox.Text = "Elevate League and Auto-clicker to higher priority automatically";
             this.elevateApplicationsCheckbox.UseVisualStyleBackColor = true;
@@ -650,50 +602,45 @@
             // rightClickOnCheckbox
             // 
             this.rightClickOnCheckbox.AutoSize = true;
-            this.rightClickOnCheckbox.Location = new System.Drawing.Point(28, 742);
-            this.rightClickOnCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickOnCheckbox.Location = new System.Drawing.Point(14, 386);
             this.rightClickOnCheckbox.Name = "rightClickOnCheckbox";
-            this.rightClickOnCheckbox.Size = new System.Drawing.Size(72, 29);
+            this.rightClickOnCheckbox.Size = new System.Drawing.Size(40, 17);
             this.rightClickOnCheckbox.TabIndex = 53;
             this.rightClickOnCheckbox.Text = "On";
             this.rightClickOnCheckbox.UseVisualStyleBackColor = true;
             // 
             // rightClickMillisecondsText
             // 
-            this.rightClickMillisecondsText.Location = new System.Drawing.Point(298, 738);
-            this.rightClickMillisecondsText.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickMillisecondsText.Location = new System.Drawing.Point(149, 384);
             this.rightClickMillisecondsText.Name = "rightClickMillisecondsText";
-            this.rightClickMillisecondsText.Size = new System.Drawing.Size(142, 31);
+            this.rightClickMillisecondsText.Size = new System.Drawing.Size(73, 20);
             this.rightClickMillisecondsText.TabIndex = 52;
             this.rightClickMillisecondsText.Text = "100";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(114, 744);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(57, 387);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(182, 25);
+            this.label2.Size = new System.Drawing.Size(91, 13);
             this.label2.TabIndex = 51;
             this.label2.Text = "Right click spam -";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(456, 744);
-            this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label12.Location = new System.Drawing.Point(228, 387);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(183, 25);
+            this.label12.Size = new System.Drawing.Size(89, 13);
             this.label12.TabIndex = 54;
             this.label12.Text = " millisecond delay";
             // 
             // rightClickPreactivateRCheckbox
             // 
             this.rightClickPreactivateRCheckbox.AutoSize = true;
-            this.rightClickPreactivateRCheckbox.Location = new System.Drawing.Point(504, 785);
-            this.rightClickPreactivateRCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateRCheckbox.Location = new System.Drawing.Point(252, 408);
             this.rightClickPreactivateRCheckbox.Name = "rightClickPreactivateRCheckbox";
-            this.rightClickPreactivateRCheckbox.Size = new System.Drawing.Size(59, 29);
+            this.rightClickPreactivateRCheckbox.Size = new System.Drawing.Size(34, 17);
             this.rightClickPreactivateRCheckbox.TabIndex = 58;
             this.rightClickPreactivateRCheckbox.Text = "R";
             this.rightClickPreactivateRCheckbox.UseVisualStyleBackColor = true;
@@ -701,10 +648,9 @@
             // rightClickPreactivateECheckbox
             // 
             this.rightClickPreactivateECheckbox.AutoSize = true;
-            this.rightClickPreactivateECheckbox.Location = new System.Drawing.Point(426, 785);
-            this.rightClickPreactivateECheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateECheckbox.Location = new System.Drawing.Point(213, 408);
             this.rightClickPreactivateECheckbox.Name = "rightClickPreactivateECheckbox";
-            this.rightClickPreactivateECheckbox.Size = new System.Drawing.Size(58, 29);
+            this.rightClickPreactivateECheckbox.Size = new System.Drawing.Size(33, 17);
             this.rightClickPreactivateECheckbox.TabIndex = 57;
             this.rightClickPreactivateECheckbox.Text = "E";
             this.rightClickPreactivateECheckbox.UseVisualStyleBackColor = true;
@@ -712,10 +658,9 @@
             // rightClickPreactivateWCheckbox
             // 
             this.rightClickPreactivateWCheckbox.AutoSize = true;
-            this.rightClickPreactivateWCheckbox.Location = new System.Drawing.Point(340, 785);
-            this.rightClickPreactivateWCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateWCheckbox.Location = new System.Drawing.Point(170, 408);
             this.rightClickPreactivateWCheckbox.Name = "rightClickPreactivateWCheckbox";
-            this.rightClickPreactivateWCheckbox.Size = new System.Drawing.Size(64, 29);
+            this.rightClickPreactivateWCheckbox.Size = new System.Drawing.Size(37, 17);
             this.rightClickPreactivateWCheckbox.TabIndex = 56;
             this.rightClickPreactivateWCheckbox.Text = "W";
             this.rightClickPreactivateWCheckbox.UseVisualStyleBackColor = true;
@@ -723,10 +668,9 @@
             // rightClickPreactivateQCheckbox
             // 
             this.rightClickPreactivateQCheckbox.AutoSize = true;
-            this.rightClickPreactivateQCheckbox.Location = new System.Drawing.Point(260, 785);
-            this.rightClickPreactivateQCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateQCheckbox.Location = new System.Drawing.Point(130, 408);
             this.rightClickPreactivateQCheckbox.Name = "rightClickPreactivateQCheckbox";
-            this.rightClickPreactivateQCheckbox.Size = new System.Drawing.Size(60, 29);
+            this.rightClickPreactivateQCheckbox.Size = new System.Drawing.Size(34, 17);
             this.rightClickPreactivateQCheckbox.TabIndex = 55;
             this.rightClickPreactivateQCheckbox.Text = "Q";
             this.rightClickPreactivateQCheckbox.UseVisualStyleBackColor = true;
@@ -734,20 +678,18 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(114, 787);
-            this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label13.Location = new System.Drawing.Point(57, 409);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(133, 25);
+            this.label13.Size = new System.Drawing.Size(67, 13);
             this.label13.TabIndex = 59;
             this.label13.Text = "Pre-activate:";
             // 
             // rightClickPreactivateActive1Checkbox
             // 
             this.rightClickPreactivateActive1Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive1Checkbox.Location = new System.Drawing.Point(584, 785);
-            this.rightClickPreactivateActive1Checkbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateActive1Checkbox.Location = new System.Drawing.Point(292, 408);
             this.rightClickPreactivateActive1Checkbox.Name = "rightClickPreactivateActive1Checkbox";
-            this.rightClickPreactivateActive1Checkbox.Size = new System.Drawing.Size(166, 29);
+            this.rightClickPreactivateActive1Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive1Checkbox.TabIndex = 60;
             this.rightClickPreactivateActive1Checkbox.Text = "Do #1 Active";
             this.rightClickPreactivateActive1Checkbox.UseVisualStyleBackColor = true;
@@ -755,10 +697,9 @@
             // rightClickPreactivateActive2Checkbox
             // 
             this.rightClickPreactivateActive2Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive2Checkbox.Location = new System.Drawing.Point(774, 785);
-            this.rightClickPreactivateActive2Checkbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateActive2Checkbox.Location = new System.Drawing.Point(387, 408);
             this.rightClickPreactivateActive2Checkbox.Name = "rightClickPreactivateActive2Checkbox";
-            this.rightClickPreactivateActive2Checkbox.Size = new System.Drawing.Size(166, 29);
+            this.rightClickPreactivateActive2Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive2Checkbox.TabIndex = 61;
             this.rightClickPreactivateActive2Checkbox.Text = "Do #2 Active";
             this.rightClickPreactivateActive2Checkbox.UseVisualStyleBackColor = true;
@@ -766,10 +707,9 @@
             // rightClickPreactivateActive3Checkbox
             // 
             this.rightClickPreactivateActive3Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive3Checkbox.Location = new System.Drawing.Point(260, 821);
-            this.rightClickPreactivateActive3Checkbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateActive3Checkbox.Location = new System.Drawing.Point(130, 427);
             this.rightClickPreactivateActive3Checkbox.Name = "rightClickPreactivateActive3Checkbox";
-            this.rightClickPreactivateActive3Checkbox.Size = new System.Drawing.Size(166, 29);
+            this.rightClickPreactivateActive3Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive3Checkbox.TabIndex = 62;
             this.rightClickPreactivateActive3Checkbox.Text = "Do #3 Active";
             this.rightClickPreactivateActive3Checkbox.UseVisualStyleBackColor = true;
@@ -777,10 +717,9 @@
             // rightClickPreactivateActive5Checkbox
             // 
             this.rightClickPreactivateActive5Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive5Checkbox.Location = new System.Drawing.Point(450, 821);
-            this.rightClickPreactivateActive5Checkbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateActive5Checkbox.Location = new System.Drawing.Point(225, 427);
             this.rightClickPreactivateActive5Checkbox.Name = "rightClickPreactivateActive5Checkbox";
-            this.rightClickPreactivateActive5Checkbox.Size = new System.Drawing.Size(166, 29);
+            this.rightClickPreactivateActive5Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive5Checkbox.TabIndex = 63;
             this.rightClickPreactivateActive5Checkbox.Text = "Do #5 Active";
             this.rightClickPreactivateActive5Checkbox.UseVisualStyleBackColor = true;
@@ -788,10 +727,9 @@
             // rightClickPreactivateActive6Checkbox
             // 
             this.rightClickPreactivateActive6Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive6Checkbox.Location = new System.Drawing.Point(636, 821);
-            this.rightClickPreactivateActive6Checkbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateActive6Checkbox.Location = new System.Drawing.Point(318, 427);
             this.rightClickPreactivateActive6Checkbox.Name = "rightClickPreactivateActive6Checkbox";
-            this.rightClickPreactivateActive6Checkbox.Size = new System.Drawing.Size(166, 29);
+            this.rightClickPreactivateActive6Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive6Checkbox.TabIndex = 64;
             this.rightClickPreactivateActive6Checkbox.Text = "Do #6 Active";
             this.rightClickPreactivateActive6Checkbox.UseVisualStyleBackColor = true;
@@ -799,10 +737,9 @@
             // rightClickPreactivateActive7Checkbox
             // 
             this.rightClickPreactivateActive7Checkbox.AutoSize = true;
-            this.rightClickPreactivateActive7Checkbox.Location = new System.Drawing.Point(818, 821);
-            this.rightClickPreactivateActive7Checkbox.Margin = new System.Windows.Forms.Padding(6);
+            this.rightClickPreactivateActive7Checkbox.Location = new System.Drawing.Point(409, 427);
             this.rightClickPreactivateActive7Checkbox.Name = "rightClickPreactivateActive7Checkbox";
-            this.rightClickPreactivateActive7Checkbox.Size = new System.Drawing.Size(166, 29);
+            this.rightClickPreactivateActive7Checkbox.Size = new System.Drawing.Size(89, 17);
             this.rightClickPreactivateActive7Checkbox.TabIndex = 65;
             this.rightClickPreactivateActive7Checkbox.Text = "Do #7 Active";
             this.rightClickPreactivateActive7Checkbox.UseVisualStyleBackColor = true;
@@ -812,70 +749,66 @@
             this.profileComboBox.DisplayMember = "E";
             this.profileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.profileComboBox.FormattingEnabled = true;
-            this.profileComboBox.Location = new System.Drawing.Point(114, 188);
-            this.profileComboBox.Margin = new System.Windows.Forms.Padding(6);
+            this.profileComboBox.Location = new System.Drawing.Point(57, 98);
             this.profileComboBox.MaxDropDownItems = 4;
             this.profileComboBox.Name = "profileComboBox";
-            this.profileComboBox.Size = new System.Drawing.Size(428, 33);
+            this.profileComboBox.Size = new System.Drawing.Size(216, 21);
             this.profileComboBox.TabIndex = 66;
             this.profileComboBox.SelectedIndexChanged += new System.EventHandler(this.profileComboBox_SelectedIndexChanged);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(24, 194);
-            this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label14.Location = new System.Drawing.Point(12, 101);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(79, 25);
+            this.label14.Size = new System.Drawing.Size(39, 13);
             this.label14.TabIndex = 67;
             this.label14.Text = "Profile:";
             // 
             // profileNameText
             // 
-            this.profileNameText.Location = new System.Drawing.Point(558, 190);
-            this.profileNameText.Margin = new System.Windows.Forms.Padding(6);
+            this.profileNameText.Location = new System.Drawing.Point(279, 99);
             this.profileNameText.Name = "profileNameText";
-            this.profileNameText.Size = new System.Drawing.Size(400, 31);
+            this.profileNameText.Size = new System.Drawing.Size(202, 20);
             this.profileNameText.TabIndex = 68;
             this.profileNameText.TextChanged += new System.EventHandler(this.profileNameText_TextChanged);
             // 
             // newProfileButton
             // 
-            this.newProfileButton.Location = new System.Drawing.Point(24, 240);
-            this.newProfileButton.Margin = new System.Windows.Forms.Padding(6);
+            this.newProfileButton.Location = new System.Drawing.Point(12, 125);
             this.newProfileButton.Name = "newProfileButton";
-            this.newProfileButton.Size = new System.Drawing.Size(150, 44);
+            this.newProfileButton.Size = new System.Drawing.Size(75, 23);
             this.newProfileButton.TabIndex = 69;
             this.newProfileButton.Text = "New Profile";
             this.newProfileButton.UseVisualStyleBackColor = true;
+            this.newProfileButton.Click += new System.EventHandler(this.newProfileButton_Click);
             // 
             // duplicateProfileButton
             // 
-            this.duplicateProfileButton.Location = new System.Drawing.Point(212, 240);
-            this.duplicateProfileButton.Margin = new System.Windows.Forms.Padding(6);
+            this.duplicateProfileButton.Location = new System.Drawing.Point(106, 125);
             this.duplicateProfileButton.Name = "duplicateProfileButton";
-            this.duplicateProfileButton.Size = new System.Drawing.Size(206, 44);
+            this.duplicateProfileButton.Size = new System.Drawing.Size(103, 23);
             this.duplicateProfileButton.TabIndex = 70;
             this.duplicateProfileButton.Text = "Duplicate Profile";
             this.duplicateProfileButton.UseVisualStyleBackColor = true;
+            this.duplicateProfileButton.Click += new System.EventHandler(this.duplicateProfileButton_Click);
             // 
             // deleteProfileButton
             // 
-            this.deleteProfileButton.Location = new System.Drawing.Point(756, 240);
-            this.deleteProfileButton.Margin = new System.Windows.Forms.Padding(6);
+            this.deleteProfileButton.Location = new System.Drawing.Point(378, 125);
             this.deleteProfileButton.Name = "deleteProfileButton";
-            this.deleteProfileButton.Size = new System.Drawing.Size(206, 44);
+            this.deleteProfileButton.Size = new System.Drawing.Size(103, 23);
             this.deleteProfileButton.TabIndex = 71;
             this.deleteProfileButton.Text = "Delete Profile";
             this.deleteProfileButton.UseVisualStyleBackColor = true;
+            this.deleteProfileButton.Click += new System.EventHandler(this.deleteProfileButton_Click);
             // 
             // wardHopRCheckbox
             // 
             this.wardHopRCheckbox.AutoSize = true;
-            this.wardHopRCheckbox.Location = new System.Drawing.Point(668, 692);
-            this.wardHopRCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.wardHopRCheckbox.Location = new System.Drawing.Point(334, 360);
             this.wardHopRCheckbox.Name = "wardHopRCheckbox";
-            this.wardHopRCheckbox.Size = new System.Drawing.Size(59, 29);
+            this.wardHopRCheckbox.Size = new System.Drawing.Size(34, 17);
             this.wardHopRCheckbox.TabIndex = 75;
             this.wardHopRCheckbox.Text = "R";
             this.wardHopRCheckbox.UseVisualStyleBackColor = true;
@@ -883,10 +816,9 @@
             // wardHopECheckbox
             // 
             this.wardHopECheckbox.AutoSize = true;
-            this.wardHopECheckbox.Location = new System.Drawing.Point(590, 692);
-            this.wardHopECheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.wardHopECheckbox.Location = new System.Drawing.Point(295, 360);
             this.wardHopECheckbox.Name = "wardHopECheckbox";
-            this.wardHopECheckbox.Size = new System.Drawing.Size(58, 29);
+            this.wardHopECheckbox.Size = new System.Drawing.Size(33, 17);
             this.wardHopECheckbox.TabIndex = 74;
             this.wardHopECheckbox.Text = "E";
             this.wardHopECheckbox.UseVisualStyleBackColor = true;
@@ -894,10 +826,9 @@
             // wardHopWCheckbox
             // 
             this.wardHopWCheckbox.AutoSize = true;
-            this.wardHopWCheckbox.Location = new System.Drawing.Point(504, 692);
-            this.wardHopWCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.wardHopWCheckbox.Location = new System.Drawing.Point(252, 360);
             this.wardHopWCheckbox.Name = "wardHopWCheckbox";
-            this.wardHopWCheckbox.Size = new System.Drawing.Size(64, 29);
+            this.wardHopWCheckbox.Size = new System.Drawing.Size(37, 17);
             this.wardHopWCheckbox.TabIndex = 73;
             this.wardHopWCheckbox.Text = "W";
             this.wardHopWCheckbox.UseVisualStyleBackColor = true;
@@ -905,19 +836,18 @@
             // wardHopQCheckbox
             // 
             this.wardHopQCheckbox.AutoSize = true;
-            this.wardHopQCheckbox.Location = new System.Drawing.Point(424, 692);
-            this.wardHopQCheckbox.Margin = new System.Windows.Forms.Padding(6);
+            this.wardHopQCheckbox.Location = new System.Drawing.Point(212, 360);
             this.wardHopQCheckbox.Name = "wardHopQCheckbox";
-            this.wardHopQCheckbox.Size = new System.Drawing.Size(60, 29);
+            this.wardHopQCheckbox.Size = new System.Drawing.Size(34, 17);
             this.wardHopQCheckbox.TabIndex = 72;
             this.wardHopQCheckbox.Text = "Q";
             this.wardHopQCheckbox.UseVisualStyleBackColor = true;
             // 
             // LeagueUltimateCasterForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1032, 877);
+            this.ClientSize = new System.Drawing.Size(516, 456);
             this.Controls.Add(this.wardHopRCheckbox);
             this.Controls.Add(this.wardHopECheckbox);
             this.Controls.Add(this.wardHopWCheckbox);
@@ -992,7 +922,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "LeagueUltimateCasterForm";
             this.Text = "League Ultimate Caster";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Closing);
