@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using League_Auto_Key_Presser.Ultimate_Caster;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace League_Auto_Key_Presser
 {
@@ -30,6 +31,7 @@ namespace League_Auto_Key_Presser
                     casterController.LeagueProcessName = "League of Legends.exe";
                 }
                 casterController.OnlyRunCasterWhenProcessIsOpen = Convert.ToBoolean(appSettings["OnlyRunCasterWhenProcessIsOpen"]);
+                casterController.OnlyRunCasterWhenProcessIsFocused = Convert.ToBoolean(appSettings["OnlyRunCasterWhenProcessIsFocused"]);
                 casterController.UltimateCasterOn = Convert.ToBoolean(appSettings["UltimateCasterOn"]);
                 selectedProfileIndex = Convert.ToInt32(appSettings["SelectedProfile"]);
                 if (selectedProfileIndex < 0)
@@ -41,11 +43,17 @@ namespace League_Auto_Key_Presser
             //Now update the UI with the selected options
             elevateApplicationsCheckbox.Checked = casterController.ElevateProcesses;
             turnOnWhenAvailableCheckbox.Checked = casterController.OnlyRunCasterWhenProcessIsOpen;
+            turnOnWhenFocusedCheckbox.Checked = casterController.OnlyRunCasterWhenProcessIsFocused;
             autoKeyOnCheckbox.Checked = casterController.UltimateCasterOn;
             processNameTextbox.Text = casterController.LeagueProcessName;
             UpdateProfileNamesInComboBox();
             profileComboBox.SelectedIndex = selectedProfileIndex;
             casterController.SetSelectedProfileAtIndex(selectedProfileIndex);
+
+            if (casterController.ElevateProcesses || casterController.OnlyRunCasterWhenProcessIsOpen)
+            {
+                casterController.RestartIfNotAdministrator();
+            }
         }
 
         public void UpdateProfileNamesInComboBox()
@@ -166,6 +174,7 @@ namespace League_Auto_Key_Presser
             settings.Add("ElevateProcesses", casterController.ElevateProcesses.ToString());
             settings.Add("LeagueProcessName", casterController.LeagueProcessName.ToString());
             settings.Add("OnlyRunCasterWhenProcessIsOpen", casterController.OnlyRunCasterWhenProcessIsOpen.ToString());
+            settings.Add("OnlyRunCasterWhenProcessIsFocused", casterController.OnlyRunCasterWhenProcessIsFocused.ToString());
             settings.Add("UltimateCasterOn", casterController.UltimateCasterOn.ToString());
             int selectedProfile = casterController.GetProfileController().Profiles.IndexOf(casterController.SelectedProfile);
             settings.Add("SelectedProfile", selectedProfile.ToString());
@@ -455,6 +464,10 @@ namespace League_Auto_Key_Presser
         private void turnOnWhenAvailableCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             casterController.OnlyRunCasterWhenProcessIsOpen = turnOnWhenAvailableCheckbox.Checked;
+            if (casterController.OnlyRunCasterWhenProcessIsOpen == true)
+            {
+                casterController.RestartIfNotAdministrator();
+            }
         }
 
         private void processNameTextbox_TextChanged(object sender, EventArgs e)
@@ -465,6 +478,10 @@ namespace League_Auto_Key_Presser
         private void elevateApplicationsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             casterController.ElevateProcesses = elevateApplicationsCheckbox.Checked;
+            if (casterController.ElevateProcesses)
+            {
+                casterController.RestartIfNotAdministrator();
+            }
         }
 
         private void profileComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -666,6 +683,11 @@ namespace League_Auto_Key_Presser
             catch (Exception) { }
             casterController.SelectedProfile.RightClickMillisecondDelay = milliseconds;
             casterController.GetProfileController().SaveProfiles();
+        }
+
+        private void turnOnWhenFocusedCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.OnlyRunCasterWhenProcessIsFocused = turnOnWhenFocusedCheckbox.Checked;
         }
     }
 }

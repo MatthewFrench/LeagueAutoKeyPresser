@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoItX3Lib;
 
@@ -10,7 +11,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 {
     class SpellController
     {
-        static AutoItX3 _autoIT = new AutoItX3();
+        AutoItX3 _autoIT = new AutoItX3();
         int keyCountUp = 0;
         int spellSent = 0;
         bool pressingSpell = false;
@@ -25,6 +26,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         {
             this.ultimateCasterController = ultimateCasterController;
             this.spellKey = spellKey;
+            _autoIT = new AutoItX3();
             _autoIT.AutoItSetOption("SendKeyDelay", 0);
             _autoIT.AutoItSetOption("SendKeyDownDelay", 0);
         }
@@ -58,9 +60,9 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         {
             if (pressingSpell)
             {
-                if (ultimateCasterController.UltimateCasterOn)
+                if (ultimateCasterController.IsOn() && spellData.On)
                 {
-                    foreach (char key in spellData.Preactivate)
+                    foreach (char key in spellData.Preactivate.Reverse())
                     {
                         SpellController spellController;
                         if (spellControllers.TryGetValue(key, out spellController))
@@ -90,46 +92,38 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 
         public void OnKeyUp()
         {
-            //if (e.KeyCode == Keys.Q) // && keyQPressed
-            //{ //Q
-                if (ultimateCasterController.UltimateCasterOn)
-                {
-                    keyCountUp++;
-                    if (keyCountUp > spellSent && spellSent != 0)
-                    {
-                        pressingSpell = false;
-                        keyCountUp = 0;
-                        spellSent = 0;
-                    }
-                }
-                else
+            if (ultimateCasterController.IsOn() && spellData.On)
+            {
+                keyCountUp++;
+                if (keyCountUp > spellSent && spellSent != 0)
                 {
                     pressingSpell = false;
-                }
-            //}
-        }
-
-        public void OnKeyDown()
-        {
-            //if (e.KeyCode == Keys.Q)
-            //{ //Q
-                if (!pressingSpell)
-                {
-                    pressingSpell = true;
-                    //go = true;
                     keyCountUp = 0;
                     spellSent = 0;
                 }
-            //}
+            }
+            else
+            {
+                pressingSpell = false;
+            }
+        }
+
+        public bool OnKeyDown()
+        {
+            if (!pressingSpell)
+            {
+                pressingSpell = true;
+                keyCountUp = 0;
+                spellSent = 0;
+                return true;
+            }
+            return false;
         }
 
         public void TapSpell()
         {
             spellSent++;
-            Task.Factory.StartNew(() =>
-            {
-                _autoIT.Send(Char.ToLower(spellKey).ToString());
-            });
+            _autoIT.Send(Char.ToLower(spellKey).ToString());
         }
     }
 }

@@ -39,6 +39,13 @@ namespace League_Auto_Key_Presser
 
         private bool _enabled;
 
+        /*
+        int NumberOfRuns = 0;
+        MicroStopwatch Stopwatch;
+        MicroStopwatch Stopwatch2;
+        long GreatestBetween = 0;
+        */
+
         public ATimer(int timerType, int intervalMS, ElapsedTimerDelegate callback)
         {
             _timerType = timerType;
@@ -72,6 +79,13 @@ namespace League_Auto_Key_Presser
             }
             else if (timerType == 3)
             {
+                /*
+                Stopwatch = new MicroStopwatch();
+                Stopwatch2 = new MicroStopwatch();
+                Stopwatch.Start();
+                Stopwatch2.Start();
+
+    */
             }
         }
 
@@ -106,7 +120,19 @@ namespace League_Auto_Key_Presser
         {
 
             _elapsedTimerHandler();
-
+            /*
+            NumberOfRuns++;
+            GreatestBetween = Math.Max(Stopwatch2.ElapsedMilliseconds, GreatestBetween);
+            if (Stopwatch.ElapsedMilliseconds >= 1000)
+            {
+                Console.WriteLine("Timer hits per second: " + NumberOfRuns + ", one hit every " + (Stopwatch.ElapsedMilliseconds*1.0/NumberOfRuns) + "ms");
+                Console.WriteLine("Greatest gap between timer: " + GreatestBetween + "ms");
+                NumberOfRuns = 0;
+                GreatestBetween = 0;
+                Stopwatch.Restart();
+            }
+            Stopwatch2.Restart();
+            */
         }
 
         public void Start()

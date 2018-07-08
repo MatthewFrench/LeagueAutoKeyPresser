@@ -102,6 +102,7 @@
             this.wardHopECheckbox = new System.Windows.Forms.CheckBox();
             this.wardHopWCheckbox = new System.Windows.Forms.CheckBox();
             this.wardHopQCheckbox = new System.Windows.Forms.CheckBox();
+            this.turnOnWhenFocusedCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -587,9 +588,9 @@
             // 
             // processNameTextbox
             // 
-            this.processNameTextbox.Location = new System.Drawing.Point(274, 50);
+            this.processNameTextbox.Location = new System.Drawing.Point(273, 50);
             this.processNameTextbox.Name = "processNameTextbox";
-            this.processNameTextbox.Size = new System.Drawing.Size(207, 20);
+            this.processNameTextbox.Size = new System.Drawing.Size(144, 20);
             this.processNameTextbox.TabIndex = 49;
             this.processNameTextbox.Text = "League of Legends.exe";
             this.processNameTextbox.TextChanged += new System.EventHandler(this.processNameTextbox_TextChanged);
@@ -867,11 +868,25 @@
             this.wardHopQCheckbox.UseVisualStyleBackColor = true;
             this.wardHopQCheckbox.CheckedChanged += new System.EventHandler(this.wardHopQCheckbox_CheckedChanged);
             // 
+            // turnOnWhenFocusedCheckbox
+            // 
+            this.turnOnWhenFocusedCheckbox.AutoSize = true;
+            this.turnOnWhenFocusedCheckbox.Checked = true;
+            this.turnOnWhenFocusedCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.turnOnWhenFocusedCheckbox.Location = new System.Drawing.Point(423, 52);
+            this.turnOnWhenFocusedCheckbox.Name = "turnOnWhenFocusedCheckbox";
+            this.turnOnWhenFocusedCheckbox.Size = new System.Drawing.Size(99, 17);
+            this.turnOnWhenFocusedCheckbox.TabIndex = 76;
+            this.turnOnWhenFocusedCheckbox.Text = "When Focused";
+            this.turnOnWhenFocusedCheckbox.UseVisualStyleBackColor = true;
+            this.turnOnWhenFocusedCheckbox.CheckedChanged += new System.EventHandler(this.turnOnWhenFocusedCheckbox_CheckedChanged);
+            // 
             // LeagueUltimateCasterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(516, 456);
+            this.Controls.Add(this.turnOnWhenFocusedCheckbox);
             this.Controls.Add(this.wardHopRCheckbox);
             this.Controls.Add(this.wardHopECheckbox);
             this.Controls.Add(this.wardHopWCheckbox);
@@ -1030,6 +1045,7 @@
         private System.Windows.Forms.CheckBox wardHopECheckbox;
         private System.Windows.Forms.CheckBox wardHopWCheckbox;
         private System.Windows.Forms.CheckBox wardHopQCheckbox;
+        private System.Windows.Forms.CheckBox turnOnWhenFocusedCheckbox;
     }
 }
 
