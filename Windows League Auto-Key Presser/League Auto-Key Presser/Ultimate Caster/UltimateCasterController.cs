@@ -136,26 +136,30 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
 
             //Now elevate self and League
             var currentProcess = Process.GetCurrentProcess();
-            if (currentProcess.PriorityClass != ProcessPriorityClass.High)
+            if (currentProcess.PriorityClass != ProcessPriorityClass.AboveNormal)
             {
-                currentProcess.PriorityClass = ProcessPriorityClass.High;
+                currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
             }
             var activatedHandle = GetForegroundWindow();
             bool isFocused = false;
             foreach (Process process in foundProcesses)
             {
-                if (process.PriorityBoostEnabled == false)
+                try
                 {
-                    process.PriorityBoostEnabled = true;
+                    if (process.PriorityBoostEnabled == false)
+                    {
+                        process.PriorityBoostEnabled = true;
+                    }
+                    if (process.PriorityClass != ProcessPriorityClass.High)
+                    {
+                        process.PriorityClass = ProcessPriorityClass.High;
+                    }
+                    if (activatedHandle == process.MainWindowHandle)
+                    {
+                        isFocused = true;
+                    }
                 }
-                if (process.PriorityClass != ProcessPriorityClass.High)
-                {
-                    process.PriorityClass = ProcessPriorityClass.High;
-                }
-                if (activatedHandle == process.MainWindowHandle)
-                {
-                    isFocused = true;
-                }
+                catch (Exception) { }
             }
             leagueProcessIsFocused = isFocused;
 

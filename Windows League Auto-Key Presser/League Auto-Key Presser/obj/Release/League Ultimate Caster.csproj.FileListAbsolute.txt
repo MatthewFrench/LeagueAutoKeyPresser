@@ -37,3 +37,4 @@ C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Pres
 C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\Newtonsoft.Json.dll
 C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\bin\Release\Newtonsoft.Json.xml
 C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.CopyComplete
+C:\Users\Matt\Documents\GitHub\LeagueAutoKeyPresser\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csprojAssemblyReference.cache
