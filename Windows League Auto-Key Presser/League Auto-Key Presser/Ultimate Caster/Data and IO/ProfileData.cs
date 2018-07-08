@@ -10,30 +10,10 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
     public class ProfileData
     {
         public string ProfileName { get; set; } = "New Profile";
-        //Q
-        public bool QOn { get; set; } = false;
-        public int QMillisecondDelay { get; set; } = 80;
-        public bool QPreactivateW { get; set; } = false;
-        public bool QPreactivateE { get; set; } = false;
-        public bool QPreactivateR { get; set; } = false;
-        //W
-        public bool WOn { get; set; } = false;
-        public int WMillisecondDelay { get; set; } = 90;
-        public bool WPreactivateQ { get; set; } = false;
-        public bool WPreactivateE { get; set; } = false;
-        public bool WPreactivateR { get; set; } = false;
-        //E
-        public bool EOn { get; set; } = false;
-        public int EMillisecondDelay { get; set; } = 100;
-        public bool EPreactivateQ { get; set; } = false;
-        public bool EPreactivateW { get; set; } = false;
-        public bool EPreactivateR { get; set; } = false;
-        //R
-        public bool ROn { get; set; } = false;
-        public int RMillisecondDelay { get; set; } = 110;
-        public bool RPreactivateQ { get; set; } = false;
-        public bool RPreactivateW { get; set; } = false;
-        public bool RPreactivateE { get; set; } = false;
+        public SpellData QSpellData { get; set; } = new SpellData('Q', 80);
+        public SpellData WSpellData { get; set; } = new SpellData('W', 90);
+        public SpellData ESpellData { get; set; } = new SpellData('E', 100);
+        public SpellData RSpellData { get; set; } = new SpellData('R', 110);
 
         //Actives
         public bool ActivesOn { get; set; } = false;

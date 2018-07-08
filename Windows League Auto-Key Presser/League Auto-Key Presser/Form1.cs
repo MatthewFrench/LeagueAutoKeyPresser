@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace League_Auto_Key_Presser
 {
@@ -12,43 +14,38 @@ namespace League_Auto_Key_Presser
         {
             InitializeComponent();
 
-            casterController = new Ultimate_Caster.UltimateCasterController();
+            casterController = new Ultimate_Caster.UltimateCasterController(this);
 
             //Load state
             var appSettings = ConfigurationManager.AppSettings;
             if (appSettings.Count != 0)
             {
-                /*
-                pressSpell1Interval = Convert.ToInt32(appSettings["pressSpell1Interval"]);
-                pressSpell2Interval = Convert.ToInt32(appSettings["pressSpell2Interval"]);
-                pressSpell3Interval = Convert.ToInt32(appSettings["pressSpell3Interval"]);
-                pressSpell4Interval = Convert.ToInt32(appSettings["pressSpell4Interval"]);
-                pressActiveInterval = Convert.ToInt32(appSettings["pressActiveInterval"]);
-                autoKeyOnBool = Convert.ToBoolean(appSettings["autoKeyOnBool"]);
-                active1OnBool = Convert.ToBoolean(appSettings["active1OnBool"]);
-                active2OnBool = Convert.ToBoolean(appSettings["active2OnBool"]);
-                active3OnBool = Convert.ToBoolean(appSettings["active3OnBool"]);
-                active5OnBool = Convert.ToBoolean(appSettings["active5OnBool"]);
-                active6OnBool = Convert.ToBoolean(appSettings["active6OnBool"]);
-                active7OnBool = Convert.ToBoolean(appSettings["active7OnBool"]);
-                wardOnBool = Convert.ToBoolean(appSettings["wardOnBool"]);
-                wardHopOn = Convert.ToBoolean(appSettings["wardHopOn"]);
-                qPreactivateW = Convert.ToBoolean(appSettings["qPreactivateW"]);
-                qPreactivateE = Convert.ToBoolean(appSettings["qPreactivateE"]);
-                qPreactivateR = Convert.ToBoolean(appSettings["qPreactivateR"]);
-                wPreactivateQ = Convert.ToBoolean(appSettings["wPreactivateQ"]);
-                wPreactivateE = Convert.ToBoolean(appSettings["wPreactivateE"]);
-                wPreactivateR = Convert.ToBoolean(appSettings["wPreactivateR"]);
-                ePreactivateQ = Convert.ToBoolean(appSettings["ePreactivateQ"]);
-                ePreactivateW = Convert.ToBoolean(appSettings["ePreactivateW"]);
-                ePreactivateR = Convert.ToBoolean(appSettings["ePreactivateR"]);
-                rPreactivateQ = Convert.ToBoolean(appSettings["rPreactivateQ"]);
-                rPreactivateW = Convert.ToBoolean(appSettings["rPreactivateW"]);
-                rPreactivateE = Convert.ToBoolean(appSettings["rPreactivateE"]);
-                wardHopKey = Convert.ToChar(appSettings["wardHopKey"]);
-                activeKey = Convert.ToChar(appSettings["activeKey"]);
-                */
+                //settings.Add("ElevateProcesses", casterController.ElevateProcesses.ToString());
+                //settings.Add("LeagueProcessName", casterController.LeagueProcessName.ToString());
+                //settings.Add("OnlyRunCasterWhenProcessIsOpen", casterController.OnlyRunCasterWhenProcessIsOpen.ToString());
+                //settings.Add("UltimateCasterOn", casterController.UltimateCasterOn.ToString());
+                //settings.Add("SelectedProfile", casterController.GetProfileController().Profiles.IndexOf(casterController.SelectedProfile).ToString());
+                casterController.ElevateProcesses = Convert.ToBoolean(appSettings["ElevateProcesses"]);
+                casterController.LeagueProcessName = Convert.ToString(appSettings["LeagueProcessName"]);
+                if (casterController.LeagueProcessName.Length == 0)
+                {
+                    casterController.LeagueProcessName = "League of Legends.exe";
+                }
+                casterController.OnlyRunCasterWhenProcessIsOpen = Convert.ToBoolean(appSettings["OnlyRunCasterWhenProcessIsOpen"]);
+                casterController.UltimateCasterOn = Convert.ToBoolean(appSettings["UltimateCasterOn"]);
+                int selectedProfileIndex = Convert.ToInt32(appSettings["SelectedProfile"]);
+                casterController.SelectedProfileAtIndex(selectedProfileIndex);
             }
+
+            //Now update the UI with the selected options
+            elevateApplicationsCheckbox.Checked = casterController.ElevateProcesses;
+            turnOnWhenAvailableCheckbox.Checked = casterController.OnlyRunCasterWhenProcessIsOpen;
+            autoKeyOnCheckbox.Checked = casterController.UltimateCasterOn;
+            processNameTextbox.Text = casterController.LeagueProcessName;
+            //Update the names of profiles in the profile combo box
+            //Update the selected profile in the combo box
+            //Update the profile specific data
+
             /*
             qMillisecondsText.Text = pressSpell1Interval.ToString();
             wMillisecondsText.Text = pressSpell2Interval.ToString();
@@ -102,6 +99,7 @@ namespace League_Auto_Key_Presser
 
         private void autoKeyOn_CheckedChanged(object sender, EventArgs e)
         {
+            casterController.UltimateCasterOn = autoKeyOnCheckbox.Checked;
             /*
             autoKeyOnBool = ((CheckBox)sender).Checked;
 
@@ -118,45 +116,22 @@ namespace League_Auto_Key_Presser
         }
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            casterController.stopTimer();
-            //Save state'
-        /*
+            //Save state
             var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var settings = configFile.AppSettings.Settings;
             settings.Clear();
-            settings.Add("pressSpell1Interval", pressSpell1Interval.ToString());
-            settings.Add("pressSpell2Interval", pressSpell2Interval.ToString());
-            settings.Add("pressSpell3Interval", pressSpell3Interval.ToString());
-            settings.Add("pressSpell4Interval", pressSpell4Interval.ToString());
-            settings.Add("pressActiveInterval", pressActiveInterval.ToString());
-            settings.Add("autoKeyOnBool", autoKeyOnBool.ToString());
-            settings.Add("active1OnBool", active1OnBool.ToString());
-            settings.Add("active2OnBool", active2OnBool.ToString());
-            settings.Add("active3OnBool", active3OnBool.ToString());
-            settings.Add("active5OnBool", active5OnBool.ToString());
-            settings.Add("active6OnBool", active6OnBool.ToString());
-            settings.Add("active7OnBool", active7OnBool.ToString());
-            settings.Add("wardHopOn", wardHopOn.ToString());
-            settings.Add("wardOnBool", wardOnBool.ToString());
-            settings.Add("qPreactivateW", qPreactivateW.ToString());
-            settings.Add("qPreactivateE", qPreactivateE.ToString());
-            settings.Add("qPreactivateR", qPreactivateR.ToString());
-            settings.Add("wPreactivateQ", wPreactivateQ.ToString());
-            settings.Add("wPreactivateE", wPreactivateE.ToString());
-            settings.Add("wPreactivateR", wPreactivateR.ToString());
-            settings.Add("ePreactivateQ", ePreactivateQ.ToString());
-            settings.Add("ePreactivateW", ePreactivateW.ToString());
-            settings.Add("ePreactivateR", ePreactivateR.ToString());
-            settings.Add("rPreactivateQ", rPreactivateQ.ToString());
-            settings.Add("rPreactivateW", rPreactivateW.ToString());
-            settings.Add("rPreactivateE", rPreactivateE.ToString());
-            settings.Add("wardHopKey", wardHopKey.ToString());
-            settings.Add("activeKey", activeKey.ToString());
+            settings.Add("ElevateProcesses", casterController.ElevateProcesses.ToString());
+            settings.Add("LeagueProcessName", casterController.LeagueProcessName.ToString());
+            settings.Add("OnlyRunCasterWhenProcessIsOpen", casterController.OnlyRunCasterWhenProcessIsOpen.ToString());
+            settings.Add("UltimateCasterOn", casterController.UltimateCasterOn.ToString());
+            settings.Add("SelectedProfile", casterController.GetProfileController().Profiles.IndexOf(casterController.SelectedProfile).ToString());
             configFile.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            */
-            Application.Exit();
-            Environment.Exit(0);
+
+            casterController.StopTimer();
+
+            casterController.GetProfileController().SaveProfiles();
+            Task.Delay(500).ContinueWith(t => Application.Exit());
         }
 
         private void qValueText_TextChanged(object sender, EventArgs e)
@@ -294,6 +269,31 @@ namespace League_Auto_Key_Presser
         }
 
         private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void turnOnWhenAvailableCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.OnlyRunCasterWhenProcessIsOpen = turnOnWhenAvailableCheckbox.Checked;
+        }
+
+        private void processNameTextbox_TextChanged(object sender, EventArgs e)
+        {
+            casterController.LeagueProcessName = processNameTextbox.Text;
+        }
+
+        private void elevateApplicationsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            casterController.ElevateProcesses = elevateApplicationsCheckbox.Checked;
+        }
+
+        private void profileComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Change selected profile
+        }
+
+        private void profileNameText_TextChanged(object sender, EventArgs e)
         {
 
         }

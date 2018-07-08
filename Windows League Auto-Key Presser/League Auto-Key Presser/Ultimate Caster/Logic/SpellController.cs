@@ -22,7 +22,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         Dictionary<char, SpellController> spellControllers = new Dictionary<char, SpellController>();
         HashSet<char> enabledPreactives = new HashSet<char>();
         bool runActivesOnThisSpell = false;
-        ActivesController activesController;
+        ActivesAndWardController activesController;
         public SpellController(char spellKey)
         {
             this.spellKey = spellKey;
@@ -30,7 +30,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             _autoIT.AutoItSetOption("SendKeyDownDelay", 0);
         }
 
-        public void SetActivesController(ActivesController activesController)
+        public void SetActivesController(ActivesAndWardController activesController)
         {
             this.activesController = activesController;
         }

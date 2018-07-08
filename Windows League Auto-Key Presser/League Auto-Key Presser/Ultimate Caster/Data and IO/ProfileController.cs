@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace League_Auto_Key_Presser.Ultimate_Caster
 {
@@ -12,7 +9,7 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
     {
         const string profileFileName = "urf-caster-profiles.txt";
         string profilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, profileFileName);
-        List<ProfileData> Profiles { get; set; }
+        public List<ProfileData> Profiles { get; set; }
 
         public ProfileController()
         {
@@ -30,12 +27,13 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             {
                 Profiles = new List<ProfileData>();
                 Profiles.Add(new ProfileData());
+                SaveProfiles();
             }
         }
 
         public void SaveProfiles()
         {
-            File.WriteAllText(profilePath, JsonConvert.SerializeObject(Profiles));
+            File.WriteAllText(profilePath, JsonConvert.SerializeObject(Profiles, Formatting.Indented));
         }
     }
 }

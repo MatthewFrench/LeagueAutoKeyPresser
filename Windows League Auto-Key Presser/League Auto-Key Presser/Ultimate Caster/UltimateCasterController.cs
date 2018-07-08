@@ -8,16 +8,30 @@ using System.Windows.Forms;
 
 namespace League_Auto_Key_Presser.Ultimate_Caster
 {
-    class UltimateCasterController
+    public class UltimateCasterController
     {
+        LeagueUltimateCasterForm form;
+        ProfileController profileController;
+        public ProfileData SelectedProfile { get; set; }
+        SpellController qSpellController;
+        SpellController wSpellController;
+        SpellController eSpellController;
+        SpellController rSpellController;
+        ActivesAndWardController activesAndWardController;
+        RightClickController rightClickController;
         ATimer timer = null;
+        public bool UltimateCasterOn { get; set; } = false;
+        public bool OnlyRunCasterWhenProcessIsOpen { get; set; } = false;
+        public string LeagueProcessName { get; set; } = "";
+        public bool ElevateProcesses { get; set; } = false;
 
         [DllImport("ntdll.dll", SetLastError = true)]
         static extern int NtSetTimerResolution(int DesiredResolution, bool SetResolution, out int CurrentResolution);
 
-        public UltimateCasterController()
+        public UltimateCasterController(LeagueUltimateCasterForm form)
         {
-
+            this.form = form;
+            profileController = new ProfileController();
             /**
              * 
              */
@@ -52,6 +66,11 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
             timer.Start();
         }
 
+        public void SelectedProfileAtIndex(int index)
+        {
+
+        }
+
         void timer_Tick()
         {
             //Run all spell controller and actives timer
@@ -73,6 +92,17 @@ namespace League_Auto_Key_Presser.Ultimate_Caster
         void runLogicPress()
         {
             timer_Tick();
+        }
+
+
+        public void StopTimer()
+        {
+            timer.Stop();
+        }
+
+        public ProfileController GetProfileController()
+        {
+            return profileController;
         }
     }
 }
