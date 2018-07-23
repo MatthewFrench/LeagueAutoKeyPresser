@@ -108,11 +108,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(105, 9);
+            this.label1.Location = new System.Drawing.Point(156, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(236, 13);
+            this.label1.Size = new System.Drawing.Size(199, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Designed for League of Legends by Matt French";
+            this.label1.Text = "Designed for League of Legends by Gan\r\n";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label3
             // 
