@@ -176,10 +176,15 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
     // Insert code here to initialize your application
     globalSelf = self;
     
-    // Create dedicated queues for event taps and state management
+    // Create dedicated queues for event taps and state management with high priority
     eventTapQueue = dispatch_queue_create("com.app.eventtap", DISPATCH_QUEUE_SERIAL);
+    dispatch_set_target_queue(eventTapQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
+    
     mouseEventTapQueue = dispatch_queue_create("com.app.mouseeventtap", DISPATCH_QUEUE_SERIAL);
+    dispatch_set_target_queue(mouseEventTapQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
+    
     gameStateQueue = dispatch_queue_create("com.app.gamestate", DISPATCH_QUEUE_SERIAL);
+    dispatch_set_target_queue(gameStateQueue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0));
     
     // Create event taps on background threads
     dispatch_async(eventTapQueue, ^{
