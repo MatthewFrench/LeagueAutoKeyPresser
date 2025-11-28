@@ -206,15 +206,15 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
      
      [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated | NSActivityLatencyCritical reason:@"Good Reason 3"];
      */
-    // Move game logic timer to background queue to reduce main thread load
+    // Move game logic timer to background queue to maintain precision without blocking UI
     dispatch_queue_t gameLogicQueue = dispatch_queue_create("com.app.gamelogic", DISPATCH_QUEUE_SERIAL);
-    timer = CreateDispatchTimer(NSEC_PER_SEC/60, // Reduced to 60Hz for better performance
+    timer = CreateDispatchTimer(NSEC_PER_SEC/1000, // Keep 1000Hz for gaming precision
                                 0,
                                 gameLogicQueue,
                                 ^{ [self timerLogic]; });
     
-    // Keep UI updates on main queue but at lower frequency
-    uiTimer = CreateDispatchTimer(NSEC_PER_SEC/30, // 30Hz is sufficient for UI updates
+    // UI updates can be less frequent since visual updates don't need 1ms precision
+    uiTimer = CreateDispatchTimer(NSEC_PER_SEC/60, // 60Hz for smooth UI updates
                                   0,
                                   dispatch_get_main_queue(),
                                   ^{ [self uiLogic]; });
