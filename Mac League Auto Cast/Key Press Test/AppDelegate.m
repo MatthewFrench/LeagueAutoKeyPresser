@@ -411,38 +411,6 @@ int lastRCount = 0, lastRSimRelease = 0, lastRRelease = 0;
         }
     }
 }
-- (IBAction)active1OnOff:(id)sender {
-    active1On = !active1On;
-    [self removeFocus];
-}
-- (IBAction)active2OnOff:(id)sender {
-    active2On = !active2On;
-    [self removeFocus];
-}
-- (IBAction)active3OnOff:(id)sender {
-    active3On = !active3On;
-    [self removeFocus];
-}
-- (IBAction)active5OnOff:(id)sender {
-    active5On = !active5On;
-    [self removeFocus];
-}
-- (IBAction)active6OnOff:(id)sender {
-    active6On = !active6On;
-    [self removeFocus];
-}
-- (IBAction)active7OnOff:(id)sender {
-    active7On = !active7On;
-    [self removeFocus];
-}
-- (IBAction)activeWardOnOff:(id)sender {
-    activeWardOn = !activeWardOn;
-    [self removeFocus];
-}
-
-- (void)removeFocus {
-    [[self window] makeFirstResponder:nil];
-}
 - (IBAction)activeKeyChanged:(NSComboBox*)sender {
     activeKey = [[sender stringValue] characterAtIndex:0];
     [self removeFocus];
