@@ -80,8 +80,11 @@ char wardHopKey = 'Q';
 char activeKey = 'E';
 
 CFMachPortRef      eventTap;
+CFMachPortRef      mouseEventTap;
 
 dispatch_source_t timer, uiTimer;
+dispatch_queue_t eventTapQueue;
+dispatch_queue_t mouseEventTapQueue;
 dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
                                       uint64_t leewayNanoseconds,
                                       dispatch_queue_t queue,
@@ -168,8 +171,19 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
     
     // Insert code here to initialize your application
     globalSelf = self;
-    [self createTap];
-    [self createTapMouse];
+    
+    // Create dedicated queues for event taps
+    eventTapQueue = dispatch_queue_create("com.app.eventtap", DISPATCH_QUEUE_SERIAL);
+    mouseEventTapQueue = dispatch_queue_create("com.app.mouseeventtap", DISPATCH_QUEUE_SERIAL);
+    
+    // Create event taps on background threads
+    dispatch_async(eventTapQueue, ^{
+        [self createTap];
+    });
+    
+    dispatch_async(mouseEventTapQueue, ^{
+        [self createTapMouse];
+    });
     
     pressingSpell1LastTime = mach_absolute_time();
     pressingSpell2LastTime = mach_absolute_time();
@@ -192,18 +206,16 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
      
      [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated | NSActivityLatencyCritical reason:@"Good Reason 3"];
      */
-    //timer = [NSTimer scheduledTimerWithTimeInterval:1.0/1000.0
-    //                                         target:self
-    //                                       selector:@selector(timerLogic)
-    //                                       userInfo:nil
-    //                                        repeats:YES];
-    timer = CreateDispatchTimer(NSEC_PER_SEC/1000, //30ull * NSEC_PER_SEC
-                                0, //1ull * NSEC_PER_SEC
-                                dispatch_get_main_queue(),
+    // Move game logic timer to background queue to reduce main thread load
+    dispatch_queue_t gameLogicQueue = dispatch_queue_create("com.app.gamelogic", DISPATCH_QUEUE_SERIAL);
+    timer = CreateDispatchTimer(NSEC_PER_SEC/60, // Reduced to 60Hz for better performance
+                                0,
+                                gameLogicQueue,
                                 ^{ [self timerLogic]; });
     
-    uiTimer = CreateDispatchTimer(NSEC_PER_SEC/1000, //30ull * NSEC_PER_SEC
-                                  0, //1ull * NSEC_PER_SEC
+    // Keep UI updates on main queue but at lower frequency
+    uiTimer = CreateDispatchTimer(NSEC_PER_SEC/30, // 30Hz is sufficient for UI updates
+                                  0,
                                   dispatch_get_main_queue(),
                                   ^{ [self uiLogic]; });
     
@@ -417,6 +429,26 @@ int lastRCount = 0, lastRSimRelease = 0, lastRRelease = 0;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    // Clean up event taps and timers
+    if (eventTap) {
+        CGEventTapEnable(eventTap, false);
+        CFRelease(eventTap);
+        eventTap = NULL;
+    }
+    if (mouseEventTap) {
+        CGEventTapEnable(mouseEventTap, false);
+        CFRelease(mouseEventTap);
+        mouseEventTap = NULL;
+    }
+    if (timer) {
+        dispatch_source_cancel(timer);
+        timer = NULL;
+    }
+    if (uiTimer) {
+        dispatch_source_cancel(uiTimer);
+        uiTimer = NULL;
+    }
+    
     // Insert code here to tear down your application
     //saving
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -1246,64 +1278,83 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
     CGEventMask        eventMask;
     CFRunLoopSourceRef runLoopSource;
     
-    NSDictionary* opts = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
-    BOOL trusted = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)opts);
-    NSLog(@"AX trusted: %@", trusted ? @"YES" : @"NO");
+    // Check accessibility on main thread first
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDictionary* opts = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+        BOOL trusted = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)opts);
+        NSLog(@"AX trusted: %@", trusted ? @"YES" : @"NO");
+        
+        if (!trusted) {
+            [self ensureAccessibilityTrustAndPromptIfNeeded];
+            return;
+        }
+        
+        // Proceed with event tap creation on background thread
+        dispatch_async(eventTapQueue, ^{
+            [self setupKeyboardEventTap];
+        });
+    });
+}
+
+- (void)setupKeyboardEventTap
+{
+    CGEventMask        eventMask;
+    CFRunLoopSourceRef runLoopSource;
     
     // Create an event tap. We are interested in key presses.
-    //kCGKeyboardEventAutorepeat;
-    //kCGEventKeyUp;
-    eventMask = ((1 << kCGEventKeyDown) | (1 << kCGEventKeyUp)); // | (1 << kCGEventFlagsChanged)
-    //kCGEventTapOptionDefault
+    eventMask = ((1 << kCGEventKeyDown) | (1 << kCGEventKeyUp));
     eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0,
                                 eventMask, myCGEventCallback, NULL);
     if (!eventTap) {
-        fprintf(stderr, "failed to create event tap\n");
-        [self ensureAccessibilityTrustAndPromptIfNeeded];
+        fprintf(stderr, "failed to create keyboard event tap\n");
+        return;
     }
     
     // Create a run loop source.
     runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
     
-    // Add to the current run loop.
+    // Add to the current run loop (background thread's run loop).
     CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource,
                        kCFRunLoopCommonModes);
     
     // Enable the event tap.
     CGEventTapEnable(eventTap, true);
     
-    // Set it all running.
-    CFRunLoopRun();
+    // Clean up the run loop source
+    CFRelease(runLoopSource);
     
+    // Start the run loop for this background thread
+    CFRunLoopRun();
 }
 - (void)createTapMouse
 {
-    CFMachPortRef      mouseEventTap;
     CGEventMask        eventMask;
     CFRunLoopSourceRef runLoopSource;
     
-    // Create an event tap. We are interested in key presses.
+    // Create an event tap for mouse events
     eventMask = ((1 << kCGEventMouseMoved) | (1 << kCGEventLeftMouseDown) | (1 << kCGEventLeftMouseDragged)  | (1 << kCGEventLeftMouseUp)  | (1 << kCGEventRightMouseDown) | (1 << kCGEventRightMouseDragged)  | (1 << kCGEventRightMouseUp));
     mouseEventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0,
                                 eventMask, myCGEventCallbackMouse, NULL);
     if (!mouseEventTap) {
         fprintf(stderr, "failed to create event tap for mouse\n");
-        exit(1);
+        return;
     }
     
     // Create a run loop source.
     runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, mouseEventTap, 0);
     
-    // Add to the current run loop.
+    // Add to the current run loop (background thread's run loop).
     CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource,
                        kCFRunLoopCommonModes);
     
     // Enable the event tap.
     CGEventTapEnable(mouseEventTap, true);
     
-    // Set it all running.
-    CFRunLoopRun();
+    // Clean up the run loop source
+    CFRelease(runLoopSource);
     
+    // Start the run loop for this background thread
+    CFRunLoopRun();
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication {
