@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <ApplicationServices/ApplicationServices.h>
 
-@interface AppDelegate ()
+@interface AppDelegate () <NSTextFieldDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 @property (strong) id<NSObject> activity;
@@ -394,43 +394,48 @@ int lastRCount = 0, lastRSimRelease = 0, lastRRelease = 0;
 - (void)removeFocus {
     [[self window] makeFirstResponder:nil];
 }
-- (void)controlTextDidChange:(NSNotification *)aNotification {
-    NSTextField* sender = [aNotification object];
-    if (sender == pressSpell1IntervalText) {
-        if ([[sender stringValue] length] == 0) {
-            pressSpell1Interval = 0;
-        } else {
-            pressSpell1Interval = [sender doubleValue];
+// Modern NSTextFieldDelegate method
+- (void)controlTextDidChange:(NSNotification *)notification {
+    NSTextField* textField = [notification object];
+    
+    // Use thread-safe state updates
+    dispatch_async(gameStateQueue, ^{
+        if (textField == self->pressSpell1IntervalText) {
+            if ([[textField stringValue] length] == 0) {
+                pressSpell1Interval = 0;
+            } else {
+                pressSpell1Interval = [textField doubleValue];
+            }
         }
-    }
-    if (sender == pressSpell2IntervalText) {
-        if ([[sender stringValue] length] == 0) {
-            pressSpell2Interval = 0;
-        } else {
-            pressSpell2Interval = [sender doubleValue];
+        else if (textField == self->pressSpell2IntervalText) {
+            if ([[textField stringValue] length] == 0) {
+                pressSpell2Interval = 0;
+            } else {
+                pressSpell2Interval = [textField doubleValue];
+            }
         }
-    }
-    if (sender == pressSpell3IntervalText) {
-        if ([[sender stringValue] length] == 0) {
-            pressSpell3Interval = 0;
-        } else {
-            pressSpell3Interval = [sender doubleValue];
+        else if (textField == self->pressSpell3IntervalText) {
+            if ([[textField stringValue] length] == 0) {
+                pressSpell3Interval = 0;
+            } else {
+                pressSpell3Interval = [textField doubleValue];
+            }
         }
-    }
-    if (sender == pressSpell4IntervalText) {
-        if ([[sender stringValue] length] == 0) {
-            pressSpell4Interval = 0;
-        } else {
-            pressSpell4Interval = [sender doubleValue];
+        else if (textField == self->pressSpell4IntervalText) {
+            if ([[textField stringValue] length] == 0) {
+                pressSpell4Interval = 0;
+            } else {
+                pressSpell4Interval = [textField doubleValue];
+            }
         }
-    }
-    if (sender == pressActivesIntervalText) {
-        if ([[sender stringValue] length] == 0) {
-            pressActivesInterval = 0;
-        } else {
-            pressActivesInterval = [sender doubleValue];
+        else if (textField == self->pressActivesIntervalText) {
+            if ([[textField stringValue] length] == 0) {
+                pressActivesInterval = 0;
+            } else {
+                pressActivesInterval = [textField doubleValue];
+            }
         }
-    }
+    });
 }
 - (IBAction)activeKeyChanged:(NSComboBox*)sender {
     activeKey = [[sender stringValue] characterAtIndex:0];
@@ -1071,12 +1076,12 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
 }
 - (void)pressQ {
     CGEventRef event = CGEventCreateKeyboardEvent(NULL, 12, YES);
-    CGEventPost(kCGSessionEventTap, event);
+    CGEventPost(kCGHIDEventTap, event);
     CFRelease(event);
 }
 - (void)releaseQ {
     CGEventRef event = CGEventCreateKeyboardEvent(NULL, 12, NO);
-    CGEventPost(kCGSessionEventTap, event);
+    CGEventPost(kCGHIDEventTap, event);
     CFRelease(event);
 }
 
