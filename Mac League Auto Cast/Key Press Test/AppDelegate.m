@@ -1223,12 +1223,32 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
     CFRelease(event);
 }
 
-
+- (BOOL)ensureAccessibilityTrustAndPromptIfNeeded {
+    NSDictionary *opts = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+    BOOL trusted = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)opts);
+    if (!trusted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSAlert *alert = [[NSAlert alloc] init];
+            alert.messageText = @"Accessibility Permission Required";
+            alert.informativeText = @"This app needs Accessibility access to monitor and simulate input.\n\n"
+                                     "1. Open System Settings > Privacy & Security > Accessibility.\n"
+                                     "2. Add and enable this app.\n"
+                                     "3. Quit and relaunch the app.";
+            [alert addButtonWithTitle:@"OK"];
+            [alert runModal];
+        });
+    }
+    return trusted;
+}
 
 - (void)createTap
 {
     CGEventMask        eventMask;
     CFRunLoopSourceRef runLoopSource;
+    
+    NSDictionary* opts = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
+    BOOL trusted = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)opts);
+    NSLog(@"AX trusted: %@", trusted ? @"YES" : @"NO");
     
     // Create an event tap. We are interested in key presses.
     //kCGKeyboardEventAutorepeat;
@@ -1239,7 +1259,7 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
                                 eventMask, myCGEventCallback, NULL);
     if (!eventTap) {
         fprintf(stderr, "failed to create event tap\n");
-        exit(1);
+        [self ensureAccessibilityTrustAndPromptIfNeeded];
     }
     
     // Create a run loop source.
