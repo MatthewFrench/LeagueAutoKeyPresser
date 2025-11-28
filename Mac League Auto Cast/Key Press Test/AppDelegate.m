@@ -79,6 +79,8 @@ char wardHopKey = 'Q';
 
 char activeKey = 'E';
 
+CFMachPortRef      eventTap;
+
 dispatch_source_t timer, uiTimer;
 dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
                                       uint64_t leewayNanoseconds,
@@ -204,6 +206,12 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
                                   0, //1ull * NSEC_PER_SEC
                                   dispatch_get_main_queue(),
                                   ^{ [self uiLogic]; });
+    
+    for (NSRunningApplication *app in
+           [[NSWorkspace sharedWorkspace] runningApplications]) {
+        
+        NSLog(@"Running app %@", [app localizedName]);
+      }
 }
 - (IBAction)turnOnOff:(NSButton*)sender {
     keyQPressed = 0;
@@ -403,6 +411,38 @@ int lastRCount = 0, lastRSimRelease = 0, lastRRelease = 0;
         }
     }
 }
+- (IBAction)active1OnOff:(id)sender {
+    active1On = !active1On;
+    [self removeFocus];
+}
+- (IBAction)active2OnOff:(id)sender {
+    active2On = !active2On;
+    [self removeFocus];
+}
+- (IBAction)active3OnOff:(id)sender {
+    active3On = !active3On;
+    [self removeFocus];
+}
+- (IBAction)active5OnOff:(id)sender {
+    active5On = !active5On;
+    [self removeFocus];
+}
+- (IBAction)active6OnOff:(id)sender {
+    active6On = !active6On;
+    [self removeFocus];
+}
+- (IBAction)active7OnOff:(id)sender {
+    active7On = !active7On;
+    [self removeFocus];
+}
+- (IBAction)activeWardOnOff:(id)sender {
+    activeWardOn = !activeWardOn;
+    [self removeFocus];
+}
+
+- (void)removeFocus {
+    [[self window] makeFirstResponder:nil];
+}
 - (IBAction)activeKeyChanged:(NSComboBox*)sender {
     activeKey = [[sender stringValue] characterAtIndex:0];
     [self removeFocus];
@@ -467,6 +507,8 @@ CGEventRef myCGEventCallback(CGEventTapProxy proxy, CGEventType type,
     CGKeyCode keycode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
     
     int64_t autoRepeat = CGEventGetIntegerValueField(event, kCGKeyboardEventAutorepeat);
+    // Todo, determine if this turns of key repeating on all keys
+    // Todo, mayber only add behavior here if league is forefront
     if (autoRepeat == 1) { //Don't want repeating keys
         return NULL;
     }
@@ -654,6 +696,13 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
 //double avg = 0;
 
 - (void)timerLogic {
+    // This code is so ugly, I must be bad at writing Objective C
+    // This needs serious cleanup and re-write
+    
+    // Can check the forefront application with this
+    //NSWorkspace().frontmostApplication?.bundleIdentifier;
+    
+    
     /*
     //Profile code? See how fast it's running?
     if (currentWrite >= writeEvery)
@@ -1210,7 +1259,6 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
 
 - (void)createTap
 {
-    CFMachPortRef      eventTap;
     CGEventMask        eventMask;
     CFRunLoopSourceRef runLoopSource;
     
@@ -1242,28 +1290,28 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
 }
 - (void)createTapMouse
 {
-    CFMachPortRef      eventTap;
+    CFMachPortRef      mouseEventTap;
     CGEventMask        eventMask;
     CFRunLoopSourceRef runLoopSource;
     
     // Create an event tap. We are interested in key presses.
     eventMask = ((1 << kCGEventMouseMoved) | (1 << kCGEventLeftMouseDown) | (1 << kCGEventLeftMouseDragged)  | (1 << kCGEventLeftMouseUp)  | (1 << kCGEventRightMouseDown) | (1 << kCGEventRightMouseDragged)  | (1 << kCGEventRightMouseUp));
-    eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0,
+    mouseEventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0,
                                 eventMask, myCGEventCallbackMouse, NULL);
-    if (!eventTap) {
-        fprintf(stderr, "failed to create event tap\n");
+    if (!mouseEventTap) {
+        fprintf(stderr, "failed to create event tap for mouse\n");
         exit(1);
     }
     
     // Create a run loop source.
-    runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
+    runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, mouseEventTap, 0);
     
     // Add to the current run loop.
     CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource,
                        kCFRunLoopCommonModes);
     
     // Enable the event tap.
-    CGEventTapEnable(eventTap, true);
+    CGEventTapEnable(mouseEventTap, true);
     
     // Set it all running.
     CFRunLoopRun();
