@@ -12,9 +12,12 @@
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
+@property (strong) id<NSObject> activity;
 @end
 
 @implementation AppDelegate
+
+@synthesize activity = _activity;
 
 //NSTimer* timer = NULL;
 
@@ -85,6 +88,7 @@ CFMachPortRef      mouseEventTap;
 dispatch_source_t timer, uiTimer;
 dispatch_queue_t eventTapQueue;
 dispatch_queue_t mouseEventTapQueue;
+dispatch_queue_t gameStateQueue; // Serialize all state access
 dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
                                       uint64_t leewayNanoseconds,
                                       dispatch_queue_t queue,
@@ -172,9 +176,10 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
     // Insert code here to initialize your application
     globalSelf = self;
     
-    // Create dedicated queues for event taps
+    // Create dedicated queues for event taps and state management
     eventTapQueue = dispatch_queue_create("com.app.eventtap", DISPATCH_QUEUE_SERIAL);
     mouseEventTapQueue = dispatch_queue_create("com.app.mouseeventtap", DISPATCH_QUEUE_SERIAL);
+    gameStateQueue = dispatch_queue_create("com.app.gamestate", DISPATCH_QUEUE_SERIAL);
     
     // Create event taps on background threads
     dispatch_async(eventTapQueue, ^{
@@ -199,18 +204,17 @@ dispatch_source_t CreateDispatchTimer(uint64_t intervalNanoseconds,
     [[NSProcessInfo processInfo] disableAutomaticTermination:@"Good Reason"];
     
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
-        self->activity = [[NSProcessInfo processInfo] beginActivityWithOptions:0x00FFFFFF reason:@"receiving messages"];
+        self.activity = [[NSProcessInfo processInfo] beginActivityWithOptions:0x00FFFFFF reason:@"receiving messages"];
     }
     /*
      [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleSystemSleepDisabled| NSActivitySuddenTerminationDisabled reason:@"Good Reason 2"];
      
      [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated | NSActivityLatencyCritical reason:@"Good Reason 3"];
      */
-    // Move game logic timer to background queue to maintain precision without blocking UI
-    dispatch_queue_t gameLogicQueue = dispatch_queue_create("com.app.gamelogic", DISPATCH_QUEUE_SERIAL);
-    timer = CreateDispatchTimer(NSEC_PER_SEC/1000, // Keep 1000Hz for gaming precision
+    // Use shared gameStateQueue for timer to avoid race conditions
+    timer = CreateDispatchTimer(NSEC_PER_SEC/1000, // Keep 1000Hz (1ms) for maximum gaming precision
                                 0,
-                                gameLogicQueue,
+                                gameStateQueue,
                                 ^{ [self timerLogic]; });
     
     // UI updates can be less frequent since visual updates don't need 1ms precision
@@ -447,6 +451,12 @@ int lastRCount = 0, lastRSimRelease = 0, lastRRelease = 0;
     if (uiTimer) {
         dispatch_source_cancel(uiTimer);
         uiTimer = NULL;
+    }
+    
+    // End process info activity if it exists
+    if (self.activity) {
+        [[NSProcessInfo processInfo] endActivity:self.activity];
+        self.activity = nil;
     }
     
     // Insert code here to tear down your application
@@ -931,48 +941,40 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
 }
 
 - (void)tapQ {
-    if (pressingSpell1) {
-        qCountSimulatedReleases += 1;
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
-             if (pressingSpell1) {
-                 [self pressQ];
-                 [self releaseQ];
-             }
-        });
-    }
+    dispatch_async(gameStateQueue, ^{
+        if (pressingSpell1) {
+            qCountSimulatedReleases += 1;
+            [self pressQ];
+            [self releaseQ];
+        }
+    });
 }
 - (void)tapW {
-    if (pressingSpell2) {
-    wCountSimulatedReleases += 1;
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+    dispatch_async(gameStateQueue, ^{
         if (pressingSpell2) {
-        [self pressW];
-        [self releaseW];
+            wCountSimulatedReleases += 1;
+            [self pressW];
+            [self releaseW];
         }
     });
-    }
 }
 - (void)tapE {
-    if (pressingSpell3) {
-    eCountSimulatedReleases += 1;
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+    dispatch_async(gameStateQueue, ^{
         if (pressingSpell3) {
-        [self pressE];
-        [self releaseE];
+            eCountSimulatedReleases += 1;
+            [self pressE];
+            [self releaseE];
         }
     });
-    }
 }
 - (void)tapR {
-    if (pressingSpell4) {
-    rCountSimulatedReleases += 1;
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+    dispatch_async(gameStateQueue, ^{
         if (pressingSpell4) {
-        [self pressR];
-        [self releaseR];
+            rCountSimulatedReleases += 1;
+            [self pressR];
+            [self releaseR];
         }
     });
-    }
 }
 
 
@@ -1275,9 +1277,6 @@ CGEventRef myCGEventCallbackMouse(CGEventTapProxy proxy, CGEventType type,
 
 - (void)createTap
 {
-    CGEventMask        eventMask;
-    CFRunLoopSourceRef runLoopSource;
-    
     // Check accessibility on main thread first
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary* opts = @{(__bridge id)kAXTrustedCheckOptionPrompt: @YES};
